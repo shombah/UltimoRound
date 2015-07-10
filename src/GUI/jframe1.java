@@ -1,6 +1,8 @@
 package GUI;
 
 //import Clases.funciones;
+import Clases.DB_connection;
+import ObjetosDB.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +10,8 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,8 +31,13 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
     String campo_vacio = "DEBE COMPLETAR EL SIGUIENTE CAMPO:\n";
     String sin_conexion = "NO SE HA PODIDO ESTABLECER LA CONEXIÓN PARA OBTENER LA INFORMACIÓN.";
     int mnsj;
-
+    DB_connection conn = new DB_connection();
+    ArrayList<Usuarios> usuariosCargados = new ArrayList<Usuarios>();
     public jframe1() {
+        metodosDB cargaUsuarios = new metodosDB();
+        try {
+            usuariosCargados = cargaUsuarios.cargaUsuariosDB();
+            } catch (SQLException ex) { }
         initComponents();
         centrarVentana();
         jpanel1 panel = new jpanel1();
@@ -37,11 +46,8 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
         this.pack();
         jTextField1.addActionListener(this);
         jPasswordField1.addActionListener(this);
-       // funciones f = new funciones();
         String dia=(Calendar.getInstance().getTime().getDate()<10)?"0"+Calendar.getInstance().getTime().getDate():Calendar.getInstance().getTime().getDate()+"";
-       // String mes=f.get_mesMay((Calendar.getInstance().getTime().getMonth()+1));
         String anio=(Calendar.getInstance().getTime().getYear()+1900)+"";
-      //  jLabel5.setText(dia+" DE "+mes+" DEL "+anio);
     }
 
     
@@ -97,7 +103,7 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
             } else {
                 if (aux.equals("-2")) {
                     this.setCursor(Cursor.getDefaultCursor());
-                    jLabel6.setText("RUT INCORRECTO");
+                    jLabel6.setText("LOGIN INCORRECTO");
                 } else {
                     try {
                         jframeUsuario u = new jframeUsuario(jTextField1.getText());
@@ -152,7 +158,7 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
                     String hashtext = bigInt.toString(16);
                     if (nu == false & np == false) {
                         setCursor(Cursor.WAIT_CURSOR);
-                        aux = "1";//validarUsuario(jTextField1.getText(), hashtext);
+                        aux = validarUsuario(jTextField1.getText(), hashtext);
                         if (aux.equals("-1")) {
                             setCursor(Cursor.getDefaultCursor());
                             jLabel6.setText("CONTRASEÑA INCORRECTA");
@@ -408,10 +414,33 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
     }
 
-    private String validarUsuario(java.lang.String rut, java.lang.String pass) {
-       // metodos.Servicio_Service service = new metodos.Servicio_Service();
-      //  metodos.Servicio port = service.getServicioPort();
-     //   return port.validarUsuario(rut, pass);
-        return null;
+    private String validarUsuario(java.lang.String login, java.lang.String pass) 
+    {
+        /*
+        Jorge: Te aviso altiro que el login no funciona por que lo que llama a esta función, le pasa un Hash 
+        Y me da paja ponerme a entenderlo. Así que si quieres lo cambias, de lo contrario, copipastea weás que 
+        Nos sirvan de algo. Además, si el login es incorrecto te arroja un mensaje de "contraseña incorrecta" 
+        Pero si clickeas denuevo en "Entrar", entra igual XDDDDDDDDD.
+        */
+        
+        /*Retornos de esta funcion :
+        "0" -> OK
+        "-1" -> contraseña incorrecta
+        "-2" -> login incorrecto */
+        for (Usuarios usuariosCargado : usuariosCargados) 
+        {
+            if (usuariosCargado.getLogin().equals(login)) 
+            {
+                System.out.println("Login Encontrado!"+login); //Delete
+                System.out.println("Buscando Password: "+pass);//Delete
+                if (usuariosCargado.getPassword().equals(pass)) {
+                    System.out.println("Password Encontrado"+pass); //Delete
+                   return "0";
+                } else {
+                    return "-1";
+                }
+            }   
+        }
+        return "-2";
     }
 }
