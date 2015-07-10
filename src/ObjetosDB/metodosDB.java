@@ -18,6 +18,8 @@ public class metodosDB
     }
 
 /*METODOS DE UTILIDAD*/
+ // <editor-fold defaultstate="collapsed" desc="Metodos de Utilidad">                          
+
     public int getLastId(String nombreTabla) throws SQLException
     {   //retorna ultimo id desde la tabla cuyo nombre es : nombreTabla
         DB_connection c = new DB_connection();
@@ -56,9 +58,12 @@ public class metodosDB
         } catch (ParseException ex) {return false; }
         
      }
+// </editor-fold> 
 /*FIN METODOS DE UTILIDAD*/  
     
 /*METODOS DE USUARIOS*/
+// <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Usuarios">                          
+
     public ArrayList<Usuarios> cargaUsuariosDB() throws SQLException
     {   //Retorna ArrayList con usuarios desde la base de datos
         ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
@@ -78,9 +83,12 @@ public class metodosDB
        return usuarios;
         
     }
+// </editor-fold>
 /*FIN METODOS DE USUARIOS*/
     
 /*METODOS DE CLIENTES*/
+// <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Clientes">                          
+
      public ArrayList<Cliente> getClientes() throws SQLException
     { //Retorna un ArrayList de clientes desde la base de datos.
         ArrayList<Cliente> clientesDB = new ArrayList<Cliente>();
@@ -121,9 +129,12 @@ public class metodosDB
         closeConnections(c,conexion,stm,resultados);
         return null;
     }
+// </editor-fold>
 /*FIN METODOS CLIENTES*/
       
 /*METODOS DE COMPRAPRODUCTO*/
+// <editor-fold defaultstate="collapsed" desc="Metodos de Tablas CompraProducto">                          
+
      public ArrayList<CompraProducto> getCompraProductoEntreFechas(String fechaInicio, String fechaFinal) throws SQLException
      {//Retorna un ArrayList de comprasProducto, realizadas entre fechaInicio y fechaFinal.
       //Recordar que fecha es de formato dia/mes/ano
@@ -194,9 +205,12 @@ public class metodosDB
         closeConnections(c,conexion,stm,resultados);
         return comprasEncontradas;
      }
+// </editor-fold>
 /*FIN METODOS DE COMPRAPRODUCTO*/
      
 /*METODOS ORDENDECOMPRA*/
+ // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas OrdenDeCompra">                          
+
     public OrdenDeCompra getOrdenDeCompraById(int id_buscada) throws SQLException
     {
     /*Retorna un objeto OrdenDeCompra desde la base de datos, segun la id dada*/
@@ -240,16 +254,22 @@ public class metodosDB
       closeConnections(c,conexion,stm,resultados);
       return ordenesEncontradas;
      }
-     
+// </editor-fold>
 /*FIN METODOS ORDENDECOMPRA*/
 
 /*METODOS VENTA PRODUCTO*/
+// <editor-fold defaultstate="collapsed" desc="Metodos de Tablas VentaProducto">                          
+
      public ArrayList<VentaProducto> getVentaProductoByIdOrdenVenta(int id_orden_venta) //Implementar
      {
          return null;
      }
+//</editor-fold>
 /*FIN METODOS VENTAPRODUCTO*/
+     
 /*METODOS ORDENDEVENTA*/
+// <editor-fold defaultstate="collapsed" desc="Metodos de Tablas OrdenDeVenta">                          
+
      public ArrayList<OrdenDeVenta> getOrdenDeVenta() throws SQLException
      {//Retorna un ArrayList con todas las ordenes de compra en la BD
       ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
@@ -272,6 +292,7 @@ public class metodosDB
       closeConnections(c,conexion,stm,resultados);
       return ordenesEncontradas;
      }
+//</editor-fold>
 /*FIN METODOS ORDENDEVENTA*/
      
 
