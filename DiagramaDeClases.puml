@@ -1,0 +1,218 @@
+@startuml
+annotation java.lang.Override
+annotation java.lang.SuppressWarnings
+annotation javax.persistence.Basic
+annotation javax.persistence.Column
+annotation javax.persistence.Embeddable
+class Clases.CheckBoxNode
+class Clases.CheckBoxNodeEditor
+class Clases.CheckBoxNodeRenderer
+class Clases.DB_connection
+class Clases.Metodos_objetos
+class Clases.NamedVector
+class Clases.chupaELpIco
+class Clases.funciones
+class Clases.mySwingWorker
+class GUI.dialog_ing_sol_seguro
+class GUI.jframe1
+class GUI.jframeUsuario
+class GUI.jpanel1
+class GUI.jpanel2
+class ObjetosDB.Cliente
+class ObjetosDB.CompraProducto
+class ObjetosDB.Kitproductos
+class ObjetosDB.OrdenDeCompra
+class ObjetosDB.OrdenDeVenta
+class ObjetosDB.Productos
+class ObjetosDB.ProductosPK
+class ObjetosDB.Usuarios
+class ObjetosDB.VentaProducto
+class ObjetosDB.metodosDB
+class com.mxrck.autocompleter.TextAutoCompleter
+class com.mysql.jdbc.Connection
+class java.awt.BorderLayout
+class java.awt.Color
+class java.awt.Component
+class java.awt.Cursor
+class java.awt.Dimension
+class java.awt.Font
+class java.awt.Graphics
+class java.awt.event.ActionEvent
+class java.awt.event.ItemEvent
+class java.awt.event.ItemListener
+class java.awt.event.KeyEvent
+class java.awt.event.MouseEvent
+class java.io.File
+class java.io.UnsupportedEncodingException
+class java.math.BigDecimal
+class java.math.BigInteger
+class java.math.RoundingMode
+class java.security.MessageDigest
+class java.security.NoSuchAlgorithmException
+class java.sql.DriverManager
+class java.sql.PreparedStatement
+class java.sql.ResultSet
+class java.sql.SQLException
+class java.text.DecimalFormat
+class java.text.DecimalFormatSymbols
+class java.text.ParseException
+class java.text.SimpleDateFormat
+class java.util.ArrayList
+class java.util.Calendar
+class java.util.Date
+class java.util.EventObject
+class java.util.Properties
+class java.util.Vector
+class java.util.logging.Level
+class java.util.logging.Logger
+class java.util.regex.Pattern
+class javax.mail.Message
+class javax.mail.Session
+class javax.mail.Transport
+class javax.mail.internet.InternetAddress
+class javax.mail.internet.MimeMessage
+class javax.swing.AbstractCellEditor
+class javax.swing.ImageIcon
+class javax.swing.JCheckBox
+class javax.swing.JDialog
+class javax.swing.JFrame
+class javax.swing.JOptionPane
+class javax.swing.JPanel
+class javax.swing.JProgressBar
+class javax.swing.JTree
+class javax.swing.SwingWorker
+class javax.swing.UIManager
+class javax.swing.event.ChangeEvent
+class javax.swing.table.DefaultTableCellRenderer
+class javax.swing.table.DefaultTableModel
+class javax.swing.tree.DefaultMutableTreeNode
+class javax.swing.tree.DefaultTreeCellRenderer
+class javax.swing.tree.TreePath
+interface java.awt.event.ActionListener
+interface java.awt.event.KeyListener
+interface java.io.Serializable
+interface javax.swing.tree.TreeCellEditor
+interface javax.swing.tree.TreeCellRenderer
+Clases.CheckBoxNodeEditor ..> java.awt.Component
+Clases.CheckBoxNodeEditor ..> java.awt.event.ItemEvent
+Clases.CheckBoxNodeEditor ..> java.awt.event.ItemListener
+Clases.CheckBoxNodeEditor ..> java.awt.event.MouseEvent
+Clases.CheckBoxNodeEditor ..> java.util.EventObject
+Clases.CheckBoxNodeEditor --|> javax.swing.AbstractCellEditor
+Clases.CheckBoxNodeEditor ..> javax.swing.JCheckBox
+Clases.CheckBoxNodeEditor ..> javax.swing.JTree
+Clases.CheckBoxNodeEditor ..> javax.swing.event.ChangeEvent
+Clases.CheckBoxNodeEditor ..> javax.swing.tree.DefaultMutableTreeNode
+Clases.CheckBoxNodeEditor ..> javax.swing.tree.TreePath
+Clases.CheckBoxNodeEditor --|> javax.swing.tree.TreeCellEditor
+Clases.CheckBoxNodeRenderer ..> java.awt.Color
+Clases.CheckBoxNodeRenderer ..> java.awt.Component
+Clases.CheckBoxNodeRenderer ..> java.awt.Font
+Clases.CheckBoxNodeRenderer ..> javax.swing.JCheckBox
+Clases.CheckBoxNodeRenderer ..> javax.swing.JTree
+Clases.CheckBoxNodeRenderer ..> javax.swing.UIManager
+Clases.CheckBoxNodeRenderer ..> javax.swing.tree.DefaultMutableTreeNode
+Clases.CheckBoxNodeRenderer ..> javax.swing.tree.DefaultTreeCellRenderer
+Clases.CheckBoxNodeRenderer --|> javax.swing.tree.TreeCellRenderer
+Clases.DB_connection ..> com.mysql.jdbc.Connection
+Clases.DB_connection ..> java.sql.DriverManager
+Clases.NamedVector --|> java.util.Vector
+Clases.funciones ..> java.io.File
+Clases.funciones ..> java.io.UnsupportedEncodingException
+Clases.funciones ..> java.math.BigDecimal
+Clases.funciones ..> java.math.RoundingMode
+Clases.funciones ..> java.text.DecimalFormat
+Clases.funciones ..> java.text.DecimalFormatSymbols
+Clases.funciones ..> java.text.SimpleDateFormat
+Clases.funciones ..> java.util.Calendar
+Clases.funciones ..> java.util.Date
+Clases.funciones ..> java.util.Properties
+Clases.funciones ..> java.util.regex.Pattern
+Clases.funciones ..> javax.mail.Message
+Clases.funciones ..> javax.mail.Session
+Clases.funciones ..> javax.mail.Transport
+Clases.funciones ..> javax.mail.internet.InternetAddress
+Clases.funciones ..> javax.mail.internet.MimeMessage
+Clases.funciones ..> javax.swing.table.DefaultTableModel
+Clases.mySwingWorker ..> java.lang.Override
+Clases.mySwingWorker ..> javax.swing.JProgressBar
+Clases.mySwingWorker --|> javax.swing.SwingWorker
+GUI.dialog_ing_sol_seguro ..> java.lang.Override
+GUI.dialog_ing_sol_seguro ..> java.lang.SuppressWarnings
+GUI.dialog_ing_sol_seguro ..> Clases.funciones
+GUI.dialog_ing_sol_seguro ..> com.mxrck.autocompleter.TextAutoCompleter
+GUI.dialog_ing_sol_seguro ..> java.awt.Cursor
+GUI.dialog_ing_sol_seguro ..> java.awt.event.ActionEvent
+GUI.dialog_ing_sol_seguro ..> java.awt.event.KeyEvent
+GUI.dialog_ing_sol_seguro ..> java.util.Calendar
+GUI.dialog_ing_sol_seguro ..> java.util.Date
+GUI.dialog_ing_sol_seguro --|> javax.swing.JDialog
+GUI.dialog_ing_sol_seguro ..> javax.swing.table.DefaultTableCellRenderer
+GUI.dialog_ing_sol_seguro ..> javax.swing.table.DefaultTableModel
+GUI.dialog_ing_sol_seguro --|> java.awt.event.KeyListener
+GUI.jframe1 ..> java.lang.Override
+GUI.jframe1 ..> java.lang.SuppressWarnings
+GUI.jframe1 ..> Clases.DB_connection
+GUI.jframe1 ..> java.awt.event.ActionEvent
+GUI.jframe1 ..> java.io.UnsupportedEncodingException
+GUI.jframe1 ..> java.math.BigInteger
+GUI.jframe1 ..> java.security.MessageDigest
+GUI.jframe1 ..> java.security.NoSuchAlgorithmException
+GUI.jframe1 ..> java.sql.SQLException
+GUI.jframe1 ..> java.util.ArrayList
+GUI.jframe1 ..> java.util.Calendar
+GUI.jframe1 ..> java.util.logging.Level
+GUI.jframe1 ..> java.util.logging.Logger
+GUI.jframe1 ..> javax.swing.ImageIcon
+GUI.jframe1 --|> javax.swing.JFrame
+GUI.jframe1 ..> javax.swing.JOptionPane
+GUI.jframe1 ..> javax.swing.SwingWorker
+GUI.jframe1 ..> javax.swing.UIManager
+GUI.jframe1 --|> java.awt.event.ActionListener
+GUI.jframeUsuario ..> java.lang.Override
+GUI.jframeUsuario ..> java.lang.SuppressWarnings
+GUI.jframeUsuario ..> java.awt.BorderLayout
+GUI.jframeUsuario ..> java.awt.Cursor
+GUI.jframeUsuario ..> java.awt.event.KeyEvent
+GUI.jframeUsuario --|> javax.swing.JFrame
+GUI.jframeUsuario --|> java.awt.event.KeyListener
+GUI.jpanel1 ..> java.lang.Override
+GUI.jpanel1 ..> java.lang.SuppressWarnings
+GUI.jpanel1 ..> java.awt.Dimension
+GUI.jpanel1 ..> java.awt.Graphics
+GUI.jpanel1 ..> javax.swing.ImageIcon
+GUI.jpanel1 --|> javax.swing.JPanel
+GUI.jpanel2 ..> java.lang.Override
+GUI.jpanel2 ..> java.lang.SuppressWarnings
+GUI.jpanel2 ..> java.awt.Dimension
+GUI.jpanel2 ..> java.awt.Graphics
+GUI.jpanel2 ..> javax.swing.ImageIcon
+GUI.jpanel2 --|> javax.swing.JPanel
+ObjetosDB.Cliente ..> Clases.DB_connection
+ObjetosDB.Cliente --|> ObjetosDB.metodosDB
+ObjetosDB.Cliente ..> com.mysql.jdbc.Connection
+ObjetosDB.Cliente ..> java.sql.PreparedStatement
+ObjetosDB.Cliente ..> java.sql.SQLException
+ObjetosDB.OrdenDeCompra ..> Clases.DB_connection
+ObjetosDB.OrdenDeCompra --|> ObjetosDB.metodosDB
+ObjetosDB.OrdenDeCompra ..> com.mysql.jdbc.Connection
+ObjetosDB.OrdenDeCompra ..> java.sql.PreparedStatement
+ObjetosDB.OrdenDeCompra ..> java.sql.ResultSet
+ObjetosDB.OrdenDeCompra ..> java.sql.SQLException
+ObjetosDB.OrdenDeCompra ..> java.util.ArrayList
+ObjetosDB.OrdenDeVenta ..> java.util.ArrayList
+ObjetosDB.ProductosPK ..> java.lang.Override
+ObjetosDB.ProductosPK ..> javax.persistence.Basic
+ObjetosDB.ProductosPK ..> javax.persistence.Column
+ObjetosDB.ProductosPK ..> javax.persistence.Embeddable
+ObjetosDB.ProductosPK --|> java.io.Serializable
+ObjetosDB.Usuarios --|> ObjetosDB.metodosDB
+ObjetosDB.metodosDB ..> Clases.DB_connection
+ObjetosDB.metodosDB ..> com.mysql.jdbc.Connection
+ObjetosDB.metodosDB ..> java.sql.PreparedStatement
+ObjetosDB.metodosDB ..> java.sql.ResultSet
+ObjetosDB.metodosDB ..> java.sql.SQLException
+ObjetosDB.metodosDB ..> java.text.ParseException
+ObjetosDB.metodosDB ..> java.text.SimpleDateFormat
+ObjetosDB.metodosDB ..> java.util.ArrayList
+@enduml

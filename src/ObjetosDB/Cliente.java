@@ -3,17 +3,16 @@ package ObjetosDB;
 import Clases.DB_connection;
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Cliente extends metodosDB  
 {
     private int idCliente;
     private String nombre, telefono, email;
     
-    public Cliente(String nombre, String telefono, String email, Boolean saveme) 
+    public Cliente(int idCliente, String nombre, String telefono, String email, Boolean saveme) 
     { 
+        this.idCliente = idCliente;
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
@@ -76,6 +75,6 @@ public class Cliente extends metodosDB
     }
     /*Fin Setters y Getters*/
    
-            
+   
     
 }

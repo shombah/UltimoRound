@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ObjetosDB;
 
 import Clases.DB_connection;
@@ -13,18 +8,16 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author ttars
- */
+/*El objetivo de esta clase es hacer querys a la basde de datos retornando colecciones de datos con los objetos cargados.
+La idea es cargar los datos desde la base de datos en esta clase y luego manejar los Arraylist en la clase Clases/Metodos_objetos*/
 public class metodosDB 
 {
     public metodosDB() //Constructor
     { 
     }
+
+/*METODOS DE UTILIDAD*/
     public int getLastId(String nombreTabla) throws SQLException
     {   //retorna ultimo id desde la tabla cuyo nombre es : nombreTabla
         DB_connection c = new DB_connection();
@@ -48,7 +41,24 @@ public class metodosDB
         resultados = null;
         System.out.println("Conexiones cerradas correctamente!");
     }
+    public boolean esMenorFecha(String fechaInicio, String fechaTermino)
+     {  //Retorna un booleano para saber si fecha inicio es menor que fecha termino
+         //Recordar que las fechas estan en formato "dia-mes-ano"
+        /*Retornos de esta funcion
+         fechaInicio<=fechaTermino = true
+         fechaInicio>fechaTermino = false*/
+         
+         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); //Formateamos la fecha
+        try {
+            if((sdf.parse(fechaInicio).before(sdf.parse(fechaTermino)))||(sdf.parse(fechaInicio).equals(sdf.parse(fechaTermino))))
+                return true;
+            else return false;
+        } catch (ParseException ex) {return false; }
+        
+     }
+/*FIN METODOS DE UTILIDAD*/  
     
+/*METODOS DE USUARIOS*/
     public ArrayList<Usuarios> cargaUsuariosDB() throws SQLException
     {   //Retorna ArrayList con usuarios desde la base de datos
         ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
@@ -68,6 +78,9 @@ public class metodosDB
        return usuarios;
         
     }
+/*FIN METODOS DE USUARIOS*/
+    
+/*METODOS DE CLIENTES*/
      public ArrayList<Cliente> getClientes() throws SQLException
     { //Retorna un ArrayList de clientes desde la base de datos.
         ArrayList<Cliente> clientesDB = new ArrayList<Cliente>();
@@ -78,13 +91,39 @@ public class metodosDB
         ResultSet resultados = stm.executeQuery();
         while(resultados.next())
         {
-            Cliente cliente  = new Cliente(resultados.getString("nombre"),resultados.getString("telefono"), resultados.getString("email"),false);
+            Cliente cliente  = new Cliente(resultados.getInt("id_cliente"),resultados.getString("nombre"),resultados.getString("telefono"), resultados.getString("email"),false);
             clientesDB.add(cliente);
         }
         //Cerramos las conexiones a la BD. y retornamos el ArrayList
         closeConnections(c,conexion,stm,resultados);
         return clientesDB;
     }
+      public Cliente getClienteById(int id_cliente) throws SQLException
+    {//Retorna el cliente asociado a la orden de venta
+        //Retorna un ArrayList de clientes desde la base de datos.
+        Cliente cliente = null;
+        DB_connection c = new DB_connection();
+        Connection conexion = c.getConnection();
+        String query = "SELECT * FROM Cliente";
+        PreparedStatement stm = conexion.prepareStatement(query);
+        ResultSet resultados = stm.executeQuery();
+        while(resultados.next())
+        {
+            if(resultados.getInt("id_cliente") == id_cliente)
+            {
+                cliente  = new Cliente(id_cliente,resultados.getString("nombre"),resultados.getString("telefono"), resultados.getString("email"),false);
+                closeConnections(c,conexion,stm,resultados);
+                return cliente;
+            }
+            
+        }
+        //Cerramos las conexiones a la BD. y retornamos el ArrayList
+        closeConnections(c,conexion,stm,resultados);
+        return null;
+    }
+/*FIN METODOS CLIENTES*/
+      
+/*METODOS DE COMPRAPRODUCTO*/
      public ArrayList<CompraProducto> getCompraProductoEntreFechas(String fechaInicio, String fechaFinal) throws SQLException
      {//Retorna un ArrayList de comprasProducto, realizadas entre fechaInicio y fechaFinal.
       //Recordar que fecha es de formato dia/mes/ano
@@ -103,9 +142,10 @@ public class metodosDB
               //Buscamos el producto asociado desde la base de datos
               Productos producto = new Productos().getProductoById(resultados.getInt("id_producto"));
               //Buscamos la orden de compra asociada desde la base de datos
-              OrdenDeCompra ordenCompra = new OrdenDeCompra().getOrdenDeCompraById(resultados.getInt("id_orden_de_compra"));
+              //OrdenDeCompra ordenCompra = new OrdenDeCompra().getOrdenDeCompraById(resultados.getInt("id_orden_de_compra"));
+              
               //Armamos el objeto compraProducto
-              CompraProducto compraProducto = new CompraProducto(resultados.getInt("id_compra_producto"),resultados.getString("fecha"),resultados.getInt("cantidad"),resultados.getInt("monto_unitario"),resultados.getInt("monto_total"),resultados.getString("proveedor"),ordenCompra,producto);
+              CompraProducto compraProducto = new CompraProducto(resultados.getInt("id_compra_producto"),resultados.getString("fecha"),resultados.getInt("cantidad"),resultados.getInt("monto_unitario"),resultados.getInt("monto_total"),resultados.getString("proveedor"),resultados.getInt("id_orden_compra"),producto);
               //Lo agregamos al ArrayList
               comprasEncontradas.add(compraProducto);
           }
@@ -114,23 +154,125 @@ public class metodosDB
       closeConnections(c,conexion,stm,resultados);
       return comprasEncontradas;   
      }
+     public ArrayList<CompraProducto> getCompraProductoByIdOrdenCompra(int id_orden_compra) throws SQLException 
+     {//Retorna un ArrayList de Compras producto segun la Orden de Compra asociada.
+        ArrayList<CompraProducto> comprasEncontradas = new ArrayList<CompraProducto>();
+        DB_connection c = new DB_connection();
+        Connection conexion = c.getConnection();
+        String query = "SELECT * FROM CompraProducto";
+        PreparedStatement stm = conexion.prepareStatement(query);
+        ResultSet resultados = stm.executeQuery();
+        while(resultados.next())
+        {
+            if(resultados.getInt("id_orden_compra") == id_orden_compra)
+            {
+              //Buscamos el producto asociado desde la base de datos
+              Productos producto = new Productos().getProductoById(resultados.getInt("id_producto"));
+              //Armamos el objeto compraProducto
+              CompraProducto compraProducto = new CompraProducto(resultados.getInt("id_compra_producto"),resultados.getString("fecha"),resultados.getInt("cantidad"),resultados.getInt("monto_unitario"),resultados.getInt("monto_total"),resultados.getString("proveedor"),resultados.getInt("id_orden_compra"),producto);
+              //Lo agregamos al ArrayList
+              comprasEncontradas.add(compraProducto);
+            }
+        }
+        //Finalmente, cerramos las conexiones a la base de datos y retornamos el ArrayList
+        closeConnections(c,conexion,stm,resultados);
+        return comprasEncontradas;
+     }
+     public ArrayList<CompraProducto> getCompraProducto() throws SQLException
+     {  //Retorna ArrayList con todas las compras producto de la base de datos
+        ArrayList<CompraProducto> comprasEncontradas = new ArrayList<CompraProducto>();
+        DB_connection c = new DB_connection();
+        Connection conexion = c.getConnection();
+        String query = "SELECT * FROM CompraProducto";
+        PreparedStatement stm = conexion.prepareStatement(query);
+        ResultSet resultados = stm.executeQuery();
+        while(resultados.next())
+        {
+           Productos producto = new Productos().getProductoById(resultados.getInt("id_producto"));
+           CompraProducto compraProducto = new CompraProducto(resultados.getInt("id_compra_producto"),resultados.getString("fecha"),resultados.getInt("cantidad"),resultados.getInt("monto_unitario"),resultados.getInt("monto_total"),resultados.getString("proveedor"),resultados.getInt("id_orden_compra"),producto);
+        }
+        closeConnections(c,conexion,stm,resultados);
+        return comprasEncontradas;
+     }
+/*FIN METODOS DE COMPRAPRODUCTO*/
      
-     public boolean esMenorFecha(String fechaInicio, String fechaTermino)
-     {  //Retorna un booleano para saber si fecha inicio es menor que fecha termino
-         //Recordar que las fechas estan en formato "dia-mes-ano"
-        /*Retornos de esta funcion
-         fechaInicio<=fechaTermino = true
-         fechaInicio>fechaTermino = false*/
-         
-         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); //Formateamos la fecha
-        try {
-            if((sdf.parse(fechaInicio).before(sdf.parse(fechaTermino)))||(sdf.parse(fechaInicio).equals(sdf.parse(fechaTermino))))
-                return true;
-            else return false;
-        } catch (ParseException ex) {return false; }
-        
+/*METODOS ORDENDECOMPRA*/
+    public OrdenDeCompra getOrdenDeCompraById(int id_buscada) throws SQLException
+    {
+    /*Retorna un objeto OrdenDeCompra desde la base de datos, segun la id dada*/
+     DB_connection c = new DB_connection();
+     Connection conexion = c.getConnection();
+     String query = "SELECT * FROM OrdenDeCompra";
+     PreparedStatement stm = conexion.prepareStatement(query);   
+     ResultSet resultados = stm.executeQuery();
+     while(resultados.next())
+     {
+         if(resultados.getInt("id_orden_compra")==id_buscada)
+         {
+             //Buscamos el array de compras productos asociadas a esta orden de compra
+             ArrayList<CompraProducto> comprasDeEstaOrden = new metodosDB().getCompraProductoByIdOrdenCompra(id_buscada);
+             //(int idOrdenCompra, String fecha, int montoTotal, int numeroFacturaRecibida, String proveedor, ArrayList<CompraProducto> comprasProducto) 
+             OrdenDeCompra ordenEncontrada = new OrdenDeCompra(id_buscada, resultados.getString("fecha"),resultados.getInt("monto_total"),resultados.getInt("numero_factura_recibida"),resultados.getString("proveedor"),comprasDeEstaOrden);
+             closeConnections(c,conexion,stm,resultados);
+             return ordenEncontrada;
+     
+         }
+     }
+     closeConnections(c,conexion,stm,resultados);
+    return null;
+    }
+      
+     public ArrayList<OrdenDeCompra> getOrdenDeCompra() throws SQLException
+     { //Retorna un ArrayList con todas las ordenes de compra en la BD
+      ArrayList<OrdenDeCompra> ordenesEncontradas = new ArrayList<OrdenDeCompra>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "SELECT * FROM OrdenDeCompra";
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+          //Buscamos el array de compras productos asociadas a esta orden de compra
+          ArrayList<CompraProducto> comprasDeEstaOrden = new metodosDB().getCompraProductoByIdOrdenCompra(resultados.getInt("id_orden_compra"));
+          OrdenDeCompra ordenEncontrada = new OrdenDeCompra(resultados.getInt("id_orden_compra"), resultados.getString("fecha"),resultados.getInt("monto_total"),resultados.getInt("numero_factura_recibida"),resultados.getString("proveedor"),comprasDeEstaOrden);
+          ordenesEncontradas.add(ordenEncontrada);  
+      }
+      closeConnections(c,conexion,stm,resultados);
+      return ordenesEncontradas;
      }
      
+/*FIN METODOS ORDENDECOMPRA*/
+
+/*METODOS VENTA PRODUCTO*/
+     public ArrayList<VentaProducto> getVentaProductoByIdOrdenVenta(int id_orden_venta) //Implementar
+     {
+         return null;
+     }
+/*FIN METODOS VENTAPRODUCTO*/
+/*METODOS ORDENDEVENTA*/
+     public ArrayList<OrdenDeVenta> getOrdenDeVenta() throws SQLException
+     {//Retorna un ArrayList con todas las ordenes de compra en la BD
+      ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
+      ArrayList<VentaProducto> ventasAsociadas = new ArrayList<VentaProducto>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "SELECT * FROM OrdenDeVenta";
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+          //Buscamos el cliente asociado a esta orden de venta
+          Cliente cliente = getClienteById(resultados.getInt("id_cliente"));
+          //Buscamos las ventas producto asociadas a esta orden de venta
+          ventasAsociadas = getVentaProductoByIdOrdenVenta(resultados.getInt("id_orden_venta"));
+          //Armamos el objeto OrdenDeVenta
+          OrdenDeVenta orden  = new OrdenDeVenta(resultados.getInt("id_orden_venta"),resultados.getString("fecha"),resultados.getString("monto_total"),resultados.getInt("numero_boleta"),resultados.getString("medio_pago"),resultados.getInt("estado_presupuesto"),cliente,ventasAsociadas);
+          ordenesEncontradas.add(orden);
+      }
+      closeConnections(c,conexion,stm,resultados);
+      return ordenesEncontradas;
+     }
+/*FIN METODOS ORDENDEVENTA*/
      
 
         

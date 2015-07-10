@@ -10,10 +10,18 @@ public class OrdenDeVenta   {
     private Integer numeroBoleta;
     private String medioPago;
     private Integer estadoPresupuesto;
-    private Cliente idCliente;
+    private Cliente cliente;
     private ArrayList<VentaProducto> ventaProducto;
 
-    public OrdenDeVenta() { //Constructor
+    public OrdenDeVenta(int idOrdenVenta, String fecha, String montoTotal, int numeroBolta, String medioPago, int estadoPresupuesto, Cliente cliente, ArrayList<VentaProducto> ventaProducto) { //Constructor
+        this.idOrdenVenta = idOrdenVenta;
+        this.fecha = fecha;
+        this.montoTotal = montoTotal;
+        this.numeroBoleta = numeroBoleta;
+        this.medioPago = medioPago;
+        this.estadoPresupuesto = estadoPresupuesto;
+        this.cliente = cliente;
+        this.ventaProducto = ventaProducto;
     }
 
     /*Setters y Getters*/
@@ -65,12 +73,12 @@ public class OrdenDeVenta   {
         this.estadoPresupuesto = estadoPresupuesto;
     }
 
-    public Cliente getIdCliente() {
-        return idCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     /*Fin Getters y Setters*/

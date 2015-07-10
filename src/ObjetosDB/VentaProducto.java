@@ -12,7 +12,7 @@ public class VentaProducto   {
     private Integer precioTotalFinal;
     private Integer descuento;
     private Kitproductos idKitProducto;
-    private OrdenDeVenta idOrdenDeVenta;
+    private Integer idOrdenDeVenta;
 
     public VentaProducto() { //Constructor
     }
@@ -90,11 +90,11 @@ public class VentaProducto   {
         this.idKitProducto = idKitProducto;
     }
 
-    public OrdenDeVenta getIdOrdenDeVenta() {
+    public int getIdOrdenDeVenta() {
         return idOrdenDeVenta;
     }
 
-    public void setIdOrdenDeVenta(OrdenDeVenta idOrdenDeVenta) {
+    public void setIdOrdenDeVenta(int idOrdenDeVenta) {
         this.idOrdenDeVenta = idOrdenDeVenta;
     }
 

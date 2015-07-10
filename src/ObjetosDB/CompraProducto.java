@@ -15,11 +15,11 @@ public class CompraProducto  {
     private Integer montoUnitario;
     private Integer montoTotal;
     private String proveedor;
-    private OrdenDeCompra OrdenDeCompra;
+    private Integer OrdenDeCompra;
     private Productos Productos;
 
     //Constructor
-    public CompraProducto(Integer idCompraProducto, String fecha, int cantidad, int montoUnitario, int montoTotal, String proveedor, OrdenDeCompra ordenDeCompra, Productos productos) {
+    public CompraProducto(Integer idCompraProducto, String fecha, int cantidad, int montoUnitario, int montoTotal, String proveedor, Integer ordenDeCompra, Productos productos) {
         this.idCompraProducto = idCompraProducto;
         this.fecha = fecha;
         this.cantidad = cantidad;
@@ -79,11 +79,11 @@ public class CompraProducto  {
         this.proveedor = proveedor;
     }
 
-    public OrdenDeCompra getOrdenDeCompra() {
+    public Integer getIdOrdenDeCompra() {
         return this.OrdenDeCompra;
     }
 
-    public void setOrdenDeCompra(OrdenDeCompra idOrdenDeCompra) {
+    public void setIdOrdenDeCompra(int idOrdenDeCompra) {
         this.OrdenDeCompra = idOrdenDeCompra;
     }
 

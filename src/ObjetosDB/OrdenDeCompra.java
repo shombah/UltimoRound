@@ -1,9 +1,14 @@
 
 package ObjetosDB;
 
+import Clases.DB_connection;
+import com.mysql.jdbc.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OrdenDeCompra   {
+public class OrdenDeCompra extends metodosDB {
     private static final long serialVersionUID = 1L;
    
     private Integer idOrdenCompra;
@@ -12,8 +17,16 @@ public class OrdenDeCompra   {
     private Integer numeroFacturaRecibida;
     private String proveedor;
     private ArrayList<CompraProducto> comprasProducto;
-    public OrdenDeCompra() { //Constructor
+    public OrdenDeCompra(int idOrdenCompra, String fecha, int montoTotal, int numeroFacturaRecibida, String proveedor, ArrayList<CompraProducto> comprasProducto) 
+    { //Constructor
+        this.idOrdenCompra = idOrdenCompra;
+        this.fecha = fecha;
+        this.montoTotal = montoTotal;
+        this.numeroFacturaRecibida = numeroFacturaRecibida;
+        this.proveedor = proveedor;
+        this.comprasProducto = comprasProducto;
     }
+    public OrdenDeCompra(){}
 
     /*Getters y Setters*/
 
@@ -59,9 +72,6 @@ public class OrdenDeCompra   {
     /*Fin Getters y Setters*/
     
     
-    public OrdenDeCompra getOrdenDeCompraById(int id_buscada) //Implementar
-    {
-    /*Retorna un objeto OrdenDeCompra desde la base de datos, segun la id dada*/
-    return null;
-    }
+   
+    
 }
