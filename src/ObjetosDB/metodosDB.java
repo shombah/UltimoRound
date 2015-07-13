@@ -260,9 +260,22 @@ public class metodosDB
 /*METODOS VENTA PRODUCTO*/
 // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas VentaProducto">                          
 
-     public ArrayList<VentaProducto> getVentaProductoByIdOrdenVenta(int id_orden_venta) //Implementar
-     {
-         return null;
+     public ArrayList<VentaProducto> getVentaProductoByIdOrdenVenta(int id_orden_venta) throws SQLException //Implementar
+     {      //Retorna un arraylist con ventasproducto segun la orden de venta dada.
+        ArrayList<VentaProducto> ventasAsociadas = new ArrayList<VentaProducto>();
+        DB_connection c = new DB_connection();
+        Connection conexion = c.getConnection();
+        String query = "SELECT * FROM VentaProducto WHERE id_orden_venta = ?";
+        PreparedStatement stm = conexion.prepareStatement(query);
+        stm.setInt(1,id_orden_venta);
+        ResultSet resultados = stm.executeQuery();
+        while(resultados.next())
+        {
+            VentaProducto ventaEncontrada = new VentaProducto(resultados.getInt("id_venta_producto"),resultados.getString("fecha"),resultados.getInt("precio_unitario_neto"),resultados.getInt("cantidad_producto"),resultados.getInt("precio_unitario_final"),resultados.getInt("precio_total_neto"),resultados.getInt("precio_total_final"),resultados.getInt("descuento"),resultados.getInt("id_kit_producto"),resultados.getInt("id_orden_de_venta"));
+            ventasAsociadas.add(ventaEncontrada);
+        }
+         closeConnections(c,conexion,stm,resultados);
+         return ventasAsociadas;
      }
 //</editor-fold>
 /*FIN METODOS VENTAPRODUCTO*/
@@ -292,9 +305,55 @@ public class metodosDB
       closeConnections(c,conexion,stm,resultados);
       return ordenesEncontradas;
      }
+     public ArrayList<OrdenDeVenta> getVentasDiarias(String fecha) throws SQLException
+     {//Retorna un arraylist con las ventas de la fecha indicada
+            ArrayList<VentaProducto> ventasAsociadas = new ArrayList<VentaProducto>();
+            ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
+            DB_connection c = new DB_connection();
+            Connection conexion = c.getConnection();
+            String query = "SELECT * FROM OrdenDeVenta WHERE fecha = ?";
+            PreparedStatement stm = conexion.prepareStatement(query);
+            stm.setString(1, fecha);
+            ResultSet resultados = stm.executeQuery();
+            while(resultados.next())
+            {
+               //Buscamos el cliente asociado a esta orden de venta
+                Cliente cliente = getClienteById(resultados.getInt("id_cliente"));
+                //Buscamos las ventas producto asociadas a esta orden de venta
+                ventasAsociadas = getVentaProductoByIdOrdenVenta(resultados.getInt("id_orden_venta"));
+                //Armamos el objeto OrdenDeVenta
+                OrdenDeVenta orden  = new OrdenDeVenta(resultados.getInt("id_orden_venta"),resultados.getString("fecha"),resultados.getString("monto_total"),resultados.getInt("numero_boleta"),resultados.getString("medio_pago"),resultados.getInt("estado_presupuesto"),cliente,ventasAsociadas);
+                ordenesEncontradas.add(orden);
+            }
+            closeConnections(c,conexion,stm,resultados);
+            return ordenesEncontradas;
+     }
+     
 //</editor-fold>
 /*FIN METODOS ORDENDEVENTA*/
-     
 
-        
+/*METODOS PRODUCTOS*/
+// <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Productos">
+public ArrayList<Productos> getProductos()
+{
+    return null;
+}
+public ArrayList<Productos> getProductoById()
+{
+    return null;
+}
+public ArrayList<Productos> getProductosByIdCompraProducto(int id_compra)
+{
+return null;
+}
+// </editor-fold>
+
+/*FIN METODOS PRODUCTOS*/
+
+   /*METODOS KITPRODUCTOS*/
+// <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Kit_productos">
+
+// </editor-fold>
+
+/*FIN METODOS KITPRODUCTOS*/     
 }

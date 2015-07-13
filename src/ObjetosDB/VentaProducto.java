@@ -11,10 +11,20 @@ public class VentaProducto   {
     private Integer precioTotalNeto;
     private Integer precioTotalFinal;
     private Integer descuento;
-    private Kitproductos idKitProducto;
+    private Integer kitProducto;
     private Integer idOrdenDeVenta;
 
-    public VentaProducto() { //Constructor
+    public VentaProducto(int idVentaProducto, String fecha, int precioUnitarioNeto, int cantidadProducto, int precioUnitarioFinal, int precioTotalNeto, int precioTotalFinal, int descuento, int kit, int idOrdenDeVenta) { //Constructor
+    this.idVentaProducto = idVentaProducto;
+    this.fecha = fecha;
+    this.precioUnitarioNeto = precioUnitarioNeto;
+    this.cantidadProducto = cantidadProducto;
+    this.precioUnitarioFinal = precioUnitarioFinal;
+    this.precioTotalNeto = precioTotalNeto;
+    this.precioTotalFinal = precioTotalFinal;
+    this.descuento = descuento;
+    this.kitProducto = kit;
+    this.idOrdenDeVenta = idOrdenDeVenta;
     }
 
     /*Setters y Getters*/
@@ -82,12 +92,12 @@ public class VentaProducto   {
         this.descuento = descuento;
     }
 
-    public Kitproductos getIdKitProducto() {
-        return idKitProducto;
+    public int getKitProducto() {
+        return kitProducto;
     }
 
-    public void setIdKitProducto(Kitproductos idKitProducto) {
-        this.idKitProducto = idKitProducto;
+    public void setKitProducto(int idKitProducto) {
+        this.kitProducto = idKitProducto;
     }
 
     public int getIdOrdenDeVenta() {
