@@ -432,7 +432,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     private void modulo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo1ActionPerformed
      this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        dialog_ing_sol_seguro ingresar = new dialog_ing_sol_seguro();
+        Newproduct ingresar = new Newproduct();
         dispose();
         this.setCursor(Cursor.getDefaultCursor());
         ingresar.setVisible(true);
