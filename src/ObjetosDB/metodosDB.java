@@ -24,9 +24,43 @@ public class metodosDB
     {   //retorna ultimo id desde la tabla cuyo nombre es : nombreTabla
         DB_connection c = new DB_connection();
         Connection conexion = c.getConnection();
-        String query = "SELECT * FROM"+nombreTabla+"ORDER BY id_cliente DESC LIMIT 1";
+  
+        String columname = "";
+        switch(nombreTabla)
+        {
+            case "Cliente": 
+                columname="id_cliente";
+                break;
+            case "CompraProducto": 
+                columname="id_compra_producto";
+                break;
+            case "Ki_productos": 
+                columname="id_kit_productos";
+                break;
+            case "OrdenDeCompra": 
+                columname="id_orde_compra";
+                break;
+            case "OrdenDeVenta": 
+                columname="id_orden_venta";
+                break;
+            case "Productos": 
+                columname="id_producto";
+                break;
+            case "Usuarios": 
+                columname="id_usuario";
+                break;
+            case "VentaProducto": 
+                columname="id_venta_producto";
+                break;
+            default : columname="";
+                    break;
+        }
+        String query = "SELECT * FROM "+nombreTabla+" ORDER BY "+columname+" DESC LIMIT 1";
         PreparedStatement stm = conexion.prepareStatement(query);
-        int id = stm.executeQuery().getInt("id_cliente");
+        int id=0;
+        ResultSet resultados = stm.executeQuery();
+        if(resultados.next())
+           id = resultados.getInt(columname);
         //Cerramos las conecciones y retornamos la id encontrada.
         closeConnections(c,conexion,stm,null);
         return id;

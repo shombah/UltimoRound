@@ -4,8 +4,10 @@
  */
 package GUI;
 
+import Clases.Metodos_objetos;
 import Clases.funciones;
 import ObjetosDB.Productos;
+import ObjetosDB.metodosDB;
 import com.mxrck.autocompleter.TextAutoCompleter;
 
 import java.awt.Cursor;
@@ -15,9 +17,12 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -503,6 +508,11 @@ private JComboBox combo1;
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            new Metodos_objetos().testProductos(new metodosDB().getProductos());
+        } catch (SQLException ex) {
+            Logger.getLogger(Newproduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -571,7 +581,8 @@ private JComboBox combo1;
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField22ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:safsd
+       
     }//GEN-LAST:event_jTextField22ActionPerformed
 
     private void jTextField23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField23ActionPerformed

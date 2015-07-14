@@ -26,13 +26,14 @@ public class Productos   {
         this.nombre = nombre;
         this.marca = marca;
         this.color = color;
+        this.talla = talla;
         this.precioCompra = precioCompra;
         this.precioVenta = precioVenta;
         this.proveedor = proveedor;
         this.cantidadActual = cantidadActual;
         this.tipo = tipo;
         this.codigo_barra = codigo_barra;
-        if(saveme)
+        if(saveme==true)
             {
              //Guardamos el producto en la base de datos
              DB_connection c = new DB_connection();
@@ -52,8 +53,9 @@ public class Productos   {
                 stm.setInt(10,this.cantidadActual);
                 //stm.setString(11,this.tipo);
                 stm.executeUpdate();
+                System.out.println("Prodcuto almacenado correctamente!");
                 new metodosDB().closeConnections(c,conexion,stm,null);
-            } catch (SQLException ex) {System.out.println("Error al almacenar producto");}
+            } catch (SQLException ex) {System.out.println("Error al almacenar producto\n"+ex);}
             }
     }
     public Productos(){}

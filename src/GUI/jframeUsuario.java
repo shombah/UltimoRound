@@ -262,6 +262,11 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         comprobante.add(modulo6);
 
         modulo7.setText("Inventario General");
+        modulo7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modulo7MouseClicked(evt);
+            }
+        });
         modulo7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modulo7ActionPerformed(evt);
@@ -485,10 +490,10 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     private void modulo7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo7ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-      //  dialog_buscar_comp a = new dialog_buscar_comp(this, usuario);
-     //   a.setLocationRelativeTo(null);
-        this.setCursor(Cursor.getDefaultCursor());
-      //  a.setVisible(true);
+            frameInventarioActual frameInventario = new frameInventarioActual();
+            this.setVisible(false);
+            frameInventario.setVisible(true);
+            this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_modulo7ActionPerformed
 
     private void modulo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo4ActionPerformed
@@ -612,6 +617,9 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     private void modulo11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo11ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_modulo11ActionPerformed
+    private void modulo7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modulo7MouseClicked
+      
+    }//GEN-LAST:event_modulo7MouseClicked
 
     public static void main(String args[]) {
 

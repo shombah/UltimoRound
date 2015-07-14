@@ -41,5 +41,20 @@ public class Metodos_objetos {
         }
         return sumaTotal;
     }
+    public void testProductos(ArrayList<Productos> productos)
+    {
+        for(Productos product:productos)
+        {
+            System.out.println("\nProductoEncontrado!!!: \n");
+            System.out.println("Nombre: "+product.getNombre());
+            System.out.println("\nColor: "+product.getColor());
+            System.out.println("\nProveedor: "+product.getProveedor());
+            System.out.println("\nMarca: "+product.getMarca());
+            System.out.println("\nTalla: "+product.getTalla());
+            System.out.println("\nCantidadActual: "+product.getCantidadActual());
+            System.out.println("\nPrecioVenta: "+product.getPrecioVenta());
+            System.out.println("\n PRecioCompra: "+product.getPrecioCompra());
+        }
+    }
     
 }
