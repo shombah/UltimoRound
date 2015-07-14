@@ -1,9 +1,15 @@
 
 package ObjetosDB;
 
+import Clases.DB_connection;
+import com.mysql.jdbc.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Productos   {
-    private static final long serialVersionUID = 1L;
-    protected ProductosPK productosPK;
+
     private String nombre;
     private String marca;
     private String talla;
@@ -12,23 +18,48 @@ public class Productos   {
     private Integer precioVenta;
     private String proveedor;
     private Integer cantidadActual;
+    private String tipo;
+    private String codigo_barra;
 
-    public Productos() { //Constructor
+    public Productos(String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual, String tipo, String codigo_barra, Boolean saveme) 
+    { //Constructor
+        this.nombre = nombre;
+        this.marca = marca;
+        this.color = color;
+        this.precioCompra = precioCompra;
+        this.precioVenta = precioVenta;
+        this.proveedor = proveedor;
+        this.cantidadActual = cantidadActual;
+        this.tipo = tipo;
+        this.codigo_barra = codigo_barra;
+        if(saveme)
+            {
+             //Guardamos el producto en la base de datos
+             DB_connection c = new DB_connection();
+             Connection conexion = c.getConnection();
+             String query = "INSERT INTO Productos (id_producto,codigo_barra,nombre,marca,talla,color,precio_compra,precio_venta,proveedor,cantidad_actual) VALUES (?,?,?,?,?,?,?,?,?,?);";
+            try {
+                PreparedStatement stm = conexion.prepareStatement(query);
+                stm.setInt(1,new metodosDB().getLastId("Productos")+1);
+                stm.setString(2,this.codigo_barra);
+                stm.setString(3,this.nombre);
+                stm.setString(4,this.marca);
+                stm.setString(5,this.talla);
+                stm.setString(6,this.color);
+                stm.setInt(7,this.precioCompra);
+                stm.setInt(8, this.precioVenta);
+                stm.setString(9,this.proveedor);
+                stm.setInt(10,this.cantidadActual);
+                //stm.setString(11,this.tipo);
+                stm.executeUpdate();
+                new metodosDB().closeConnections(c,conexion,stm,null);
+            } catch (SQLException ex) {System.out.println("Error al almacenar producto");}
+            }
     }
+    public Productos(){}
 
     /*Setters y Getters*/
-    public Productos(int idProducto, String codigoBarra) {
-        this.productosPK = new ProductosPK(idProducto, codigoBarra);
-    }
-
-    public ProductosPK getProductosPK() {
-        return productosPK;
-    }
-
-    public void setProductosPK(ProductosPK productosPK) {
-        this.productosPK = productosPK;
-    }
-
+   
     public String getNombre() {
         return nombre;
     }

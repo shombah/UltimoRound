@@ -263,6 +263,7 @@ public class metodosDB
      public ArrayList<VentaProducto> getVentaProductoByIdOrdenVenta(int id_orden_venta) throws SQLException //Implementar
      {      //Retorna un arraylist con ventasproducto segun la orden de venta dada.
         ArrayList<VentaProducto> ventasAsociadas = new ArrayList<VentaProducto>();
+        VentaProducto ventaEncontrada = null;
         DB_connection c = new DB_connection();
         Connection conexion = c.getConnection();
         String query = "SELECT * FROM VentaProducto WHERE id_orden_venta = ?";
@@ -271,7 +272,18 @@ public class metodosDB
         ResultSet resultados = stm.executeQuery();
         while(resultados.next())
         {
-            VentaProducto ventaEncontrada = new VentaProducto(resultados.getInt("id_venta_producto"),resultados.getString("fecha"),resultados.getInt("precio_unitario_neto"),resultados.getInt("cantidad_producto"),resultados.getInt("precio_unitario_final"),resultados.getInt("precio_total_neto"),resultados.getInt("precio_total_final"),resultados.getInt("descuento"),resultados.getInt("id_kit_producto"),resultados.getInt("id_orden_de_venta"));
+            if(resultados.getString("kit_or_product").equals("kit"))
+            {
+                Kitproductos kit = new Kitproductos().getKitById(resultados.getInt("id_kit_producto"));
+                 ventaEncontrada = new VentaProducto(resultados.getInt("id_venta_producto"),resultados.getString("fecha"),resultados.getInt("precio_unitario_neto"),resultados.getInt("cantidad_producto"),resultados.getInt("precio_unitario_final"),resultados.getInt("precio_total_neto"),resultados.getInt("precio_total_final"),resultados.getInt("descuento"),kit,null,resultados.getInt("id_orden_de_venta"),"kit");
+
+            }else
+            {
+                Productos producto = new Productos().getProductoById(resultados.getInt("id_kit_producto")); //get producto by id;
+                 ventaEncontrada = new VentaProducto(resultados.getInt("id_venta_producto"),resultados.getString("fecha"),resultados.getInt("precio_unitario_neto"),resultados.getInt("cantidad_producto"),resultados.getInt("precio_unitario_final"),resultados.getInt("precio_total_neto"),resultados.getInt("precio_total_final"),resultados.getInt("descuento"),null,producto,resultados.getInt("id_orden_de_venta"),"producto");
+
+            }
+                
             ventasAsociadas.add(ventaEncontrada);
         }
          closeConnections(c,conexion,stm,resultados);
@@ -284,7 +296,7 @@ public class metodosDB
 // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas OrdenDeVenta">                          
 
      public ArrayList<OrdenDeVenta> getOrdenDeVenta() throws SQLException
-     {//Retorna un ArrayList con todas las ordenes de compra en la BD
+     {//Retorna un ArrayList con todas las ordenes de vena en la BD
       ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
       ArrayList<VentaProducto> ventasAsociadas = new ArrayList<VentaProducto>();
       DB_connection c = new DB_connection();
@@ -334,18 +346,30 @@ public class metodosDB
 
 /*METODOS PRODUCTOS*/
 // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Productos">
-public ArrayList<Productos> getProductos()
+public ArrayList<Productos> getProductos() throws SQLException
 {
-    return null;
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "SELECT * FROM Productos";
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+        Productos product = new Productos(resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"),false);      
+        productos.add(product);
+      }
+    return productos;
 }
 public ArrayList<Productos> getProductoById()
 {
     return null;
 }
-public ArrayList<Productos> getProductosByIdCompraProducto(int id_compra)
+public ArrayList<Productos> getProductosByIdCompraProducto(int id_compra) throws SQLException
 {
-return null;
+ return null;
 }
+
 // </editor-fold>
 
 /*FIN METODOS PRODUCTOS*/

@@ -355,6 +355,11 @@ private JComboBox combo1;
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR ITEM", "KIMONO", "RASHGUARD", "SHORT", "POLERON", "ACCESORIOS" }));
         jComboBox1.setSelectedItem(jComboBox1);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -471,14 +476,12 @@ private JComboBox combo1;
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         for (int j = 0; j < modelo.getRowCount(); j++) {
             ArrayList<Productos> productos = new ArrayList();
-            Productos producto = new Productos();
-            producto.setNombre(modelo.getValueAt(j, 0).toString());
-            producto.setTalla(modelo.getValueAt(j, 1).toString());
-            producto.setMarca(modelo.getValueAt(j, 2).toString());
-            producto.setPrecioCompra((Integer) modelo.getValueAt(j, 5));
-            producto.setPrecioVenta((Integer) modelo.getValueAt(j, 4));
-            producto.setProveedor(modelo.getValueAt(j, 7).toString());
-            producto.setCantidadActual((Integer) modelo.getValueAt(j, 6));
+ //Productos(String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual) { //Constructor
+            String color = ""; //deberia ser modelo.getColor
+            String tipo = "";
+            String codigo_barra = "";
+            Productos producto = new Productos(modelo.getValueAt(j, 0).toString(),modelo.getValueAt(j, 2).toString(),modelo.getValueAt(j, 1).toString(),color,(Integer) modelo.getValueAt(j, 5),(Integer) modelo.getValueAt(j, 4),modelo.getValueAt(j, 7).toString(),(Integer) modelo.getValueAt(j, 6),tipo,codigo_barra,true);
+           
             //falta para TIPO y para CODIGO
             productos.add(producto);
              System.out.println("Nombre Producto:"+producto.getNombre());
@@ -612,6 +615,10 @@ private JComboBox combo1;
   limpiar();
 
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
  private void limpiar(){
         jTextField22.setText("");
         jTextField23.setText(""); 

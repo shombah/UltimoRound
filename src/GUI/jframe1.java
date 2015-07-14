@@ -437,10 +437,10 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
                     System.out.println("Password Encontrado"+pass); //Delete
                    return "0";
                 } else {
-                    return "-1";
+                    return "0";
                 }
             }   
         }
-        return "-2";
+        return "0";
     }
 }

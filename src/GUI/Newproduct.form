@@ -416,6 +416,9 @@
           <Connection component="jComboBox1" type="bean"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

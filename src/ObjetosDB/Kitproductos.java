@@ -97,6 +97,10 @@ public class Kitproductos {
     public void setIdProducto5(Integer idProducto5) {
         this.idProducto5 = idProducto5;
     }
+    public Kitproductos getKitById(int id)
+    { //implementar
+        return null;
+    }
     /*Fin Setters y Getters*/
     
 }

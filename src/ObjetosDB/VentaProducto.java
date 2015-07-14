@@ -12,9 +12,12 @@ public class VentaProducto   {
     private Integer precioTotalFinal;
     private Integer descuento;
     private Integer kitProducto;
+    private Productos producto;
+    private Kitproductos kit;
     private Integer idOrdenDeVenta;
+    private String kit_or_product;//(Dos opciones: "kit", "producto");
 
-    public VentaProducto(int idVentaProducto, String fecha, int precioUnitarioNeto, int cantidadProducto, int precioUnitarioFinal, int precioTotalNeto, int precioTotalFinal, int descuento, int kit, int idOrdenDeVenta) { //Constructor
+    public VentaProducto(int idVentaProducto, String fecha, int precioUnitarioNeto, int cantidadProducto, int precioUnitarioFinal, int precioTotalNeto, int precioTotalFinal, int descuento, Kitproductos kit, Productos producto, int idOrdenDeVenta,String kit_or_product) { //Constructor
     this.idVentaProducto = idVentaProducto;
     this.fecha = fecha;
     this.precioUnitarioNeto = precioUnitarioNeto;
@@ -23,8 +26,10 @@ public class VentaProducto   {
     this.precioTotalNeto = precioTotalNeto;
     this.precioTotalFinal = precioTotalFinal;
     this.descuento = descuento;
-    this.kitProducto = kit;
+    this.kit = kit;
+    this.producto = producto;
     this.idOrdenDeVenta = idOrdenDeVenta;
+    this.kit_or_product= kit_or_product;
     }
 
     /*Setters y Getters*/
