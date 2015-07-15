@@ -50,7 +50,7 @@ public class funciones {
 
             // Lo enviamos.
             Transport t = session.getTransport("smtp");
-            t.connect("luis.espinoza.tapia@gmail.com", "alejandro16754361");
+            t.connect("gmail.com", "");
             t.sendMessage(message, message.getAllRecipients());
 
             // Cierre.

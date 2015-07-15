@@ -24,9 +24,43 @@ public class metodosDB
     {   //retorna ultimo id desde la tabla cuyo nombre es : nombreTabla
         DB_connection c = new DB_connection();
         Connection conexion = c.getConnection();
-        String query = "SELECT * FROM"+nombreTabla+"ORDER BY id_cliente DESC LIMIT 1";
+  
+        String columname = "";
+        switch(nombreTabla)
+        {
+            case "Cliente": 
+                columname="id_cliente";
+                break;
+            case "CompraProducto": 
+                columname="id_compra_producto";
+                break;
+            case "Ki_productos": 
+                columname="id_kit_productos";
+                break;
+            case "OrdenDeCompra": 
+                columname="id_orde_compra";
+                break;
+            case "OrdenDeVenta": 
+                columname="id_orden_venta";
+                break;
+            case "Productos": 
+                columname="id_producto";
+                break;
+            case "Usuarios": 
+                columname="id_usuario";
+                break;
+            case "VentaProducto": 
+                columname="id_venta_producto";
+                break;
+            default : columname="";
+                    break;
+        }
+        String query = "SELECT * FROM "+nombreTabla+" ORDER BY "+columname+" DESC LIMIT 1";
         PreparedStatement stm = conexion.prepareStatement(query);
-        int id = stm.executeQuery().getInt("id_cliente");
+        int id=0;
+        ResultSet resultados = stm.executeQuery();
+        if(resultados.next())
+           id = resultados.getInt(columname);
         //Cerramos las conecciones y retornamos la id encontrada.
         closeConnections(c,conexion,stm,null);
         return id;
@@ -356,14 +390,25 @@ public ArrayList<Productos> getProductos() throws SQLException
       ResultSet resultados = stm.executeQuery();
       while(resultados.next())
       {
-        Productos product = new Productos(resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"),false);      
+        Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"),false);      
         productos.add(product);
       }
     return productos;
 }
-public ArrayList<Productos> getProductoById()
+public Productos getProductoById(int id_producto) throws SQLException
 {
-    return null;
+   Productos producto = null;
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "SELECT * FROM Productos WHERE id_producto="+id_producto;
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"),false);      
+       
+      }
+    return producto;
 }
 public ArrayList<Productos> getProductosByIdCompraProducto(int id_compra) throws SQLException
 {

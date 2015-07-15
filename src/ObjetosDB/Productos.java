@@ -20,19 +20,21 @@ public class Productos   {
     private Integer cantidadActual;
     private String tipo;
     private String codigo_barra;
-
-    public Productos(String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual, String tipo, String codigo_barra, Boolean saveme) 
+    private Integer id_producto;
+    public Productos(int id_producto,String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual, String tipo, String codigo_barra, Boolean saveme) 
     { //Constructor
+        this.id_producto=id_producto;
         this.nombre = nombre;
         this.marca = marca;
         this.color = color;
+        this.talla = talla;
         this.precioCompra = precioCompra;
         this.precioVenta = precioVenta;
         this.proveedor = proveedor;
         this.cantidadActual = cantidadActual;
         this.tipo = tipo;
         this.codigo_barra = codigo_barra;
-        if(saveme)
+        if(saveme==true)
             {
              //Guardamos el producto en la base de datos
              DB_connection c = new DB_connection();
@@ -52,8 +54,9 @@ public class Productos   {
                 stm.setInt(10,this.cantidadActual);
                 //stm.setString(11,this.tipo);
                 stm.executeUpdate();
+                System.out.println("Prodcuto almacenado correctamente!");
                 new metodosDB().closeConnections(c,conexion,stm,null);
-            } catch (SQLException ex) {System.out.println("Error al almacenar producto");}
+            } catch (SQLException ex) {System.out.println("Error al almacenar producto\n"+ex);}
             }
     }
     public Productos(){}
@@ -129,6 +132,48 @@ public class Productos   {
     {
     /*Retorna un objeto productos desde la base de datos, segun la id dada*/
     return null;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    /**
+     * @return the codigo_barra
+     */
+    public String getCodigo_barra() {
+        return codigo_barra;
+    }
+
+    /**
+     * @param codigo_barra the codigo_barra to set
+     */
+    public void setCodigo_barra(String codigo_barra) {
+        this.codigo_barra = codigo_barra;
+    }
+
+    /**
+     * @return the id_producto
+     */
+    public Integer getId_producto() {
+        return id_producto;
+    }
+
+    /**
+     * @param id_producto the id_producto to set
+     */
+    public void setId_producto(Integer id_producto) {
+        this.id_producto = id_producto;
     }
     
 }
