@@ -21,7 +21,7 @@ public class Productos   {
     private String tipo;
     private String codigo_barra;
     private Integer id_producto;
-    public Productos(int id_producto,String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual, String tipo, String codigo_barra, Boolean saveme) 
+    public Productos(int id_producto,String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual, String tipo, String codigo_barra) 
     { //Constructor
         this.id_producto=id_producto;
         this.nombre = nombre;

@@ -485,16 +485,25 @@ private JComboBox combo1;
             String color = ""; //deberia ser modelo.getColor
             String tipo = "";
             String codigo_barra = "";
-            Productos producto = new Productos(0,modelo.getValueAt(j, 1).toString(),modelo.getValueAt(j, 3).toString(),modelo.getValueAt(j, 2).toString()
+            System.out.println("el J ES:"+1+"VALOR:"+modelo.getValueAt(j,1));
+            System.out.println("el J ES:"+2+"VALOR:"+modelo.getValueAt(j,2));
+            System.out.println("el J ES:"+3+"VALOR:"+modelo.getValueAt(j,3));
+            System.out.println("el J ES:"+4+"VALOR:"+modelo.getValueAt(j,4));
+            System.out.println("el J ES:"+5+"VALOR:"+modelo.getValueAt(j,5));
+            System.out.println("el J ES:"+6+"VALOR:"+modelo.getValueAt(j,6));
+            System.out.println("el J ES:"+7+"VALOR:"+modelo.getValueAt(j,7));
+            System.out.println("el J ES:"+8+"VALOR:"+modelo.getValueAt(j,8));
+        
+            Productos producto = new Productos(0,modelo.getValueAt(j, 0).toString(),modelo.getValueAt(j, 2).toString(),modelo.getValueAt(j, 1).toString()
             ,color,(Integer) modelo.getValueAt(j, 5),(Integer) modelo.getValueAt(j, 4),modelo.getValueAt(j, 7).toString(),(Integer) modelo.getValueAt(j, 6)
- ,modelo.getValueAt(j, 3).toString(),modelo.getValueAt(j, 8).toString(),true);
+ ,modelo.getValueAt(j, 3).toString(),modelo.getValueAt(j, 8).toString());
            //falta agregar en tabla color
             
                
             //falta para TIPO y para CODIGO
             producto.setCodigo_barra("123456");
             producto.setColor("ROJO");
-            productos.add(producto);
+            
             metodosDB metodos= new metodosDB();
             try {
                 

@@ -391,7 +391,7 @@ public ArrayList<Productos> getProductos() throws SQLException
       ResultSet resultados = stm.executeQuery();
       while(resultados.next())
       {
-        Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"),false);      
+        Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
         productos.add(product);
       }
     return productos;
@@ -416,7 +416,8 @@ public boolean addProductos(Productos m) throws SQLException
       stm.setInt(10, m.getCantidadActual());
           stm.setString   (11, m.getTipo());
               stm.setString   (2, m.getCodigo_barra());
-       stm.executeUpdate();
+       System.out.print(stm);
+              stm.executeUpdate();
     stm.close();
     
     return true;
@@ -477,7 +478,7 @@ public Productos getProductoById(int id_producto) throws SQLException
       ResultSet resultados = stm.executeQuery();
       while(resultados.next())
       {
-        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"),false);      
+        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
        
       }
     return producto;
