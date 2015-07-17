@@ -5,6 +5,7 @@ import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -395,6 +396,77 @@ public ArrayList<Productos> getProductos() throws SQLException
       }
     return productos;
 }
+public boolean addProductos(Productos m) throws SQLException
+{
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+ String query = "INSERT INTO Productos (id_producto,codigo_barra,nombre,marca,talla,color,precio_compra,precio_venta,proveedor,cantidad_actual,tipo) VALUES (?,?,?,?,?,?,?,?,?,?,?);";    
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      
+       stm.setInt(1,new metodosDB().getLastId("Productos")+1);
+       stm.setString   (3, m.getNombre());
+      stm.setString(4, m.getMarca());
+      stm.setString   (5, m.getTalla());
+      stm.setString(6,m.getColor());
+      stm.setInt   (7, m.getPrecioCompra());
+      stm.setInt(8, m.getPrecioVenta());
+      stm.setString   (9, m.getProveedor());
+      stm.setInt(10, m.getCantidadActual());
+          stm.setString   (11, m.getTipo());
+              stm.setString   (2, m.getCodigo_barra());
+       stm.executeUpdate();
+    stm.close();
+    
+    return true;
+}
+public boolean updateProductos(Productos m) throws SQLException
+{
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "UPDATE productos set nombre = ? , marca= ? , talla = ? , color=?, precio_compra=?, precio_venta=?, proveedor=?,cantidad_actual=?,tipo=?,codigo_barra=? where id_producto=?";
+    
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      
+      
+       stm.setString   (1, m.getNombre());
+      stm.setString(2, m.getMarca());
+      stm.setString   (3, m.getTalla());
+      stm.setString(4,m.getColor());
+      stm.setInt   (5, m.getPrecioCompra());
+      stm.setInt(6, m.getPrecioVenta());
+      stm.setString   (7, m.getProveedor());
+      stm.setInt(8, m.getCantidadActual());
+          stm.setString   (9, m.getTipo());
+              stm.setString   (10, m.getCodigo_barra());
+               stm.setInt(11, m.getId_producto());
+       stm.executeUpdate();
+    stm.close();
+    
+    return true;
+}
+
+public boolean DeleteProductoById(int id_producto) throws SQLException
+{
+   Productos producto = null;
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+     
+      String query = "DELETE FROM PRODUCTOS WHERE id_producto=?";
+    
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      
+      System.out.println(id_producto);
+       stm.setInt   (1, id_producto);
+
+     stm.executeUpdate();
+    return true;
+}
+
 public Productos getProductoById(int id_producto) throws SQLException
 {
    Productos producto = null;

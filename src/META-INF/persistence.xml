@@ -10,12 +10,7 @@
     <class>ObjetosDB.VentaProducto</class>
     <class>ObjetosDB.Usuarios</class>
     <class>ObjetosDB.Cliente</class>
-<<<<<<< HEAD
-    <class>GUI.Productos</class>
-    <class>GUI.Kitproductos</class>
-=======
     <class>GUI.Productos1</class>
->>>>>>> e9ea936bdf6216f5e2be879392d7febe0b74b79d
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/UltimoRound"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

@@ -7,15 +7,11 @@ package GUI;
 
 
 import java.sql.SQLException;
-import ObjetosDB.*;
-import java.util.ArrayList;
 /**
  *
  * @author ttars
  */
-
 public class frameInventarioActual extends javax.swing.JFrame {
-private ArrayList<Productos> producto;
 
     /**
      * Creates new form frameInventarioActual
@@ -32,15 +28,7 @@ private ArrayList<Productos> producto;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        ultimoRoundPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("ultimoRoundPU").createEntityManager();
-        productosQuery = java.beans.Beans.isDesignTime() ? null : ultimoRoundPUEntityManager.createQuery("SELECT p FROM Productos p");
-        productosList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productosQuery.getResultList();
-        productosQuery1 = java.beans.Beans.isDesignTime() ? null : ultimoRoundPUEntityManager.createQuery("SELECT p FROM Productos p");
-        productosList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : productosQuery1.getResultList();
-        kitproductosQuery = java.beans.Beans.isDesignTime() ? null : ultimoRoundPUEntityManager.createQuery("SELECT k FROM Kitproductos k");
-        kitproductosList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : kitproductosQuery.getResultList();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -54,71 +42,40 @@ private ArrayList<Productos> producto;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, productosList1, jTable2);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cantidadActual}"));
-        columnBinding.setColumnName("Cantidad Actual");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${proveedor}"));
-        columnBinding.setColumnName("Proveedor");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${precioVenta}"));
-        columnBinding.setColumnName("Precio Venta");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${precioCompra}"));
-        columnBinding.setColumnName("Precio Compra");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${color}"));
-        columnBinding.setColumnName("Color");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${talla}"));
-        columnBinding.setColumnName("Talla");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${marca}"));
-        columnBinding.setColumnName("Marca");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombre}"));
-        columnBinding.setColumnName("Nombre");
-        columnBinding.setColumnClass(String.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "id", "codigo", "nombre", "marca", "talla", "color", "precio_compra", "precio_venta", "proveedor", "cantidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable2);
 
         jTabbedPane1.addTab("Inventario", jScrollPane1);
 
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, kitproductosList, jTable1);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idProducto5}"));
-        columnBinding.setColumnName("Id Producto5");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idProducto4}"));
-        columnBinding.setColumnName("Id Producto4");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idProducto3}"));
-        columnBinding.setColumnName("Id Producto3");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idProducto2}"));
-        columnBinding.setColumnName("Id Producto2");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idProducto1}"));
-        columnBinding.setColumnName("Id Producto1");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descripcionKit}"));
-        columnBinding.setColumnName("Descripcion Kit");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${precioVentaKit}"));
-        columnBinding.setColumnName("Precio Venta Kit");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${precioCompraProductos}"));
-        columnBinding.setColumnName("Precio Compra Productos");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreKit}"));
-        columnBinding.setColumnName("Nombre Kit");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idKitProductos}"));
-        columnBinding.setColumnName("Id Kit Productos");
-        columnBinding.setColumnClass(Integer.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
-
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "id", "Title 2", "Title 3", "Title 4", "Title 5"
+            }
+        ));
         jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -179,8 +136,6 @@ private ArrayList<Productos> producto;
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Productos\n\n\n");
 
-        bindingGroup.bind();
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -230,13 +185,5 @@ private ArrayList<Productos> producto;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private java.util.List<GUI.Kitproductos> kitproductosList;
-    private javax.persistence.Query kitproductosQuery;
-    private java.util.List<GUI.Productos> productosList;
-    private java.util.List<GUI.Productos> productosList1;
-    private javax.persistence.Query productosQuery;
-    private javax.persistence.Query productosQuery1;
-    private javax.persistence.EntityManager ultimoRoundPUEntityManager;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

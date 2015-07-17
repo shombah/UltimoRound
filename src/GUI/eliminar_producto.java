@@ -9,7 +9,7 @@ import Clases.funciones;
 import ObjetosDB.Productos;
 import ObjetosDB.metodosDB;
 import com.mxrck.autocompleter.TextAutoCompleter;
-import GUI.jframe1;
+
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,8 +27,9 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class modificar_producto extends javax.swing.JDialog implements KeyListener {
-    Productos mainProduct=new Productos();
+public class eliminar_producto extends javax.swing.JDialog implements KeyListener {
+   Productos mainProduct=new Productos();
+    private boolean eliminado=false;
     int usuario, a = 1, mnsj = 0, global_update, global_suma = 0, op = 0, id_liq = 0;
     Date fecha = new Date();
     String x, aux_1 = null;
@@ -55,54 +56,41 @@ private JComboBox combo1;
         }
     };
 
-    public modificar_producto(java.awt.Frame parent, boolean modal,int id_producto) throws SQLException {
+    public eliminar_producto(java.awt.Frame parent, boolean modal,int id_producto) throws SQLException {
         super(parent, modal);
         initComponents();
         iniciar(id_producto);
 
     }
 
-    modificar_producto(int id_producto) throws SQLException {
+    eliminar_producto(int id_producto) throws SQLException {
         initComponents();
         iniciar(id_producto);
     }
 
-    modificar_producto(int u, int idliq, int rut_emp, int p, String nom_emp, String nom_benef, int id_producto) throws SQLException { // constructor que viene de el listado de solicitudes de seguro
-        initComponents();
-        String rut = String.valueOf(rut_emp);
-        usuario = u;
-        funciones f = new funciones();
-        
-   //    jTextField1.setEditable(false);
-        //    jTextField18.setEditable(false);
-        //   jTextField22.setEditable(false);
-
-      //  jTextField18.setText(rut_benef + "");
-        //  jTextField19.setText(f.validar_rut(rut_benef + ""));
-        // jTextField8.setText(rut);
-        //  jTextField11.setText(f.validar_rut(rut));
-        pro = Float.parseFloat(p + "") / 100;
-        id_liq = idliq;
-        //jTextField16.setText(p + " %");
-        iniciar(id_producto);
-        //jTextField1.setText("0");
-    }
 
     public void iniciar(int id_producto) throws SQLException {
         Productos producto = new Productos();
         
         metodosDB metodos= new metodosDB();
         producto=metodos.getProductoById(id_producto);
-        mainProduct=producto;
+        jButton1.setEnabled(false);
+         jTextField22.setEnabled(false);
+        jTextField23.setEnabled(false);
+        jTextField24.setEnabled(false);
+        jTextField25.setEnabled(false);
+        jTextField26.setEnabled(false);
           jTextField22.setText(producto.getNombre());
         jTextField23.setText(producto.getMarca()); 
         jTextField24.setText(producto.getCantidadActual().toString()); 
         jTextField25.setText(producto.getPrecioCompra().toString()); 
         jTextField26.setText(producto.getPrecioVenta().toString());
+        jComboBox1.setEnabled(false);
         if(!producto.getTipo().equals(null)){
           switch (producto.getTipo()) {
                 case "SELECCIONAR ITEM":
                     jComboBox1.setSelectedIndex(0); 
+                    
                     break;
                 case "KIMONO":
                    jComboBox1.setSelectedIndex(1); 
@@ -122,8 +110,8 @@ private JComboBox combo1;
             }}else{
              jComboBox1.setSelectedIndex(0); 
         }
-        
-       
+             jTextField27.setEnabled(false);
+      jTextField20.setEnabled(false);
         jTextField27.setText(producto.getProveedor()); 
         jTextField20.setText(producto.getTalla()); 
       //  jTextField8.setEditable(false);
@@ -141,7 +129,8 @@ private JComboBox combo1;
         // jTable1.getColumn("COD.").setPreferredWidth(50);
         // jTable1.getColumn("COPAGO").setPreferredWidth(39);
         //// String[] aux = this.getEstadoDetSol().split("=");
- 
+        producto=metodos.getProductoById(id_producto);
+        mainProduct=producto;
 		
 		// Accion a realizar cuando el JComboBox cambia de item seleccionado.
 		
@@ -201,7 +190,7 @@ private JComboBox combo1;
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -225,7 +214,7 @@ private JComboBox combo1;
         setResizable(false);
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jButton1.setText("GUARDAR PRODUCTO(S)");
+        jButton1.setText("CONFIRMAR ELIMINAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -249,12 +238,12 @@ private JComboBox combo1;
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(0, 255, 102));
-        jButton3.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jButton3.setText("ESCANEAR CODIGO");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton8.setBackground(new java.awt.Color(255, 0, 0));
+        jButton8.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        jButton8.setText("ELIMINAR");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton8ActionPerformed(evt);
             }
         });
 
@@ -353,7 +342,7 @@ private JComboBox combo1;
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 305, Short.MAX_VALUE)
+                        .addGap(0, 315, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
@@ -379,10 +368,10 @@ private JComboBox combo1;
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jTextField24)
                                             .addComponent(jTextField25)
-                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
@@ -431,9 +420,9 @@ private JComboBox combo1;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -447,22 +436,13 @@ private JComboBox combo1;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 metodosDB metodos= new metodosDB();
 
-    mainProduct.setCantidadActual(Integer.parseInt(jTextField24.getText()));
-            mainProduct.setCodigo_barra("111111");
-            mainProduct.setColor("AGREGAR CAMPO COLOR"); // falt hacer el del COLOR))
-                    mainProduct.setMarca(jTextField23.getText());
-                            mainProduct.setNombre(jTextField22.getText());
-                            mainProduct.setPrecioCompra(Integer.parseInt(jTextField25.getText()));
-                                    mainProduct.setPrecioVenta(Integer.parseInt(jTextField26.getText()));
-                                    mainProduct.setProveedor(jTextField27.getText());
-                                    mainProduct.setTalla(jTextField20.getText());
-                                            mainProduct.setTipo(jComboBox1.getSelectedItem().toString());
+    
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
      
         try {
-            metodos.updateProductos(mainProduct);
+            metodos.DeleteProductoById(mainProduct.getId_producto());
             jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "PRODUCTO MODIFICADO CON EXITO");
+            JOptionPane.showMessageDialog(a, "PRODUCTO ELIMINADO CON EXITO");
             this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(modificar_producto.class.getName()).log(Level.SEVERE, null, ex);
@@ -476,7 +456,7 @@ metodosDB metodos= new metodosDB();
         try {
             new Metodos_objetos().testProductos(new metodosDB().getProductos());
         } catch (SQLException ex) {
-            Logger.getLogger(modificar_producto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(eliminar_producto.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -491,10 +471,15 @@ metodosDB metodos= new metodosDB();
 
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        // jTextField9ActionPerformed(evt);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        funciones f = new funciones();
+        jButton8.setText(("ELIMINADO"));
+        this.eliminado=true;
+        jButton1.setEnabled(true);
+        jButton8.setEnabled(false);
+        ///Eliminar de la base de datos, se debe realizar las validaciones correspondientes
+        //por ejemplo que no este en un kit de productos
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
         // TODO add your handling code here:
@@ -554,14 +539,46 @@ metodosDB metodos= new metodosDB();
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(modificar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(eliminar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(modificar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(eliminar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(modificar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(eliminar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(modificar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(eliminar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -601,8 +618,8 @@ metodosDB metodos= new metodosDB();
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

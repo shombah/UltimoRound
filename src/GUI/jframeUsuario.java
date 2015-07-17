@@ -8,6 +8,9 @@ import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
@@ -498,7 +501,14 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     private void modulo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo4ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-      //  dialog_buscar_empleado2 p = new dialog_buscar_empleado2(usuario, 0);
+        try {
+            nuevo_kit p = new nuevo_kit();
+            this.setVisible(false);
+            p.setVisible(true);
+            this.setCursor(Cursor.getDefaultCursor());
+        } catch (SQLException ex) {
+            Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
       //  p.setLocationRelativeTo(null);
         this.setCursor(Cursor.getDefaultCursor());
       //  p.setVisible(true);
@@ -550,11 +560,10 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     private void modulo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo3ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-      //  dialog_sol_seg a = new dialog_sol_seg(this, usuario);
-      //  a.setLocationRelativeTo(null);
+     buscar_eliminar_producto a = new buscar_eliminar_producto(usuario);
+      a.setLocationRelativeTo(null);
         this.setCursor(Cursor.getDefaultCursor());
-      //  a.setVisible(true);
-
+     a.setVisible(true);
     }//GEN-LAST:event_modulo3ActionPerformed
 
     private void modulo15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo15ActionPerformed

@@ -34,30 +34,7 @@ public class Productos   {
         this.cantidadActual = cantidadActual;
         this.tipo = tipo;
         this.codigo_barra = codigo_barra;
-        if(saveme==true)
-            {
-             //Guardamos el producto en la base de datos
-             DB_connection c = new DB_connection();
-             Connection conexion = c.getConnection();
-             String query = "INSERT INTO Productos (id_producto,codigo_barra,nombre,marca,talla,color,precio_compra,precio_venta,proveedor,cantidad_actual) VALUES (?,?,?,?,?,?,?,?,?,?);";
-            try {
-                PreparedStatement stm = conexion.prepareStatement(query);
-                stm.setInt(1,new metodosDB().getLastId("Productos")+1);
-                stm.setString(2,this.codigo_barra);
-                stm.setString(3,this.nombre);
-                stm.setString(4,this.marca);
-                stm.setString(5,this.talla);
-                stm.setString(6,this.color);
-                stm.setInt(7,this.precioCompra);
-                stm.setInt(8, this.precioVenta);
-                stm.setString(9,this.proveedor);
-                stm.setInt(10,this.cantidadActual);
-                //stm.setString(11,this.tipo);
-                stm.executeUpdate();
-                System.out.println("Prodcuto almacenado correctamente!");
-                new metodosDB().closeConnections(c,conexion,stm,null);
-            } catch (SQLException ex) {System.out.println("Error al almacenar producto\n"+ex);}
-            }
+       
     }
     public Productos(){}
 
