@@ -16,7 +16,7 @@ public DB_connection()
         Connection conn = null;
         try 
         {
-        conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/UltimoRound", "root","idp");
+        conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/UltimoRound", "root","hola");
         System.out.println("Conección exitosa!");
         this.conn = conn;
         } catch (Exception e) {System.out.println(e);}

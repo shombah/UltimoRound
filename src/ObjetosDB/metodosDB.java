@@ -390,14 +390,25 @@ public ArrayList<Productos> getProductos() throws SQLException
       ResultSet resultados = stm.executeQuery();
       while(resultados.next())
       {
-        Productos product = new Productos(resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"),false);      
+        Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"),false);      
         productos.add(product);
       }
     return productos;
 }
-public ArrayList<Productos> getProductoById()
+public Productos getProductoById(int id_producto) throws SQLException
 {
-    return null;
+   Productos producto = null;
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "SELECT * FROM Productos WHERE id_producto="+id_producto;
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"),false);      
+       
+      }
+    return producto;
 }
 public ArrayList<Productos> getProductosByIdCompraProducto(int id_compra) throws SQLException
 {

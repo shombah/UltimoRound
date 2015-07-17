@@ -428,10 +428,10 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     private void modulo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo2ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-      //  dialog_buscar_sol p = new dialog_buscar_sol(this, true, usuario);
-     //   p.setLocationRelativeTo(null);
+       buscar_producto p = new buscar_producto(this, true, usuario);
+       p.setLocationRelativeTo(null);
         this.setCursor(Cursor.getDefaultCursor());
-     //   p.setVisible(true);
+      p.setVisible(true);
 
     }//GEN-LAST:event_modulo2ActionPerformed
 

@@ -34,7 +34,7 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Productos.findByPrecioVenta", query = "SELECT p FROM Productos p WHERE p.precioVenta = :precioVenta"),
     @NamedQuery(name = "Productos.findByProveedor", query = "SELECT p FROM Productos p WHERE p.proveedor = :proveedor"),
     @NamedQuery(name = "Productos.findByCantidadActual", query = "SELECT p FROM Productos p WHERE p.cantidadActual = :cantidadActual")})
-public class Productos implements Serializable {
+public class Productos1 implements Serializable {
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
@@ -57,14 +57,14 @@ public class Productos implements Serializable {
     @Column(name = "cantidad_actual")
     private Integer cantidadActual;
 
-    public Productos() {
+    public Productos1() {
     }
 
-    public Productos(ProductosPK productosPK) {
+    public Productos1(ProductosPK productosPK) {
         this.productosPK = productosPK;
     }
 
-    public Productos(int idProducto, String codigoBarra) {
+    public Productos1(int idProducto, String codigoBarra) {
         this.productosPK = new ProductosPK(idProducto, codigoBarra);
     }
 
@@ -166,10 +166,10 @@ public class Productos implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Productos)) {
+        if (!(object instanceof Productos1)) {
             return false;
         }
-        Productos other = (Productos) object;
+        Productos1 other = (Productos1) object;
         if ((this.productosPK == null && other.productosPK != null) || (this.productosPK != null && !this.productosPK.equals(other.productosPK))) {
             return false;
         }

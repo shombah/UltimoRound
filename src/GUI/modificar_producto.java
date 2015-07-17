@@ -27,7 +27,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-public class Newproduct extends javax.swing.JDialog implements KeyListener {
+public class modificar_producto extends javax.swing.JDialog implements KeyListener {
 
     int usuario, a = 1, mnsj = 0, global_update, global_suma = 0, op = 0, id_liq = 0;
     Date fecha = new Date();
@@ -55,23 +55,24 @@ private JComboBox combo1;
         }
     };
 
-    public Newproduct(java.awt.Frame parent, boolean modal) {
+    public modificar_producto(java.awt.Frame parent, boolean modal,int id_producto) throws SQLException {
         super(parent, modal);
         initComponents();
-        iniciar();
+        iniciar(id_producto);
 
     }
 
-    Newproduct() {
+    modificar_producto(int id_producto) throws SQLException {
         initComponents();
-        iniciar();
+        iniciar(id_producto);
     }
 
-    Newproduct(int u, int idliq, int rut_emp, int p, String nom_emp, String nom_benef, int rut_benef) { // constructor que viene de el listado de solicitudes de seguro
+    modificar_producto(int u, int idliq, int rut_emp, int p, String nom_emp, String nom_benef, int id_producto) throws SQLException { // constructor que viene de el listado de solicitudes de seguro
         initComponents();
         String rut = String.valueOf(rut_emp);
         usuario = u;
         funciones f = new funciones();
+        
    //    jTextField1.setEditable(false);
         //    jTextField18.setEditable(false);
         //   jTextField22.setEditable(false);
@@ -83,38 +84,56 @@ private JComboBox combo1;
         pro = Float.parseFloat(p + "") / 100;
         id_liq = idliq;
         //jTextField16.setText(p + " %");
-        iniciar();
+        iniciar(id_producto);
         //jTextField1.setText("0");
     }
 
-    public void iniciar() {
-
+    public void iniciar(int id_producto) throws SQLException {
+        Productos producto = new Productos();
+        
+        metodosDB metodos= new metodosDB();
+        producto=metodos.getProductoById(id_producto);
+          jTextField22.setText(producto.getNombre());
+        jTextField23.setText(producto.getMarca()); 
+        jTextField24.setText(producto.getCantidadActual().toString()); 
+        jTextField25.setText(producto.getPrecioCompra().toString()); 
+        jTextField26.setText(producto.getPrecioVenta().toString());
+        if(!producto.getTipo().equals(null)){
+          switch (producto.getTipo()) {
+                case "SELECCIONAR ITEM":
+                    jComboBox1.setSelectedIndex(0); 
+                    break;
+                case "KIMONO":
+                   jComboBox1.setSelectedIndex(1); 
+                    break;
+                case "RASHGUARD":
+                    jComboBox1.setSelectedIndex(2); 
+                    break;
+                case "SHORT":
+                   jComboBox1.setSelectedIndex(3); 
+                    break;
+                case "POLERON":
+                   jComboBox1.setSelectedIndex(4); 
+                    break;
+                case "ACCESORIOS":
+                  jComboBox1.setSelectedIndex(5); 
+                    break;
+            }}else{
+             jComboBox1.setSelectedIndex(0); 
+        }
+        
+       
+        jTextField27.setText(producto.getProveedor()); 
+        jTextField20.setText(producto.getTalla()); 
       //  jTextField8.setEditable(false);
         //  jTextField10.setEditable(false);
         //  jTextField7.setEditable(false);
         //  jTextField2.setEditable(false);
         //   jTextField9.setEditable(false);
         //   jTextField6.setEditable(false);
-        Calendar c = Calendar.getInstance();
       //  jDateChooser1.setDate(c.getTime());
         //   jDateChooser1.addKeyListener(this);
-        jTable1.addKeyListener(this);
-        String t[] = {"NOMBRE PRODUCTO","TALLA","MARCA", "TIPO", "PRECIO VENTA", "COSTO", "CANTIDAD","PROVEEDOR","COD."};
-        modelo.setColumnIdentifiers(t);
-        jTable1.setRowHeight(22);
-        jTable1.setModel(modelo);
-        DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
-        tcr.setHorizontalAlignment(SwingConstants.CENTER);
-        DefaultTableCellRenderer tcr2 = new DefaultTableCellRenderer();
-        tcr2.setHorizontalAlignment(SwingConstants.RIGHT);
-        ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
-        jTable1.getColumnModel().getColumn(0).setCellRenderer(tcr2);
-        jTable1.getColumnModel().getColumn(1).setCellRenderer(tcr);
-        jTable1.getColumnModel().getColumn(2).setCellRenderer(tcr);
-        jTable1.getColumnModel().getColumn(3).setCellRenderer(tcr2);
-        jTable1.getColumnModel().getColumn(4).setCellRenderer(tcr2);
-        jTable1.getColumnModel().getColumn(5).setCellRenderer(tcr);
-        jTable1.getColumnModel().getColumn(6).setCellRenderer(tcr2);
+    
 //        jTable1.getColumn("NIVEL").setPreferredWidth(1);
         // jTable1.getColumn("# VECES").setPreferredWidth(8);
         // jTable1.getColumn("BENEFICIO").setPreferredWidth(15);
@@ -180,8 +199,6 @@ private JComboBox combo1;
         buttonGroup1 = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -200,7 +217,6 @@ private JComboBox combo1;
         jTextField25 = new javax.swing.JTextField();
         jTextField26 = new javax.swing.JTextField();
         jTextField27 = new javax.swing.JTextField();
-        jButton9 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -225,27 +241,6 @@ private JComboBox combo1;
             }
         });
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jTable1.setSurrendersFocusOnKeystroke(true);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTable1);
-
         jButton4.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jButton4.setText("ATRAS");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -254,6 +249,7 @@ private JComboBox combo1;
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(0, 255, 102));
         jButton3.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jButton3.setText("ESCANEAR CODIGO");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +258,7 @@ private JComboBox combo1;
             }
         });
 
+        jButton8.setBackground(new java.awt.Color(255, 0, 0));
         jButton8.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jButton8.setText("ELIMINAR");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +277,7 @@ private JComboBox combo1;
         jLabel6.setText("MARCA");
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jLabel2.setText("NOMBRE NUEVO PRODUCTO");
+        jLabel2.setText("NOMBRE  PRODUCTO");
 
         jLabel23.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel23.setText("TALLA");
@@ -350,14 +347,6 @@ private JComboBox combo1;
             }
         });
 
-        jButton9.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jButton9.setText("AGREGAR");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR ITEM", "KIMONO", "RASHGUARD", "SHORT", "POLERON", "ACCESORIOS" }));
         jComboBox1.setSelectedItem(jComboBox1);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -379,7 +368,6 @@ private JComboBox combo1;
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,25 +388,21 @@ private JComboBox combo1;
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(8, 8, 8))
                                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jTextField24)
                                             .addComponent(jTextField25)
-                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(81, 81, 81)
+                                .addGap(26, 26, 26)
                                 .addComponent(jTextField26))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(81, 81, 81)
+                                .addGap(26, 26, 26)
                                 .addComponent(jTextField27)))))
                 .addContainerGap())
         );
@@ -457,15 +441,11 @@ private JComboBox combo1;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                 .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -485,7 +465,7 @@ private JComboBox combo1;
             String color = ""; //deberia ser modelo.getColor
             String tipo = "";
             String codigo_barra = "";
-            Productos producto = new Productos(0,modelo.getValueAt(j, 0).toString(),modelo.getValueAt(j, 2).toString(),modelo.getValueAt(j, 1).toString(),color,(Integer) modelo.getValueAt(j, 5),(Integer) modelo.getValueAt(j, 4),modelo.getValueAt(j, 7).toString(),(Integer) modelo.getValueAt(j, 6),tipo,codigo_barra,true);
+           /* Productos producto = new Productos(modelo.getValueAt(j, 0).toString(),modelo.getValueAt(j, 2).toString(),modelo.getValueAt(j, 1).toString(),color,(Integer) modelo.getValueAt(j, 5),(Integer) modelo.getValueAt(j, 4),modelo.getValueAt(j, 7).toString(),(Integer) modelo.getValueAt(j, 6),tipo,codigo_barra,true);
            
             //falta para TIPO y para CODIGO
             productos.add(producto);
@@ -494,7 +474,7 @@ private JComboBox combo1;
                 System.out.println("Talla:"+producto.getTalla());
                   System.out.println("Nombre Proveedor:"+producto.getProveedor());
                     System.out.println("Precio Compra:"+producto.getPrecioCompra());
-                      System.out.println("Precio Venta:"+producto.getPrecioVenta());
+                      System.out.println("Precio Venta:"+producto.getPrecioVenta());*/
                       
                       
                       //validar campos
@@ -511,7 +491,7 @@ private JComboBox combo1;
         try {
             new Metodos_objetos().testProductos(new metodosDB().getProductos());
         } catch (SQLException ex) {
-            Logger.getLogger(Newproduct.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(modificar_producto.class.getName()).log(Level.SEVERE, null, ex);
         }
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -533,52 +513,13 @@ private JComboBox combo1;
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         funciones f = new funciones();
-        int linea = jTable1.getSelectedRow();
-        if (linea != -1) {
-            modelo.removeRow(linea);
-            int p = 0, b2 = 0;
-            for (int j = 0; j < jTable1.getRowCount(); j++) {
-                p = p + (Integer.valueOf(modelo.getValueAt(j, 4).toString()) * Integer.valueOf(modelo.getValueAt(j, 5).toString()));
-                b2 = b2 + Integer.valueOf(modelo.getValueAt(j, 6).toString());
-            }
-          //  jTextField13.setText(f.getNumcPto(p));
-            //    jTextField14.setText(f.getNumcPto(b2));
-            //    jTextField18.requestFocus();
-            i = -1;
-        }
+        ///Eliminar de la base de datos, se debe realizar las validaciones correspondientes
+        //por ejemplo que no este en un kit de productos
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField20ActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        String aux3[];
-        int linea = jTable1.getSelectedRow();
-        if (evt.getClickCount() == 2 & linea != -1) {
-
-            if (!modelo.getValueAt(linea, 3).toString().equals("-")) { // cuenta con arancel
-                //      jTextField2.setEnabled(true);
-                //      jTextField6.setEnabled(true);
-                //      jTextField2.setText(modelo.getValueAt(linea, 2).toString());
-                //      jTextField6.setText(modelo.getValueAt(linea, 3).toString().replace("-", ""));
-            } else {
-              //  jTextField2.setEnabled(false);
-                //  jTextField6.setEnabled(false);
-            }
-            i = linea;
-            jComboBox1.setEnabled(true);
-           // jTextField7.setEnabled(true);
-            // jTextField9.setEnabled(true);
-            int porciento = 0;// Integer.valueOf(jTextField16.getText().replace("%", "").trim());
-            int monto = Integer.valueOf(modelo.getValueAt(linea, 4).toString());
-          //  jTextField7.setText((monto * 100 / porciento) + "");
-            //  jTextField22.setText(modelo.getValueAt(linea, 4).toString());
-            //  jTextField9.setText(modelo.getValueAt(linea, 5).toString());
-            //  jTextField10.setText(modelo.getValueAt(linea, 6).toString());
-            jComboBox1.setSelectedItem(modelo.getValueAt(linea, 7).toString());
-        }
-    }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField22ActionPerformed
         // TODO add your handling code here:safsd
@@ -604,28 +545,6 @@ private JComboBox combo1;
     private void jTextField27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField27ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField27ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-
-        
-
-        //DATOS DE LA TABLA
-        Object[] object = new Object[10];
-        object[0] = jTextField22.getText();
-        object[1] = jTextField20.getText();
-        object[2] = jTextField23.getText();
-        object[4] = Integer.parseInt(jTextField26.getText());
-        object[3] = (String)jComboBox1.getSelectedItem();
-        object[7] = jTextField27.getText();
-        object[5] = Integer.parseInt(jTextField25.getText());
-        object[6] = Integer.parseInt(jTextField24.getText());
-        object[8] = "Codigo";
-        
-        modelo.addRow(object);
-            //TERMINO DATOS TABLA
-  limpiar();
-
-    }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
@@ -656,13 +575,13 @@ private JComboBox combo1;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Newproduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(modificar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Newproduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(modificar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Newproduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(modificar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Newproduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(modificar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -680,21 +599,24 @@ private JComboBox combo1;
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                Newproduct dialog = new Newproduct(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+      
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -703,7 +625,6 @@ private JComboBox combo1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -713,8 +634,6 @@ private JComboBox combo1;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField22;
     private javax.swing.JTextField jTextField23;
