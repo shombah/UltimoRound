@@ -6,18 +6,31 @@
 package GUI;
 
 
+import ObjetosDB.Kitproductos;
+import ObjetosDB.Productos;
+import ObjetosDB.metodosDB;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author ttars
  */
 public class frameInventarioActual extends javax.swing.JFrame {
 
+    DefaultTableModel modelo1 = new DefaultTableModel(); // Tabla Productos
+    DefaultTableModel modelo2 = new DefaultTableModel();//StockCritico
+    DefaultTableModel modelo3 = new DefaultTableModel();//Kits
+    DefaultTableModel modelo4 = new DefaultTableModel();//Promociones
+
     /**
      * Creates new form frameInventarioActual
      */
     public frameInventarioActual()  {
                initComponents();
+        try {
+            iniciar();
+        } catch (SQLException ex) {System.out.println("Error al cargar los datos!");}
     }
 
     /**
@@ -30,114 +43,166 @@ public class frameInventarioActual extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "id", "codigo", "nombre", "marca", "talla", "color", "precio_compra", "precio_venta", "proveedor", "cantidad"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable2);
-
-        jTabbedPane1.addTab("Inventario", jScrollPane1);
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "id", "Title 2", "Title 3", "Title 4", "Title 5"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane5.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Productos", jPanel4);
+
+        jPanel1.setForeground(new java.awt.Color(206, 12, 12));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Kit Productos", jPanel1);
+        jTabbedPane1.addTab("Stock Critico", jPanel1);
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable3);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Promociones", jPanel2);
+        jTabbedPane1.addTab("Kits", jPanel2);
+
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable4);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Stock Critico", jPanel3);
+        jTabbedPane1.addTab("Promociones", jPanel3);
+
+        jButton1.setFont(new java.awt.Font("DejaVu Sans", 1, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/arrow_rotate_clockwise.png"))); // NOI18N
+        jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Productos\n\n\n");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,15 +240,101 @@ public class frameInventarioActual extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
     // End of variables declaration//GEN-END:variables
+
+    private void iniciar() throws SQLException {
+       
+        /*Cargamos Datos de Inventario -> Productos*/
+        String t[] = {"ID","PRODUCTO","TALLA","MARCA","CANTIDAD","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+        modelo1.setColumnIdentifiers(t);
+        jTable1.setModel(modelo1);
+        
+        //Configuramos Ancho de las columnas
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(20); //id
+        jTable1.getColumnModel().getColumn(1).setMinWidth(200); //nombre
+        jTable1.getColumnModel().getColumn(2).setMinWidth(15); //talla
+        jTable1.getColumnModel().getColumn(3).setMinWidth(25); //marca
+        jTable1.getColumnModel().getColumn(4).setMinWidth(20); //costo
+        jTable1.getColumnModel().getColumn(5).setMinWidth(15); //tipo
+        jTable1.getColumnModel().getColumn(6).setMinWidth(25); //proveedor
+        jTable1.getColumnModel().getColumn(7).setMinWidth(25); //cantidad
+        jTable1.getColumnModel().getColumn(8).setMinWidth(20); //precioventa
+        jTable1.getColumnModel().getColumn(9).setMinWidth(25); //codigo
+
+        metodosDB f = new metodosDB();
+        
+        int aux3;
+        ArrayList<Productos> aux2 = new ArrayList<Productos>();
+	aux2 = f.getProductos();//Cargar resultados , debe ser por nombres
+        Object[] object = new Object[10];
+        int i=0;
+        
+        while(aux2.size()>i)
+        {
+            object[0]  = aux2.get(i).getId_producto();
+            object[1] = aux2.get(i).getNombre();
+            object[2] = aux2.get(i).getTalla();
+            object[3] = aux2.get(i).getMarca();
+            object[4] = aux2.get(i).getCantidadActual();
+            object[5] = aux2.get(i).getTipo();
+            object[6] = aux2.get(i).getProveedor();
+            object[7] = aux2.get(i).getPrecioCompra();
+            object[8] = aux2.get(i).getPrecioVenta();
+            object[9] = aux2.get(i).getCodigo_barra();
+            modelo1.addRow(object);
+            i++;
+        }
+        
+        /*Cargamos datos de Productos Stock Critico*/
+        String t2[] = {"ID","PRODUCTO","TALLA","MARCA","CANTIDAD","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+        modelo2.setColumnIdentifiers(t2);
+        jTable2.setModel(modelo2);
+        aux2 = f.getProductosStockCritico();
+        object = new Object[10];
+        i=0;
+        while(aux2.size()>i)
+        {
+            object[0]  = aux2.get(i).getId_producto();
+            object[1] = aux2.get(i).getNombre();
+            object[2] = aux2.get(i).getTalla();
+            object[3] = aux2.get(i).getMarca();
+            object[4] = aux2.get(i).getCantidadActual();
+            object[5] = aux2.get(i).getTipo();
+            object[6] = aux2.get(i).getProveedor();
+            object[7] = aux2.get(i).getPrecioCompra();
+            object[8] = aux2.get(i).getPrecioVenta();
+            object[9] = aux2.get(i).getCodigo_barra();
+            modelo2.addRow(object);
+            i++;
+        }
+        /*Cargamos Datos de Kits*/
+        /*String t3[] = {"ID","KIT","TALLA","COSTO","VENTA","P1", "P2", "P3","COD."};
+        modelo3.setColumnIdentifiers(t3);
+        jTable3.setModel(modelo3);
+        ArrayList<Kitproductos> kits = new ArrayList<Kitproductos>();
+        kits = f.getKits();
+        i=0;
+        while(kits.size()<i)
+        {
+            //agregar los datos a object
+            modelo3.addRow(object);
+            i++;
+        }*/
+        
+	System.out.println("Datos Cargados Correctamente!")	;
+    }
 }

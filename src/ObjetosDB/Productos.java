@@ -1,12 +1,7 @@
 
 package ObjetosDB;
 
-import Clases.DB_connection;
-import com.mysql.jdbc.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class Productos   {
 

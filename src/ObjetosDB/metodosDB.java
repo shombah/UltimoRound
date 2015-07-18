@@ -14,6 +14,7 @@ import java.util.ArrayList;
 La idea es cargar los datos desde la base de datos en esta clase y luego manejar los Arraylist en la clase Clases/Metodos_objetos*/
 public class metodosDB 
 {
+    int StockCritico = 10;
     public metodosDB() //Constructor
     { 
     }
@@ -394,6 +395,25 @@ public ArrayList<Productos> getProductos() throws SQLException
         Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
         productos.add(product);
       }
+      closeConnections(c,conexion,stm,resultados);
+    return productos;
+}
+public ArrayList<Productos> getProductosStockCritico() throws SQLException
+{
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "SELECT * FROM Productos";
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+          if(resultados.getInt("cantidad_actual")<=StockCritico)
+          { Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
+            productos.add(product);
+          }
+      }
+      closeConnections(c,conexion,stm,resultados);
     return productos;
 }
 public boolean addProductos(Productos m) throws SQLException
@@ -494,7 +514,10 @@ public ArrayList<Productos> getProductosByIdCompraProducto(int id_compra) throws
 
    /*METODOS KITPRODUCTOS*/
 // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Kit_productos">
-
+public ArrayList<Kitproductos> getKits()
+{
+    return null;
+}
 // </editor-fold>
 
 /*FIN METODOS KITPRODUCTOS*/     

@@ -5,12 +5,14 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 
 public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
@@ -170,11 +172,10 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 51));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salir 32x32.png"))); // NOI18N
-        jButton1.setText("SALIR");
+        jButton1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 102));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/gnome-logout.png"))); // NOI18N
+        jButton1.setText("Salir");
         jButton1.setSelected(true);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,10 +183,9 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 51));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar_sesion 32x32.png"))); // NOI18N
+        jButton2.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 0, 102));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/stock_lock.png"))); // NOI18N
         jButton2.setText("Cerrar Sesión");
         jButton2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jButton2.setSelected(true);
@@ -195,7 +195,11 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
             }
         });
 
+        solicitud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/emblem-sales.png"))); // NOI18N
         solicitud.setText("Productos");
+        solicitud.setIconTextGap(1);
+        solicitud.setMaximumSize(new java.awt.Dimension(100, 32767));
+        solicitud.setPreferredSize(new java.awt.Dimension(100, 29));
 
         modulo1.setText("Crear Producto");
         modulo1.setToolTipText("");
@@ -226,7 +230,10 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
         jMenuBar1.add(solicitud);
 
+        empleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cart.png"))); // NOI18N
         empleado.setText("Kit Productos");
+        empleado.setMaximumSize(new java.awt.Dimension(110, 32767));
+        empleado.setPreferredSize(new java.awt.Dimension(130, 21));
 
         modulo4.setText("Crear Kit de Productos");
         modulo4.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +261,10 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
         jMenuBar1.add(empleado);
 
+        comprobante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/chart_curve.png"))); // NOI18N
         comprobante.setText("Inventario");
+        comprobante.setMaximumSize(new java.awt.Dimension(110, 32767));
+        comprobante.setPreferredSize(new java.awt.Dimension(100, 21));
 
         modulo6.setText("Inventario por Producto");
         modulo6.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +297,9 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
         jMenuBar1.add(comprobante);
 
+        contabilidad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/coins.png"))); // NOI18N
         contabilidad.setText("Ventas");
+        contabilidad.setMaximumSize(new java.awt.Dimension(90, 32767));
 
         modulo15.setText("Vender Producto");
         modulo15.addActionListener(new java.awt.event.ActionListener() {
@@ -299,7 +311,9 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
         jMenuBar1.add(contabilidad);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/chart.png"))); // NOI18N
         jMenu1.setText("Estadisticas");
+        jMenu1.setMaximumSize(new java.awt.Dimension(105, 32767));
 
         jMenuItem3.setText("Productos Mas Vendidos");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -327,7 +341,9 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
         jMenuBar1.add(jMenu1);
 
+        gestion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/basket.png"))); // NOI18N
         gestion.setText("Promociones");
+        gestion.setMaximumSize(new java.awt.Dimension(125, 32767));
 
         modulo14.setText("Nueva Promocion");
         modulo14.addActionListener(new java.awt.event.ActionListener() {
@@ -355,7 +371,9 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
         jMenuBar1.add(gestion);
 
+        administrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/user_gray.png"))); // NOI18N
         administrador.setText("Administrador");
+        administrador.setActionCommand("Administrador     ");
 
         modulo18.setText("Adm. Usuarios");
         modulo18.addActionListener(new java.awt.event.ActionListener() {
@@ -375,7 +393,10 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
         jMenuBar1.add(administrador);
 
+        opciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/computer_key.png"))); // NOI18N
         opciones.setText("Opciones");
+        opciones.setIconTextGap(1);
+        opciones.setMaximumSize(new java.awt.Dimension(80, 32767));
 
         cambiarPass.setText("Cambiar Contraseña");
         cambiarPass.addActionListener(new java.awt.event.ActionListener() {
@@ -410,20 +431,20 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 590, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(0, 654, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(326, Short.MAX_VALUE)
+                .addContainerGap(323, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         pack();
