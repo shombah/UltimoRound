@@ -518,6 +518,29 @@ public ArrayList<Productos> getProductosByIdCompraProducto(int id_compra) throws
 
    /*METODOS KITPRODUCTOS*/
 // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Kit_productos">
+public boolean updatekitproductos(Kitproductos m) throws SQLException
+{
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "UPDATE Kit_productos set nombre_kit = ? , precio_compra_productos= ? , precio_venta_kit = ? , descripcion_kit=? where id_kit_productos=?";
+    
+       String query2 = "DELETE FROM relacion_kit_productos WHERE id_kit_productos=?";
+      PreparedStatement stm = conexion.prepareStatement(query);
+       PreparedStatement stm2 = conexion.prepareStatement(query2);
+      
+       stm.setString   (1, m.getNombreKit());
+      stm.setInt(2, m.getPrecioCompraProductos());
+      stm.setInt   (3, m.getPrecioVentaKit());
+      stm.setString(4,m.getDescripcionKit());
+      stm.setInt   (5, m.getIdKitProductos());
+       stm2.setInt   (1, m.getIdKitProductos());
+       stm.executeUpdate();
+        stm2.executeUpdate();
+    stm.close();
+    
+    return true;
+}
 public int addKitProductos(Kitproductos kit) throws SQLException
 {
      ArrayList<Productos> productos = new ArrayList<Productos>();
@@ -533,6 +556,7 @@ public int addKitProductos(Kitproductos kit) throws SQLException
       stm.setInt   (4, kit.getPrecioVentaKit());
        stm.setString   (5, kit.getDescripcionKit());
               stm.executeUpdate();
+           
     stm.close();
     
     return kit.getIdKitProductos();

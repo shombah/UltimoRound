@@ -535,11 +535,17 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     }//GEN-LAST:event_modulo4ActionPerformed
 
     private void modulo5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo5ActionPerformed
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-     //   dialog_buscar_carga p = new dialog_buscar_carga(usuario);
-     //   p.setLocationRelativeTo(null);
-        this.setCursor(Cursor.getDefaultCursor());
-     //   p.setVisible(true);
+      this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+      
+            buscar_modificar_kit modificarkit = null;
+        try {
+            modificarkit = new buscar_modificar_kit();
+        } catch (SQLException ex) {
+            Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+           modificarkit.setVisible(true);
+            this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_modulo5ActionPerformed
 
     private void modulo18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo18ActionPerformed

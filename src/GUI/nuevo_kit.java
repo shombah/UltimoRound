@@ -478,12 +478,7 @@ int id_producto_asociado=0;
         int linea = jTable2.getSelectedRow();
         if (linea != -1) {
             modelo1.removeRow(linea);
-            int p = 0, b2 = 0;
-            for (int j = 0; j < jTable2.getRowCount(); j++) {
-                p = p + (Integer.valueOf(modelo1.getValueAt(j, 4).toString()) * Integer.valueOf(modelo1.getValueAt(j, 5).toString()));
-                b2 = b2 + Integer.valueOf(modelo1.getValueAt(j, 6).toString());
-                
-            }precio_kit=precio_kit-(Integer.parseInt(modelo1.getValueAt(linea, 5).toString()));
+          precio_kit=precio_kit-(Integer.parseInt(modelo1.getValueAt(linea, 5).toString()));
                  jTextField2.setText(Integer.toString(precio_kit));
           //  jTextField13.setText(f.getNumcPto(p));
             //    jTextField14.setText(f.getNumcPto(b2));

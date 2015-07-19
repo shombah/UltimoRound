@@ -56,9 +56,8 @@ public class buscar_modificar_kit extends javax.swing.JDialog implements KeyList
         iniciar();
     }
 
-    buscar_modificar_kit(int usuario) throws SQLException {
+    buscar_modificar_kit() throws SQLException {
         initComponents();
-        this.usuario = usuario;
         iniciar();
     }
 
@@ -349,9 +348,9 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
      
             
             
-            eliminar_kit a = null;
+            modificar_kit a = null;
             try {
-                a = new eliminar_kit(op);
+                a = new modificar_kit(op);
             } catch (SQLException ex) {
                 Logger.getLogger(buscar_eliminar_producto.class.getName()).log(Level.SEVERE, null, ex);
             }
