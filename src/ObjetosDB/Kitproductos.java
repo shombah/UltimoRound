@@ -10,7 +10,17 @@ public class Kitproductos {
     private String descripcionKit;
     
 
-    public Kitproductos() { //Constructor
+    public Kitproductos(int idKitProductos,String nombre,int compra,int venta,String descripcion) { 
+
+
+//Constructor
+        
+        
+        this.idKitProductos=idKitProductos;
+        this.descripcionKit=descripcion;
+        this.nombreKit=nombre;
+        this.precioCompraProductos=compra;
+        this.precioVentaKit=venta;
     }
 
     /*Setters y Getters*/

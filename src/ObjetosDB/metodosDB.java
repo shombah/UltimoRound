@@ -36,7 +36,7 @@ public class metodosDB
             case "CompraProducto": 
                 columname="id_compra_producto";
                 break;
-            case "Ki_productos": 
+            case "Kit_productos": 
                 columname="id_kit_productos";
                 break;
             case "OrdenDeCompra": 
@@ -310,7 +310,7 @@ public class metodosDB
         {
             if(resultados.getString("kit_or_product").equals("kit"))
             {
-                Kitproductos kit = new Kitproductos().getKitById(resultados.getInt("id_kit_producto"));
+                Kitproductos kit = new Kitproductos(0,null,0,0,null).getKitById(resultados.getInt("id_kit_producto"));
                  ventaEncontrada = new VentaProducto(resultados.getInt("id_venta_producto"),resultados.getString("fecha"),resultados.getInt("precio_unitario_neto"),resultados.getInt("cantidad_producto"),resultados.getInt("precio_unitario_final"),resultados.getInt("precio_total_neto"),resultados.getInt("precio_total_final"),resultados.getInt("descuento"),kit,null,resultados.getInt("id_orden_de_venta"),"kit");
 
             }else
@@ -485,6 +485,8 @@ public boolean DeleteProductoById(int id_producto) throws SQLException
        stm.setInt   (1, id_producto);
 
      stm.executeUpdate();
+       conexion.close();
+  stm.close();
     return true;
 }
 
@@ -501,6 +503,8 @@ public Productos getProductoById(int id_producto) throws SQLException
         producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
        
       }
+        conexion.close();
+  stm.close();
     return producto;
 }
 public ArrayList<Productos> getProductosByIdCompraProducto(int id_compra) throws SQLException
@@ -514,11 +518,101 @@ public ArrayList<Productos> getProductosByIdCompraProducto(int id_compra) throws
 
    /*METODOS KITPRODUCTOS*/
 // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Kit_productos">
-public ArrayList<Kitproductos> getKits()
+public int addKitProductos(Kitproductos kit) throws SQLException
 {
-    return null;
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+ String query = "INSERT INTO Kit_Productos (id_kit_productos,nombre_kit,precio_compra_productos,precio_venta_kit,descripcion_kit) VALUES (?,?,?,?,?);";    
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      kit.setIdKitProductos(new metodosDB().getLastId("Kit_productos")+1);
+       stm.setInt(1,kit.getIdKitProductos());
+       stm.setString   (2, kit.getNombreKit());
+      stm.setInt(3, kit.getPrecioCompraProductos());
+      stm.setInt   (4, kit.getPrecioVentaKit());
+       stm.setString   (5, kit.getDescripcionKit());
+              stm.executeUpdate();
+    stm.close();
+    
+    return kit.getIdKitProductos();
 }
-// </editor-fold>
+
+public boolean addKit_relacion_productos(int id_kit_productos,int id_producto) throws SQLException
+{
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+ String query = "INSERT INTO relacion_kit_productos (id_kit_productos,id_producto) VALUES (?,?);";    
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      
+       stm.setInt(1,id_kit_productos);
+       stm.setInt   (2, id_producto);
+   
+              stm.executeUpdate();
+    stm.close();
+    
+    return true;
+}
+public ArrayList<Kitproductos> getKitproductos() throws SQLException
+{
+     ArrayList<Kitproductos> kitproductos = new ArrayList<Kitproductos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+ String query = "SELECT * FROM Kit_productos";    
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+        Kitproductos kitproduct = new Kitproductos(resultados.getInt("id_kit_productos"),resultados.getString("nombre_kit"),resultados.getInt("precio_compra_productos"),resultados.getInt("precio_venta_kit"),resultados.getString("descripcion_kit"));      
+        kitproductos.add(kitproduct);
+      }
+      closeConnections(c,conexion,stm,resultados);
+    return kitproductos;
+}
+
+public ArrayList<Productos> getrelacionKitproductos(int id_kit_productos) throws SQLException
+{
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+ String query = "SELECT * FROM relacion_kit_productos where id_kit_productos=?";    
+      PreparedStatement stm = conexion.prepareStatement(query);
+       stm.setInt(1,id_kit_productos);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+        productos.add(this.getProductoById(resultados.getInt("id_producto")));
+        
+      }
+      closeConnections(c,conexion,stm,resultados);
+    return productos;
+}
+
+public boolean deleteKit(Kitproductos kitproducto) throws SQLException
+{
+   Productos producto = null;
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+     
+      String query = "DELETE FROM Kit_productos WHERE id_kit_productos=?";
+     String query2 = "DELETE FROM relacion_kit_productos WHERE id_kit_productos=?";
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      
+    PreparedStatement stm2 = conexion.prepareStatement(query2);
+       stm.setInt   (1, kitproducto.getIdKitProductos());
+ stm2.setInt   (1, kitproducto.getIdKitProductos());
+     stm.executeUpdate();
+     stm2.executeUpdate();
+  conexion.close();
+  stm.close();
+  stm2.close();
+    return true;
+}
+
+/*FIN METODOS KITPRODUCTOS*/ 
 
 /*FIN METODOS KITPRODUCTOS*/     
 }

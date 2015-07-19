@@ -462,7 +462,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     private void modulo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo1ActionPerformed
      this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         Newproduct ingresar = new Newproduct();
-        dispose();
+       
         this.setCursor(Cursor.getDefaultCursor());
         ingresar.setVisible(true);
 
@@ -515,7 +515,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     private void modulo7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo7ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             frameInventarioActual frameInventario = new frameInventarioActual();
-            this.setVisible(false);
+      
             frameInventario.setVisible(true);
             this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_modulo7ActionPerformed
@@ -524,7 +524,6 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         try {
             nuevo_kit p = new nuevo_kit();
-            this.setVisible(false);
             p.setVisible(true);
             this.setCursor(Cursor.getDefaultCursor());
         } catch (SQLException ex) {
@@ -645,7 +644,16 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void modulo11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo11ActionPerformed
-        // TODO add your handling code here:
+             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+     buscar_eliminar_kit a = null;
+        try {
+            a = new buscar_eliminar_kit(this.usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      a.setLocationRelativeTo(null);
+        this.setCursor(Cursor.getDefaultCursor());
+     a.setVisible(true);
     }//GEN-LAST:event_modulo11ActionPerformed
     private void modulo7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modulo7MouseClicked
       

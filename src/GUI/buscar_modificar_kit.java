@@ -5,6 +5,7 @@
 package GUI;
 
 import Clases.funciones;
+import ObjetosDB.Kitproductos;
 import ObjetosDB.Productos;
 import ObjetosDB.metodosDB;
 import com.itextpdf.text.*;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Alejandro
  */
-public class buscar_eliminar_producto extends javax.swing.JDialog implements KeyListener, ActionListener, MouseListener {
+public class buscar_modificar_kit extends javax.swing.JDialog implements KeyListener, ActionListener, MouseListener {
 
     int usuario, a = 1, mnsj, num_celdas = 44;
     String vacio = "NO SE OBTUVO RESULTADO CON LOS PARAMETROS INGRESADOS.";
@@ -42,33 +44,33 @@ public class buscar_eliminar_producto extends javax.swing.JDialog implements Key
     String num_no_valido = "DEBE INGRESAR UN NÚMERO VÁLIDO EN EL CAMPO ";
     String campo_vacio = "DEBE COMPLETAR EL SIGUIENTE CAMPO:\n";
     DefaultTableModel modelo = new DefaultTableModel() {
-
+    
         public boolean isCellEditable(int row, int column) {
             return false;
         }
     };
 
-    public buscar_eliminar_producto(java.awt.Frame parent, boolean modal) {
+    public buscar_modificar_kit(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
         iniciar();
     }
 
-    buscar_eliminar_producto(int usuario) {
+    buscar_modificar_kit(int usuario) throws SQLException {
         initComponents();
         this.usuario = usuario;
         iniciar();
     }
 
-    buscar_eliminar_producto(jframeUsuario aThis, boolean b, int u) {
+    buscar_modificar_kit(jframeUsuario aThis, boolean b, int u) throws SQLException {
         super(aThis, b);
         initComponents();
         this.usuario = u;
         iniciar();
     }
 
-    private void iniciar() {
-String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROVEEDOR","PRECIO COMPRA", "PRECIO VENTA","CODIGO"};
+    private void iniciar() throws SQLException {
+String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", "CANTIDAD KIT DISPONIBLES"};
         modelo.setColumnIdentifiers(t);
         jTable1.setModel(modelo);
         modelo.setNumRows(0);
@@ -76,16 +78,17 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         DefaultTableCellRenderer tcr2 = new DefaultTableCellRenderer();
         tcr2.setHorizontalAlignment(SwingConstants.CENTER);
         tcr.setHorizontalAlignment(SwingConstants.RIGHT);
-        jTable1.getColumn("ID").setPreferredWidth(8);
-        jTable1.getColumn("NOMBRE").setPreferredWidth(30);
-        jTable1.getColumn("MARCA").setPreferredWidth(30);
+          jTable1.getColumn("ID").setPreferredWidth(5);
+        jTable1.getColumn("NOMBRE KIT").setPreferredWidth(30);
+        jTable1.getColumn("COSTO KIT").setPreferredWidth(30);
+        jTable1.getColumn("PRECIO KIT").setPreferredWidth(30);
+        jTable1.getColumn("DESCRIPCION KIT").setPreferredWidth(50);
         jTable1.getColumnModel().getColumn(0).setCellRenderer(tcr);
         jTable1.getColumnModel().getColumn(1).setCellRenderer(tcr);
         jTable1.getColumnModel().getColumn(2).setCellRenderer(tcr2);
         jTable1.getColumnModel().getColumn(3).setCellRenderer(tcr);
         jTable1.getColumnModel().getColumn(4).setCellRenderer(tcr);
         jTable1.getColumnModel().getColumn(5).setCellRenderer(tcr);
-        jTable1.getColumnModel().getColumn(6).setCellRenderer(tcr2);
         ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         
         jButton2.addKeyListener(this);
@@ -94,9 +97,31 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jTable1.setRowHeight(22);
         jTable1.setCellSelectionEnabled(false);
         jTable1.setRowSelectionAllowed(true);
-
+ ArrayList<Kitproductos> aux2 = new ArrayList<Kitproductos>();
+            metodosDB f = new metodosDB();
+        modelo.setNumRows(0);
+        int aux3;
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+          
+		         aux2 = f.getKitproductos();//Cargar resultados , debe ser por nombres
+                    Object[] object = new Object[11];
+                    int i=0;
+                    while(aux2.size()>i){
+       
+        object[0] = aux2.get(i).getIdKitProductos();
+        object[1] = aux2.get(i).getNombreKit();
+        object[2] = aux2.get(i).getPrecioCompraProductos();
+        object[3] = aux2.get(i).getPrecioVentaKit();
+        object[4] = aux2.get(i).getDescripcionKit();
+        object[5] = 10; //HAY QUE CALCULAR LA CANTIDAD DISPONIBLE
+        
+         modelo.addRow(object);i++;}
+		// Accion a realizar cuando el JComboBox cambia de item seleccionado.
+        
+        
     }
 
+   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -106,7 +131,6 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jTextField1 = new javax.swing.JTextField();
@@ -159,11 +183,8 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 16)); // NOI18N
-        jLabel3.setText("BUSCAR");
+        jLabel3.setText("BUSCAR KIT ");
 
         jComboBox1.setFont(new java.awt.Font("DejaVu Sans", 1, 16)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NOMBRE", "ID PRODUCTO", "MARCA" }));
@@ -184,19 +205,17 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,17 +226,11 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(123, 641, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -250,7 +263,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         object[9] = aux2.getCodigo_barra();
          modelo.addRow(object);
                 } catch (SQLException ex) {
-                    Logger.getLogger(buscar_eliminar_producto.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(buscar_modificar_kit.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
          
@@ -278,7 +291,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         object[9] = aux2.getCodigo_barra();
          modelo.addRow(object);
                 } catch (SQLException ex) {
-                    Logger.getLogger(buscar_eliminar_producto.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(buscar_modificar_kit.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
           
@@ -305,7 +318,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         object[9] = aux2.getCodigo_barra();
          modelo.addRow(object);
                 } catch (SQLException ex) {
-                    Logger.getLogger(buscar_eliminar_producto.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(buscar_modificar_kit.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
           
@@ -323,26 +336,22 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int i = jTable1.getSelectedRow();
-        Productos op = new Productos();
+         int i = jTable1.getSelectedRow();
+        Kitproductos op = new Kitproductos(0,null,0,0,null);
         if (evt.getClickCount() == 2 && i != -1) {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            op.setId_producto(Integer.parseInt(modelo.getValueAt(i, 0).toString()));
-            op.setNombre(modelo.getValueAt(i, 1).toString());
-            op.setTalla(modelo.getValueAt(i, 2).toString());
-        op.setMarca(modelo.getValueAt(i, 3).toString());
-         op.setCantidadActual(Integer.parseInt(modelo.getValueAt(i, 4).toString()));
-         op.setTipo(modelo.getValueAt(i, 5).toString());
-         op.setProveedor(modelo.getValueAt(i, 6).toString());
-         op.setPrecioCompra(Integer.parseInt(modelo.getValueAt(i, 7).toString()));
-         op.setPrecioVenta(Integer.parseInt(modelo.getValueAt(i, 8).toString()));
-         op.setCodigo_barra(modelo.getValueAt(i, 9).toString());
+            op.setIdKitProductos(Integer.parseInt(modelo.getValueAt(i, 0).toString()));
+            op.setNombreKit(modelo.getValueAt(i, 1).toString());
+            op.setPrecioCompraProductos(Integer.parseInt(modelo.getValueAt(i, 2).toString()));
+        op.setPrecioVentaKit(Integer.parseInt(modelo.getValueAt(i, 3).toString()));
+         op.setDescripcionKit(modelo.getValueAt(i, 4).toString());
+     
      
             
             
-            eliminar_producto a = null;
+            eliminar_kit a = null;
             try {
-                a = new eliminar_producto(op.getId_producto());
+                a = new eliminar_kit(op);
             } catch (SQLException ex) {
                 Logger.getLogger(buscar_eliminar_producto.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -378,14 +387,38 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(buscar_eliminar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscar_modificar_kit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(buscar_eliminar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscar_modificar_kit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(buscar_eliminar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscar_modificar_kit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(buscar_eliminar_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(buscar_modificar_kit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
+        //</editor-fold>    
         //</editor-fold>    
         //</editor-fold>    
         //</editor-fold>    
@@ -398,7 +431,12 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                buscar_eliminar_producto dialog = new buscar_eliminar_producto(new javax.swing.JFrame(), true);
+                buscar_modificar_kit dialog = null;
+                try {
+                    dialog = new buscar_modificar_kit(new javax.swing.JFrame(), true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(buscar_modificar_kit.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -414,7 +452,6 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
