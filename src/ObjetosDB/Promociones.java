@@ -26,6 +26,12 @@ public class Promociones   {
         this.montoDcto = monto;
         this.nombre = nombre;
     }
+    public Promociones(int monto, String nombre, int estado)
+    {
+        this.estado=estado;
+        this.montoDcto = monto;
+        this.nombre = nombre;
+    }
 
     public Promociones(Integer idPromo) {
         this.idPromo = idPromo;

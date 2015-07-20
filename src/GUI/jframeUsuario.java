@@ -644,8 +644,8 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
 
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-     //   dialog_reporte_sostenibilidad a = new dialog_reporte_sostenibilidad(usuario);
-      //  a.setLocationRelativeTo(null);
+        frameModificarPromo prom = new frameModificarPromo();
+        prom.setVisible(true);
         setCursor(Cursor.getDefaultCursor());
        // a.setVisible(true);
         

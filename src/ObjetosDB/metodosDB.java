@@ -685,6 +685,45 @@ public boolean deleteKit(Kitproductos kitproducto) throws SQLException
      closeConnections(c,conexion,stm,resultados);
      return promos;
  }
+ public ArrayList<Promociones> getPromocionesDisponibles() throws SQLException
+ {
+     ArrayList<Promociones> promos = new ArrayList<Promociones>();
+     DB_connection c = new DB_connection();
+     Connection conexion = c.getConnection();
+     String query = "SELECT * FROM Promociones;";    
+     PreparedStatement stm = conexion.prepareStatement(query);
+     ResultSet resultados = stm.executeQuery();
+     while(resultados.next())
+        {
+            if(resultados.getInt("estado")==0)
+            {
+                Promociones prom = new Promociones(resultados.getInt("id_promo"),resultados.getInt("monto_dcto"),resultados.getString("nombre"),resultados.getInt("estado"));
+                promos.add(prom);
+            }
+        }
+     closeConnections(c,conexion,stm,resultados);
+     return promos;
+ }
+ public Promociones getPromocionesById(int id) throws SQLException
+ {
+     Promociones prom = null;
+     DB_connection c = new DB_connection();
+     Connection conexion = c.getConnection();
+     String query = "SELECT * FROM Promociones;";    
+     PreparedStatement stm = conexion.prepareStatement(query);
+     ResultSet resultados = stm.executeQuery();
+     while(resultados.next())
+        {   
+            if(resultados.getInt("id_promo") == id)
+            {
+             prom = new Promociones(resultados.getInt("id_promo"),resultados.getInt("monto_dcto"),resultados.getString("nombre"),resultados.getInt("estado"));
+             return prom;
+            }
+        }
+     closeConnections(c,conexion,stm,resultados);
+     return prom;
+ }
+ 
  
  public boolean addPromo(Promociones promo) throws SQLException
  {
@@ -700,6 +739,34 @@ public boolean deleteKit(Kitproductos kitproducto) throws SQLException
      System.out.println("asdatemen2"+stm);
      stm.executeUpdate();
      return true;
+ }
+ public void deletePromo(Promociones promo) throws SQLException
+ {
      
+     DB_connection c = new DB_connection();
+     Connection conexion = c.getConnection();
+     String query = "DELETE FROM Promociones WHERE id_promo = ?";
+     System.out.println(query);
+     PreparedStatement stm = conexion.prepareStatement(query);
+     stm.setInt(1,promo.getIdPromo());
+     stm.executeUpdate();
+     closeConnections(c,conexion,stm,null);
+     
+ }
+ public boolean updatePromo(Promociones promo) throws SQLException
+ {
+     DB_connection c = new DB_connection();
+     Connection conexion = c.getConnection();
+     String query = "UPDATE Promociones set monto_dcto = ? , nombre = ? , estado = ?  where id_promo = ?; ";    
+     PreparedStatement stm = conexion.prepareStatement(query);
+     stm.setInt(1,promo.getMontoDcto());
+     stm.setString(2,promo.getNombre());
+     stm.setInt(3,promo.getEstado());
+     stm.setInt(4,promo.getIdPromo());
+     System.out.println(stm);
+
+     stm.executeUpdate();
+     closeConnections(c,conexion,stm,null);
+     return true;
  }
 }
