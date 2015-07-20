@@ -8,10 +8,23 @@ package GUI;
 
 import ObjetosDB.Kitproductos;
 import ObjetosDB.Productos;
+import ObjetosDB.Promociones;
 import ObjetosDB.metodosDB;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreeSelectionModel;
 /**
  *
  * @author ttars
@@ -52,6 +65,17 @@ public class frameInventarioActual extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTree1 = new javax.swing.JTree();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
@@ -80,7 +104,7 @@ public class frameInventarioActual extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Productos", jPanel4);
@@ -108,7 +132,7 @@ public class frameInventarioActual extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Stock Critico", jPanel1);
@@ -126,15 +150,101 @@ public class frameInventarioActual extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(jTable3);
 
+        jTree1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTree1MouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTree1);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resumen del kit", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("DejaVu Sans", 1, 14))); // NOI18N
+
+        jLabel1.setText("Descripción:");
+
+        jLabel2.setText("Costo Total:");
+
+        jLabel3.setText("Precio:");
+
+        jLabel4.setText("Nombre kit:");
+
+        jLabel5.setText("jLabel5");
+
+        jLabel6.setText("jLabel6");
+
+        jLabel7.setText("jLabel7");
+
+        jLabel8.setText("jLabel8");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel8))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 120, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Kits", jPanel2);
@@ -160,7 +270,7 @@ public class frameInventarioActual extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Promociones", jPanel3);
@@ -204,6 +314,51 @@ public class frameInventarioActual extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseClicked
+        // TODO add your handling code here:
+        final int en =1;
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode)
+                           jTree1.getLastSelectedPathComponent();
+        /* if nothing is selected */ 
+        if (node == null) return;
+
+        Object nodeInfo = node.getUserObject();
+        System.out.println(nodeInfo);
+        modelo3 = new DefaultTableModel();
+        String t3[] = {"Nombre","Color","Marca","Proveedor","Talla","Tipo","idProducto"};
+        modelo3.setColumnIdentifiers(t3);
+        jTable3.setModel(modelo3);
+        int i = 0;
+        Object[] object = new Object[7];
+        Kitproductos kit = new Kitproductos();
+        
+        try {
+                kit = new metodosDB().getKitProductoByName((String) nodeInfo);
+                /*Actualizar datos de jlabels*/
+                jLabel5.setText(kit.getDescripcionKit());
+                jLabel6.setText(kit.getPrecioCompraProductos().toString());
+                jLabel7.setText(kit.getPrecioVentaKit().toString());
+                jLabel8.setText(kit.getNombreKit());
+                /*Actualizamos datos de la tabla.*/
+                ArrayList<Productos> productosDelkit = new metodosDB().getrelacionKitproductos(kit.getIdKitProductos());
+                while(productosDelkit.size()>i)
+                    {
+                        //agregar los datos a object
+                        object[0]= productosDelkit.get(i).getNombre();
+                        object[1] = productosDelkit.get(i).getColor();
+                        object[2] = productosDelkit.get(i).getMarca();
+                        object[3] = productosDelkit.get(i).getProveedor();
+                        object[4] = productosDelkit.get(i).getTalla();
+                        object[5] = productosDelkit.get(i).getTipo();
+                        object[6] = productosDelkit.get(i).getId_producto();
+                        modelo3.addRow(object);
+                        i++;
+                    }
+                jTable3.setModel(modelo3);
+
+        } catch (SQLException ex) { }
+    }//GEN-LAST:event_jTree1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -213,6 +368,7 @@ public class frameInventarioActual extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        metodosDB asd = new metodosDB();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -241,19 +397,30 @@ public class frameInventarioActual extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
+    private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 
     private void iniciar() throws SQLException {
@@ -321,20 +488,73 @@ public class frameInventarioActual extends javax.swing.JFrame {
             modelo2.addRow(object);
             i++;
         }
-        /*Cargamos Datos de Kits*/
-        /*String t3[] = {"ID","KIT","TALLA","COSTO","VENTA","P1", "P2", "P3","COD."};
+        /*Cargamos arbol de Kits*/
+      String t3[] = {"ID","KIT","PCompra","PVenta","Descripcion"};
         modelo3.setColumnIdentifiers(t3);
         jTable3.setModel(modelo3);
-        ArrayList<Kitproductos> kits = new ArrayList<Kitproductos>();
-        kits = f.getKits();
+        ArrayList<Kitproductos> aux2a;
+        aux2a = f.getKitproductos();
         i=0;
-        while(kits.size()<i)
+        object = new Object[5];
+        System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Kits Disponibles" );
+
+        while(aux2a.size()>i)
         {
-            //agregar los datos a object
-            modelo3.addRow(object);
+            DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombreKit());
+            root.add(nodo);
             i++;
-        }*/
+        }
+        
+       
+        DefaultTreeModel modeloarbol = new DefaultTreeModel(root);
+        
+        jTree1.setModel(modeloarbol);
+        traverse(jTree1);
+        /*Cargamos datos de promociones*/
+        String t4[]={"Nombre","Monto Descuento"};
+        modelo4.setColumnIdentifiers(t4);
+        jTable4.setModel(modelo4);
+        ArrayList<Promociones> promos = new metodosDB().getPromociones();
+        i = 0;
+        object = new Object[2];
+        while(promos.size()>i)
+        {
+            object[0] = promos.get(i).getNombre();
+            object[1] = promos.get(i).getMontoDcto();
+            modelo4.addRow(object);
+            i++;
+        }
+          
+        
+    
         
 	System.out.println("Datos Cargados Correctamente!")	;
     }
+    public void traverse(JTree tree) { 
+        TreeModel model = jTree1.getModel(); 
+        if (model != null) { 
+            Object root = model.getRoot(); 
+            System.out.println(root.toString()); 
+            walk(model,root); 
+        } 
+        else
+            System.out.println("Tree is empty."); 
+    } 
+ 
+    protected void walk(TreeModel model, Object o){ 
+        int cc; 
+        cc = model.getChildCount(o); 
+        for( int i=0; i < cc; i++) { 
+            Object child = model.getChild(o, i ); 
+            if (model.isLeaf(child)) 
+                System.out.println("Leaf: "+i+" "+child.toString()); 
+            else { 
+                System.out.print("\n\rParent: "+i+" "+child.toString()+"\n\r"); 
+                walk(model,child ); 
+            } 
+        } 
+    }
 }
+   
+

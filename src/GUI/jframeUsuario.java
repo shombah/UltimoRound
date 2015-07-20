@@ -612,6 +612,8 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     private void modulo14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo14ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        frameNuevaPromo frame = new frameNuevaPromo();
+        frame.setVisible(true);
        // dialog_reportes2 a = new dialog_reportes2(usuario);
        // a.setLocationRelativeTo(null);
         this.setCursor(Cursor.getDefaultCursor());

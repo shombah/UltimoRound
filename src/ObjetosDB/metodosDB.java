@@ -54,6 +54,9 @@ public class metodosDB
             case "VentaProducto": 
                 columname="id_venta_producto";
                 break;
+            case "Promociones":
+                columname = "id_promo";
+                break;
             default : columname="";
                     break;
         }
@@ -593,7 +596,30 @@ public ArrayList<Kitproductos> getKitproductos() throws SQLException
         kitproductos.add(kitproduct);
       }
       closeConnections(c,conexion,stm,resultados);
+      System.out.println("Kit Encontrados: !\n"+kitproductos.size());
+
     return kitproductos;
+}
+public Kitproductos getKitProductoByName( String name) throws SQLException
+{
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+ String query = "SELECT * FROM Kit_productos";    
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      Kitproductos kitproduct = null;
+      while(resultados.next())
+      {
+        if(resultados.getString("nombre_kit").equals(name))
+        {
+                     kitproduct = new Kitproductos(resultados.getInt("id_kit_productos"),resultados.getString("nombre_kit"),resultados.getInt("precio_compra_productos"),resultados.getInt("precio_venta_kit"),resultados.getString("descripcion_kit"));      
+
+        }      
+          
+      }
+      closeConnections(c,conexion,stm,resultados);
+      return kitproduct;
+
 }
 
 public ArrayList<Productos> getrelacionKitproductos(int id_kit_productos) throws SQLException
@@ -638,5 +664,42 @@ public boolean deleteKit(Kitproductos kitproducto) throws SQLException
 
 /*FIN METODOS KITPRODUCTOS*/ 
 
-/*FIN METODOS KITPRODUCTOS*/     
+/*FIN METODOS KITPRODUCTOS*/   
+/**METODOS PROMOCIONES/
+ *
+ */
+ public ArrayList<Promociones> getPromociones() throws SQLException
+ {
+     ArrayList<Promociones> promos = new ArrayList<Promociones>();
+     DB_connection c = new DB_connection();
+     Connection conexion = c.getConnection();
+     String query = "SELECT * FROM Promociones;";    
+     PreparedStatement stm = conexion.prepareStatement(query);
+     ResultSet resultados = stm.executeQuery();
+     while(resultados.next())
+        {
+            Promociones prom = new Promociones(resultados.getInt("id_promo"),resultados.getInt("monto_dcto"),resultados.getString("nombre"),resultados.getInt("estado"));
+            promos.add(prom);
+            
+        }
+     closeConnections(c,conexion,stm,resultados);
+     return promos;
+ }
+ 
+ public boolean addPromo(Promociones promo) throws SQLException
+ {
+     DB_connection c = new DB_connection();
+     Connection conexion = c.getConnection();
+     String query = "INSERT INTO Promociones (id_promo, monto_dcto , nombre , estado) VALUES (? , ? , ? , ?); ";    
+     System.out.println(query);
+     PreparedStatement stm = conexion.prepareStatement(query);
+     stm.setInt(1,getLastId("Promociones")+1);
+     stm.setInt(2,promo.getMontoDcto());
+     stm.setString(3,promo.getNombre());
+     stm.setInt(4,promo.getEstado());
+     System.out.println("asdatemen2"+stm);
+     stm.executeUpdate();
+     return true;
+     
+ }
 }

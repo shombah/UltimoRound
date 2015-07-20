@@ -9,7 +9,8 @@ public class Kitproductos {
     private Integer precioVentaKit;
     private String descripcionKit;
     
-
+    public Kitproductos()
+    {}
     public Kitproductos(int idKitProductos,String nombre,int compra,int venta,String descripcion) { 
 
 
