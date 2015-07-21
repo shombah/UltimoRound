@@ -135,7 +135,7 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("BUSCAR SOLICITUD");
+        setTitle("BUSCAR MODIFICAR KIT");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -161,6 +161,8 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
                 jButton5ActionPerformed(evt);
             }
         });
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Buscar Kit", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         jTable1.setFont(new java.awt.Font("DejaVu Sans", 1, 16)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -268,7 +270,7 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
          
             
         }
-
+  this.setCursor(Cursor.getDefaultCursor());
         if (jComboBox1.getSelectedIndex()==1) { // si quiere buscar por rut
             if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
                 this.setCursor(Cursor.getDefaultCursor());
@@ -294,7 +296,7 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
                 }
             }
           
-          
+            this.setCursor(Cursor.getDefaultCursor());
         }
           if (jComboBox1.getSelectedIndex()==2) { // si quiere buscar por rut
             if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
@@ -323,7 +325,7 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
           
            
         }
-        
+          this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -358,6 +360,7 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
             this.setVisible(false);
             this.setCursor(Cursor.getDefaultCursor());
             a.setVisible(true);
+              this.setCursor(Cursor.getDefaultCursor());
         }
             }//GEN-LAST:event_jTable1MouseClicked
 

@@ -72,7 +72,7 @@ private JComboBox combo1;
         
           jTextField22.setText(kitproducto.getNombreKit());
         jTextArea1.setText(kitproducto.getDescripcionKit());
-        
+        jTextArea1.setEnabled(false);
         jTextField24.setText(kitproducto.getPrecioCompraProductos().toString()); 
         jTextField25.setText(kitproducto.getPrecioVentaKit().toString()); 
         
@@ -196,11 +196,12 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("INGRESAR SOLICITUD DEL SEGURO CATASTROFICO");
+        setTitle("ELIMINAR KIT");
         setModal(true);
         setResizable(false);
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/accept.png"))); // NOI18N
         jButton1.setText("CONFIRMAR ELIMINAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,6 +210,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         });
 
         jButton2.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/delete.png"))); // NOI18N
         jButton2.setText("CERRAR");
         jButton2.setFocusCycleRoot(true);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -218,6 +220,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         });
 
         jButton4.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Backup Green Button.png"))); // NOI18N
         jButton4.setText("ATRAS");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,6 +230,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
 
         jButton8.setBackground(new java.awt.Color(255, 0, 0));
         jButton8.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Minus Red Button.png"))); // NOI18N
         jButton8.setText("ELIMINAR KIT");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,6 +282,8 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Productos del Kit", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -315,14 +321,14 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
                     .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(458, 458, 458)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(399, 399, 399)
+                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel18))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -354,8 +360,9 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -391,16 +398,6 @@ metodosDB metodos= new metodosDB();
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
-        JFrame frame = null;
-      //  dialog_sol_seg a = new dialog_sol_seg(frame, usuario);
-        // a.setLocationRelativeTo(null);
-        this.dispose();
-        // a.setVisible(true);
-
-    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         funciones f = new funciones();
         jButton8.setText(("ELIMINADO"));
@@ -423,6 +420,15 @@ metodosDB metodos= new metodosDB();
     private void jTextField25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField25ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField25ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        JFrame frame = null;
+        //  dialog_sol_seg a = new dialog_sol_seg(frame, usuario);
+        // a.setLocationRelativeTo(null);
+        this.dispose();
+        // a.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
  private void limpiar(){
         jTextField22.setText("");
        

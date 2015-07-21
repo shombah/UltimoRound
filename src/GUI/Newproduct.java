@@ -204,7 +204,7 @@ private JComboBox combo1;
         jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("INGRESAR SOLICITUD DEL SEGURO CATASTROFICO");
+        setTitle("INGRESAR NUEVO PRODUCTO");
         setModal(true);
         setResizable(false);
 
@@ -271,7 +271,7 @@ private JComboBox combo1;
         jButton8.setFont(new java.awt.Font("DejaVu Sans", 1, 16)); // NOI18N
         jButton8.setForeground(new java.awt.Color(206, 12, 12));
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Remove.png"))); // NOI18N
-        jButton8.setText("Eliminar\n");
+        jButton8.setText("Eliminar Producto");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -361,7 +361,7 @@ private JComboBox combo1;
         jButton9.setFont(new java.awt.Font("DejaVu Sans", 1, 16)); // NOI18N
         jButton9.setForeground(new java.awt.Color(61, 182, 70));
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Add.png"))); // NOI18N
-        jButton9.setText("Agregar");
+        jButton9.setText("Agregar Producto");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -383,7 +383,7 @@ private JComboBox combo1;
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 179, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
@@ -412,10 +412,9 @@ private JComboBox combo1;
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(8, 8, 8))
+                                                .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jButton8))
                                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jTextField24)
                                             .addComponent(jTextField25)
@@ -524,9 +523,7 @@ private JComboBox combo1;
                 Logger.getLogger(Newproduct.class.getName()).log(Level.SEVERE, null, ex);
             }
            
-            jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "PRODUCTO MODIFICADO CON EXITO");
-            this.dispose();
+         
                       
                       //validar campos
                       //guardar en la base de datos si es consistente
@@ -534,7 +531,9 @@ private JComboBox combo1;
                       this.dispose(); //dispose para salir de la ventana
         }
     
-       
+          jframe1 a = new jframe1();
+            JOptionPane.showMessageDialog(a, "PRODUCTO(S) AGREGADOS CON EXITO");
+            this.dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

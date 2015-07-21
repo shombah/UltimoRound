@@ -72,21 +72,21 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         modelo.setColumnIdentifiers(t);
         jTable1.setModel(modelo);
         modelo.setNumRows(0);
-        jProgressBar1.setVisible(false);
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         DefaultTableCellRenderer tcr2 = new DefaultTableCellRenderer();
         tcr2.setHorizontalAlignment(SwingConstants.CENTER);
         tcr.setHorizontalAlignment(SwingConstants.RIGHT);
-        jTable1.getColumn("ID").setPreferredWidth(8);
-        jTable1.getColumn("NOMBRE").setPreferredWidth(30);
-        jTable1.getColumn("MARCA").setPreferredWidth(30);
-        jTable1.getColumnModel().getColumn(0).setCellRenderer(tcr);
-        jTable1.getColumnModel().getColumn(1).setCellRenderer(tcr);
-        jTable1.getColumnModel().getColumn(2).setCellRenderer(tcr2);
-        jTable1.getColumnModel().getColumn(3).setCellRenderer(tcr);
-        jTable1.getColumnModel().getColumn(4).setCellRenderer(tcr);
-        jTable1.getColumnModel().getColumn(5).setCellRenderer(tcr);
-        jTable1.getColumnModel().getColumn(6).setCellRenderer(tcr2);
+        jTable1.getColumn("ID").setMinWidth(5);
+        jTable1.getColumn("NOMBRE").setMinWidth(50);
+        jTable1.getColumn("MARCA").setMinWidth(30);
+        jTable1.getColumn("TALLA").setMinWidth(5);
+        jTable1.getColumn("CANTIDAD ACTUAL").setMinWidth(5);
+        jTable1.getColumn("TIPO").setMinWidth(10);
+        jTable1.getColumn("PROVEEDOR").setMinWidth(10);
+        jTable1.getColumn("PRECIO COMPRA").setMinWidth(20);
+        jTable1.getColumn("PRECIO VENTA").setMinWidth(20);
+        jTable1.getColumn("CODIGO").setMinWidth(5);
+     
         ((DefaultTableCellRenderer) jTable1.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
         
         jButton2.addKeyListener(this);
@@ -430,14 +430,12 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("BUSCAR SOLICITUD");
+        setTitle("BUSCAR PRODUCTO");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -465,7 +463,8 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Buscar Producto", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -484,11 +483,6 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         });
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        jProgressBar1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 16)); // NOI18N
         jLabel3.setText("BUSCAR");
@@ -510,24 +504,18 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -538,19 +526,11 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(123, 450, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -587,9 +567,9 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
                 }
             }
          
-            
+              this.setCursor(Cursor.getDefaultCursor());
         }
-
+  this.setCursor(Cursor.getDefaultCursor());
         if (jComboBox1.getSelectedIndex()==1) { // si quiere buscar por rut
             if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
                 this.setCursor(Cursor.getDefaultCursor());
@@ -616,7 +596,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
             }
           
           
-        }
+        }  this.setCursor(Cursor.getDefaultCursor());
           if (jComboBox1.getSelectedIndex()==2) { // si quiere buscar por rut
             if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
                 this.setCursor(Cursor.getDefaultCursor());
@@ -644,7 +624,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
           
            
         }
-        
+          this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -742,9 +722,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;

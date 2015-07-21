@@ -77,15 +77,15 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
         DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
         DefaultTableCellRenderer tcr2 = new DefaultTableCellRenderer();
         tcr2.setHorizontalAlignment(SwingConstants.CENTER);
-        tcr.setHorizontalAlignment(SwingConstants.RIGHT);
-          jTable1.getColumn("ID").setPreferredWidth(5);
-        jTable1.getColumn("NOMBRE KIT").setPreferredWidth(30);
-        jTable1.getColumn("COSTO KIT").setPreferredWidth(30);
-        jTable1.getColumn("PRECIO KIT").setPreferredWidth(30);
+      
+          jTable1.getColumn("ID").setMaxWidth(5);
+        jTable1.getColumn("NOMBRE KIT").setPreferredWidth(100);
+        jTable1.getColumn("COSTO KIT").setPreferredWidth(20);
+        jTable1.getColumn("PRECIO KIT").setPreferredWidth(20);
         jTable1.getColumn("DESCRIPCION KIT").setPreferredWidth(50);
         jTable1.getColumnModel().getColumn(0).setCellRenderer(tcr);
         jTable1.getColumnModel().getColumn(1).setCellRenderer(tcr);
-        jTable1.getColumnModel().getColumn(2).setCellRenderer(tcr2);
+        jTable1.getColumnModel().getColumn(2).setCellRenderer(tcr);
         jTable1.getColumnModel().getColumn(3).setCellRenderer(tcr);
         jTable1.getColumnModel().getColumn(4).setCellRenderer(tcr);
         jTable1.getColumnModel().getColumn(5).setCellRenderer(tcr);
@@ -101,7 +101,7 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
             metodosDB f = new metodosDB();
         modelo.setNumRows(0);
         int aux3;
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        
           
 		         aux2 = f.getKitproductos();//Cargar resultados , debe ser por nombres
                     Object[] object = new Object[11];
@@ -136,7 +136,7 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("BUSCAR SOLICITUD");
+        setTitle("BUSCAR ELIMINAR KIT");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -162,6 +162,8 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
                 jButton5ActionPerformed(evt);
             }
         });
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Kit Disponibles", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
 
         jTable1.setFont(new java.awt.Font("DejaVu Sans", 1, 16)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -324,7 +326,7 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
           
            
         }
-        
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -357,7 +359,7 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT", 
             }
             a.setLocationRelativeTo(null);
             this.setVisible(false);
-            this.setCursor(Cursor.getDefaultCursor());
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             a.setVisible(true);
         }
             }//GEN-LAST:event_jTable1MouseClicked
