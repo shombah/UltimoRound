@@ -596,6 +596,8 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
      //   dialog_buscar_arancel a = new dialog_buscar_arancel(this, usuario);
      //   a.setLocationRelativeTo(null);
+        frameNewVenta frame = new frameNewVenta();
+        frame.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
      //   a.setVisible(true);
 
