@@ -63,7 +63,6 @@ public class frameNewVenta extends javax.swing.JFrame {
         setTitle("Nueva Venta");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Kits / Productos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, null, java.awt.Color.gray));
-        jPanel1.setForeground(new java.awt.Color(255, 0, 0));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Add.png"))); // NOI18N
         jButton4.setText("Escanear Kit / Producto");

@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Oficina/Documents/GitHub/UltimoRound/src/GUI/buscar_eliminar_kit.java</file>
-            <file>file:/C:/Users/Oficina/Documents/GitHub/UltimoRound/src/GUI/buscar_modificar_kit.java</file>
-            <file>file:/C:/Users/Oficina/Documents/GitHub/UltimoRound/src/GUI/eliminar_producto.java</file>
-            <file>file:/C:/Users/Oficina/Documents/GitHub/UltimoRound/src/GUI/frameInventarioActual.java</file>
-            <file>file:/C:/Users/Oficina/Documents/GitHub/UltimoRound/src/GUI/buscar_eliminar_producto.java</file>
-            <file>file:/C:/Users/Oficina/Documents/GitHub/UltimoRound/src/GUI/eliminar_kit.java</file>
-            <file>file:/C:/Users/Oficina/Documents/GitHub/UltimoRound/src/ObjetosDB/metodosDB.java</file>
-            <file>file:/C:/Users/Oficina/Documents/GitHub/UltimoRound/src/GUI/nuevo_kit.java</file>
-            <file>file:/C:/Users/Oficina/Documents/GitHub/UltimoRound/src/GUI/buscar_producto.java</file>
+            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/GUI/frameNewVenta.java</file>
+            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/ObjetosDB/metodosDB.java</file>
+            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/GUI/Newproduct.java</file>
+            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/Clases/DB_connection.java</file>
+            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/GUI/jframeUsuario.java</file>
+            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/GUI/frameInventarioActual.java</file>
         </group>
     </open-files>
 </project-private>
