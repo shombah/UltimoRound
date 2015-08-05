@@ -35,6 +35,9 @@ public class Cliente extends metodosDB
         }
     }
 
+    public Cliente() {
+    }
+
    
     /*Setters y Getters*/
     public Integer getIdCliente() 

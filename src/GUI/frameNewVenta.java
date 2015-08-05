@@ -5,12 +5,17 @@
  */
 package GUI;
 
+import ObjetosDB.Cliente;
+import ObjetosDB.Productos;
+import java.util.ArrayList;
+
 /**
  *
  * @author tars
  */
 public class frameNewVenta extends javax.swing.JFrame {
-
+    private ArrayList<Productos> carroProductos = new ArrayList<ObjetosDB.Productos>();
+    private Cliente cliente = new Cliente();
     /**
      * Creates new form frameNewVenta
      */
@@ -59,7 +64,7 @@ public class frameNewVenta extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva Venta");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Kits / Productos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, null, java.awt.Color.gray));
@@ -70,6 +75,11 @@ public class frameNewVenta extends javax.swing.JFrame {
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search.png"))); // NOI18N
         jButton5.setText("Buscar kit / Producto en Inventario");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,7 +185,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/disk.png"))); // NOI18N
@@ -219,7 +229,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jCheckBox1)
                 .addGap(21, 21, 21))
         );
@@ -228,9 +238,19 @@ public class frameNewVenta extends javax.swing.JFrame {
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/user_add.png"))); // NOI18N
         jButton7.setText("Registrar Cliente");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/user_green.png"))); // NOI18N
         jButton8.setText("Cargar Cliente");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Nombre Cliente:");
 
@@ -242,6 +262,11 @@ public class frameNewVenta extends javax.swing.JFrame {
 
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/zoom.png"))); // NOI18N
         jButton9.setText("Ver Historial de Compras");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -270,10 +295,10 @@ public class frameNewVenta extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton8)
+                    .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel10)
@@ -283,7 +308,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -332,6 +357,27 @@ public class frameNewVenta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+            buscaProductoInventario buscarProducto = new buscaProductoInventario(this.carroProductos);
+            buscarProducto.setVisible(true);
+            
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        frameNewCliente frameCliente = new frameNewCliente(this.cliente);
+        frameCliente.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        frameVentasHistoricasCliente historial = new frameVentasHistoricasCliente(this.cliente);
+        historial.setVisible(true);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+            cargarClientes cargarCliente = new cargarClientes();
+            cargarCliente.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
