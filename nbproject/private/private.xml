@@ -5,10 +5,9 @@
         <group>
             <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/GUI/frameNewVenta.java</file>
             <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/ObjetosDB/metodosDB.java</file>
-            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/GUI/Newproduct.java</file>
-            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/Clases/DB_connection.java</file>
-            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/GUI/jframeUsuario.java</file>
+            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/GUI/buscaProductoInventario.java</file>
             <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/GUI/frameInventarioActual.java</file>
+            <file>file:/home/tars/Documentos/Programacion/UltimoRound/src/ObjetosDB/Productos.java</file>
         </group>
     </open-files>
 </project-private>

@@ -16,6 +16,7 @@ public class Productos   {
     private String tipo;
     private String codigo_barra;
     private Integer id_producto;
+    private String imagen = "notFound.png";
     public Productos(int id_producto,String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual, String tipo, String codigo_barra) 
     { //Constructor
         this.id_producto=id_producto;
@@ -37,6 +38,10 @@ public class Productos   {
    
     public String getNombre() {
         return nombre;
+    }
+    public String getImagen()
+    {   
+        return this.imagen;
     }
 
     public void setNombre(String nombre) {
