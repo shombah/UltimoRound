@@ -30,15 +30,18 @@ import javax.swing.tree.TreeModel;
 public class buscaProductoInventario extends javax.swing.JFrame {
     private final ArrayList<ObjetosDB.Productos> carroProductosLocal = new ArrayList<Productos>();
     private ArrayList<Productos> carroProductos;
+    
     DefaultTableModel modelo0 = new DefaultTableModel();
     DefaultTableModel modelo1 = new DefaultTableModel(); // Tabla Productos
+    private javax.swing.JTable jTable0;
     /**
      * Creates new form buscaProductoInventario
      */
-    public buscaProductoInventario(ArrayList<Productos> carroProductos, DefaultTableModel modelo0) {
+    public buscaProductoInventario(ArrayList<Productos> carroProductos, DefaultTableModel modelo0,javax.swing.JTable jTable1) {
         initComponents();
         this.carroProductos = carroProductos;
         this.modelo0 = modelo0;
+        this.jTable0 =jTable1;
         
         try {
             iniciar();
@@ -176,29 +179,25 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel17)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel17)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel1))
-                                .addGap(8, 8, 8)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jLabel10))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel1))
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel10))))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(172, 172, 172)
@@ -308,6 +307,11 @@ public class buscaProductoInventario extends javax.swing.JFrame {
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/arrow_undo.png"))); // NOI18N
         jButton3.setText("Volver");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Clear Green Button.png"))); // NOI18N
         jButton4.setText("Agregar todo y Finalizar");
@@ -454,9 +458,15 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                 object[7] = producto.getPrecioVenta();
                 object[8] = producto.getCodigo_barra();
                 modelo0.addRow(object);
+                jTable0.setModel(modelo0);
             }
             carroProductos.addAll(carroProductosLocal);
+            this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void iniciar() throws SQLException
         {
