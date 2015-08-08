@@ -126,8 +126,51 @@ public class metodosDB
 /*FIN METODOS DE USUARIOS*/
     
 /*METODOS DE CLIENTES*/
-// <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Clientes">                          
-
+// <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Clientes"> 
+    public Cliente getClienteById2(int id_cliente) throws SQLException
+{
+   Productos producto = null;
+   Cliente cliente=null;
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "SELECT * FROM Cliente WHERE id_cliente="+id_cliente;
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+         cliente = new Cliente(resultados.getInt("id_cliente"),resultados.getString("nombre"),resultados.getString("telefono"),resultados.getString("email"),false);      
+          conexion.close();
+  stm.close();
+         return cliente;
+      }
+       
+    return null;
+}
+public Cliente addCliente(Cliente m) throws SQLException
+{
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      
+      if(this.getClienteById2(m.getIdCliente())==null){
+ String query = "INSERT INTO Cliente (id_cliente,nombre,telefono,email) VALUES (?,?,?,?);";    
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      
+       stm.setInt(1, m.getIdCliente());
+       stm.setString   (2, m.getNombre());
+      stm.setString(3, m.getTelefono());
+      stm.setString   (4, m.getEmail());
+      
+              stm.executeUpdate();
+    stm.close();
+return m;
+}else{
+    return m;
+    }
+    
+    
+}
      public ArrayList<Cliente> getClientes() throws SQLException
     { //Retorna un ArrayList de clientes desde la base de datos.
         ArrayList<Cliente> clientesDB = new ArrayList<Cliente>();
@@ -334,6 +377,33 @@ public class metodosDB
 /*METODOS ORDENDEVENTA*/
 // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas OrdenDeVenta">                          
 
+     public ArrayList<OrdenDeVenta> getVentaClienteById(int id_cliente) throws SQLException
+{
+   Productos producto = null;
+   Cliente cliente=null;
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      ArrayList<OrdenDeVenta> ordenesEncontradas=null;
+        ordenesEncontradas = new ArrayList<OrdenDeVenta>();
+       
+      String query = "SELECT * FROM ordendeventa WHERE id_cliente="+id_cliente;
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      
+      while(resultados.next())
+          
+      {   
+          
+          OrdenDeVenta orden  = new OrdenDeVenta(resultados.getInt("id_orden_venta"),resultados.getString("fecha"),resultados.getString("monto_total"),resultados.getInt("numero_boleta"),resultados.getString("medio_pago"),0,null,null);
+          ordenesEncontradas.add(orden);
+  
+       
+      }
+               conexion.close();
+  stm.close();
+   return ordenesEncontradas;
+}
+     
      public ArrayList<OrdenDeVenta> getOrdenDeVenta() throws SQLException
      {//Retorna un ArrayList con todas las ordenes de vena en la BD
       ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
