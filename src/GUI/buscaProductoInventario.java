@@ -94,6 +94,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Productos al Carro");
@@ -304,6 +305,12 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         jTextField1.setText("Buscar...");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/zoom.png"))); // NOI18N
+        jButton1.setText("BUSCAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/arrow_undo.png"))); // NOI18N
         jButton3.setText("Volver");
@@ -321,6 +328,14 @@ public class buscaProductoInventario extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/arrow_refresh.png"))); // NOI18N
+        jButton6.setText("MOSTRAR TODOS");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -329,14 +344,15 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton1)
-                        .addGap(29, 29, 29)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -360,12 +376,15 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                             .addComponent(jButton4)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                        .addGap(5, 5, 5)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(jButton1)
+                        .addGap(3, 3, 3)
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
@@ -468,6 +487,131 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+ArrayList<Productos> aux2a = null;
+String nombre = jTextField1.getText();
+
+        try {
+            aux2a = new metodosDB().getProductos();
+        } catch (SQLException ex) {
+            Logger.getLogger(buscaProductoInventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+if(nombre.equals("")||nombre.equals("Buscar...")){
+    
+        int i = 0;
+        Object[] object = new Object[5];
+        System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
+
+        while(aux2a.size()>i)
+        {
+            DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombre());
+            root.add(nodo);
+            i++;
+        }
+        
+       
+        DefaultTreeModel modeloarbol = new DefaultTreeModel(root);
+        DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) jTree1.getCellRenderer();
+        ImageIcon leafIcon = createImageIcon("/Iconos/emblem-sales.png");
+        Icon closedIcon = createImageIcon("/Iconos/boxing_gloves_red.png");
+        Icon openIcon = createImageIcon("/Iconos/boxing_gloves_red.png");
+        renderer.setClosedIcon(closedIcon);
+        renderer.setOpenIcon(openIcon);
+        renderer.setLeafIcon(leafIcon);
+        
+        jTree1.setModel(modeloarbol);
+        traverse(jTree1);
+        
+        String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+        modelo1.setColumnIdentifiers(t);
+        jTable1.setModel(modelo1);
+    
+}else{
+        String nombreproducto="";
+        int i = 0;
+        Object[] object = new Object[5];
+        System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
+
+        while(aux2a.size()>i)
+        {   System.out.println("NOMBRE A BUSCAR: "+nombre);
+            nombreproducto="";
+            DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombre());
+            nombreproducto=aux2a.get(i).getNombre();
+            nombreproducto=nombreproducto.toUpperCase();
+            System.out.println("SIN FORMATO: "+nombreproducto);
+            nombreproducto=nombreproducto.replace(" ","");
+             System.out.println("CON FORMATO: "+nombreproducto);
+            if(nombreproducto.indexOf(nombre)!=-1){
+                 System.out.println("ENCONTRO: "+nombreproducto);
+                root.add(nodo);}
+            i++;
+        }
+        
+       
+        DefaultTreeModel modeloarbol = new DefaultTreeModel(root);
+        DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) jTree1.getCellRenderer();
+        ImageIcon leafIcon = createImageIcon("/Iconos/emblem-sales.png");
+        Icon closedIcon = createImageIcon("/Iconos/boxing_gloves_red.png");
+        Icon openIcon = createImageIcon("/Iconos/boxing_gloves_red.png");
+        renderer.setClosedIcon(closedIcon);
+        renderer.setOpenIcon(openIcon);
+        renderer.setLeafIcon(leafIcon);
+        
+        jTree1.setModel(modeloarbol);
+        traverse(jTree1);
+        
+        String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+        modelo1.setColumnIdentifiers(t);
+        jTable1.setModel(modelo1);       // TODO add your handling code here:
+}
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+       ArrayList<Productos> aux2a = null;
+String nombre = jTextField1.getText();
+
+        try {
+            aux2a = new metodosDB().getProductos();
+        } catch (SQLException ex) {
+            Logger.getLogger(buscaProductoInventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    
+        int i = 0;
+        Object[] object = new Object[5];
+        System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
+
+        while(aux2a.size()>i)
+        {
+            DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombre());
+            root.add(nodo);
+            i++;
+        }
+        
+       
+        DefaultTreeModel modeloarbol = new DefaultTreeModel(root);
+        DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) jTree1.getCellRenderer();
+        ImageIcon leafIcon = createImageIcon("/Iconos/emblem-sales.png");
+        Icon closedIcon = createImageIcon("/Iconos/boxing_gloves_red.png");
+        Icon openIcon = createImageIcon("/Iconos/boxing_gloves_red.png");
+        renderer.setClosedIcon(closedIcon);
+        renderer.setOpenIcon(openIcon);
+        renderer.setLeafIcon(leafIcon);
+        
+        jTree1.setModel(modeloarbol);
+        traverse(jTree1);
+        
+        String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+        modelo1.setColumnIdentifiers(t);
+        jTable1.setModel(modelo1);
+    
+ // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     private void iniciar() throws SQLException
         {
             ArrayList<Productos> aux2a;
@@ -565,6 +709,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

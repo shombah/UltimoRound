@@ -217,7 +217,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         int aux3;
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         Productos aux2 = new Productos();
-        if (jComboBox1.getSelectedIndex()==0) { // si quiere buscar por solicitud
+        // si quiere buscar por solicitud
             if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio                
                 this.setCursor(Cursor.getDefaultCursor());
                 mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR UN NOMBRE", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
@@ -243,62 +243,8 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
             }
          
            
-        }
-          this.setCursor(Cursor.getDefaultCursor());
-        if (jComboBox1.getSelectedIndex()==1) { // si quiere buscar por rut
-            if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
-                this.setCursor(Cursor.getDefaultCursor());
-                mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR UN ID DE PRODUCTO", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
-                return;
-            }else{
-                try {
-                      aux2 = f.getProductoById(Integer.parseInt(jTextField1.getText()));//Cargar resultados , debe ser por nombres
-                    Object[] object = new Object[10];
-        object[0]  = aux2.getId_producto();
-        object[1] = aux2.getNombre();
-        object[2] = aux2.getTalla();
-        object[3] = aux2.getMarca();
-        object[4] = aux2.getCantidadActual();
-        object[5] = aux2.getTipo();
-        object[6] = aux2.getProveedor();
-        object[7] = aux2.getPrecioCompra();
-        object[8] = aux2.getPrecioVenta();
-        object[9] = aux2.getCodigo_barra();
-         modelo.addRow(object);
-                } catch (SQLException ex) {
-                    Logger.getLogger(buscar_eliminar_producto.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-                  
+       
           
-        }  this.setCursor(Cursor.getDefaultCursor());
-          if (jComboBox1.getSelectedIndex()==2) { // si quiere buscar por rut
-            if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
-                this.setCursor(Cursor.getDefaultCursor());
-                mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR UNA MARCA", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
-                return;
-            }else{
-                try {
-                      aux2 = f.getProductoById(Integer.parseInt(jTextField1.getText()));//Cargar resultados , debe ser por nombres
-                    Object[] object = new Object[10];
-        object[0]  = aux2.getId_producto();
-        object[1] = aux2.getNombre();
-        object[2] = aux2.getTalla();
-        object[3] = aux2.getMarca();
-        object[4] = aux2.getCantidadActual();
-        object[5] = aux2.getTipo();
-        object[6] = aux2.getProveedor();
-        object[7] = aux2.getPrecioCompra();
-        object[8] = aux2.getPrecioVenta();
-        object[9] = aux2.getCodigo_barra();
-         modelo.addRow(object);
-                } catch (SQLException ex) {
-                    Logger.getLogger(buscar_eliminar_producto.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-          
-           
-        }
                  this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_jButton2ActionPerformed
 

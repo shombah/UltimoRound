@@ -580,6 +580,26 @@ public Productos getProductoById(int id_producto) throws SQLException
   stm.close();
     return producto;
 }
+public Productos getProductoByCodigo(String codigo) throws SQLException
+{
+Productos producto = null;
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "SELECT * FROM Productos WHERE codigo_barra=?";
+  
+      PreparedStatement stm = conexion.prepareStatement(query);
+      stm.setString(1,codigo);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
+       
+      }
+        conexion.close();
+         stm.close();
+    return producto;
+}
+
 public Productos getProductoByNombre(String nombre) throws SQLException
 {
 Productos producto = null;
