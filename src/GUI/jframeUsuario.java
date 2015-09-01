@@ -597,8 +597,14 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
      //   dialog_buscar_arancel a = new dialog_buscar_arancel(this, usuario);
      //   a.setLocationRelativeTo(null);
                    this.setCursor(Cursor.getDefaultCursor());
-        frameNewVenta frame = new frameNewVenta();
-        frame.setVisible(true);
+        frameNewVenta frame;
+        try {
+            frame = new frameNewVenta();
+                    frame.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
      //   a.setVisible(true);
 
     }//GEN-LAST:event_modulo15ActionPerformed

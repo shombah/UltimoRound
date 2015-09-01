@@ -75,6 +75,7 @@ public class frameNewVenta extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -100,7 +101,7 @@ public class frameNewVenta extends javax.swing.JFrame {
         setTitle("Nueva Venta");
         setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Kits / Productos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.gray)); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Kits / Productos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, null, java.awt.Color.gray));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/emblem-sales.png"))); // NOI18N
         jButton4.setText("Escanear Producto");
@@ -202,7 +203,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resumen Caja", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.red)); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resumen Caja", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.red));
 
         jLabel3.setText("Total a Pagar ($):");
 
@@ -216,14 +217,22 @@ public class frameNewVenta extends javax.swing.JFrame {
 
         jLabel8.setText("Descuentos  ($):");
 
-        jLabel19.setText("jLabel19");
+        jLabel19.setText("0.-");
 
-        jLabel20.setText("jLabel20");
+        jLabel20.setText("0.-");
 
-        jLabel21.setText("jLabel21");
+        jLabel21.setText("0.-");
 
         jLabel22.setFont(new java.awt.Font("Droid Sans", 1, 24)); // NOI18N
-        jLabel22.setText("jLabel22");
+        jLabel22.setText("0.-");
+
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/coins.png"))); // NOI18N
+        jButton11.setText("Calcular Total");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -253,7 +262,8 @@ public class frameNewVenta extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(57, 57, 57)
-                        .addComponent(jLabel22)))
+                        .addComponent(jLabel22))
+                    .addComponent(jButton11))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -279,7 +289,9 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel22))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton11)
+                .addContainerGap())
         );
 
         jButton1.setBackground(new java.awt.Color(0, 255, 102));
@@ -327,7 +339,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jCheckBox1)
-                        .addGap(0, 36, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -352,7 +364,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identificación del Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identificación del Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/user_add.png"))); // NOI18N
         jButton7.setText("Registrar Cliente");
@@ -500,7 +512,6 @@ public class frameNewVenta extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
             buscaProductoInventario buscarProducto = new buscaProductoInventario(this.carroProductos,this.modelo1,this.jTable1);
             buscarProducto.setVisible(true);
-            calculaTotales(this.carroProductos);
             
     }//GEN-LAST:event_jButton5ActionPerformed
  private void calculaTotales(ArrayList<Productos> carroProductos)
@@ -610,6 +621,11 @@ public class frameNewVenta extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
+        if(jCheckBox1.isSelected())
+            montoDescuento = Integer.parseInt(jLabel18.getText());
+        else
+            montoDescuento = 0;
+        calculaTotales(this.carroProductos);
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -648,6 +664,11 @@ public class frameNewVenta extends javax.swing.JFrame {
         }calculaTotales(this.carroProductos);}
            // TODO add your handling code here:}
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+        calculaTotales(this.carroProductos);
+    }//GEN-LAST:event_jButton11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -691,6 +712,7 @@ public class frameNewVenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
