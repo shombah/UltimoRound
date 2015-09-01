@@ -30,8 +30,10 @@ import javax.swing.table.DefaultTableModel;
  * @author tars
  */
 public class cargarClientes extends javax.swing.JFrame implements KeyListener, ActionListener, MouseListener{
-DefaultTableModel modelo = new DefaultTableModel() {
+    Cliente cliente;
+    javax.swing.JLabel j13,j14,j15,j16;
 
+DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int row, int column) {
             return false;
         }
@@ -39,7 +41,12 @@ DefaultTableModel modelo = new DefaultTableModel() {
     /**
      * Creates new form cargarClientes
      */
-    public cargarClientes() throws SQLException {
+    public cargarClientes(Cliente cliente,javax.swing.JLabel j13, javax.swing.JLabel j14, javax.swing.JLabel j15, javax.swing.JLabel j16) throws SQLException {
+        this.cliente = cliente;
+        this.j13 =j13;
+        this.j14 = j14;
+        this.j15 = j15;
+        this.j16 = j16;
         initComponents();
         iniciar();
     }
@@ -165,6 +172,11 @@ String t[] = {"RUT", "NOMBRE", "TELEFONO", "EMAIL"};
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Add.png"))); // NOI18N
         jButton1.setText("Cargar Datos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/arrow_undo.png"))); // NOI18N
         jButton2.setText("Volver");
@@ -221,44 +233,19 @@ String t[] = {"RUT", "NOMBRE", "TELEFONO", "EMAIL"};
                 }
             }    }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(cargarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(cargarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(cargarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(cargarClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //Cargar los datos del cliente en: clienteCargado
+        Cliente clienteCargado = new Cliente(0,"nombre","telefono","email",false);
+        this.cliente = clienteCargado;
+        this.j13.setText("nombreCargado");
+        this.j14.setText("TelefonoCargado");
+        this.j15.setText("EmailCargado");
+        this.j16.setText("FechaCargada");
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new cargarClientes().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(cargarClientes.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

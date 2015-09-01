@@ -12,7 +12,10 @@ import ObjetosDB.Promociones;
 import ObjetosDB.metodosDB;
 import java.awt.Cursor;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -297,6 +300,11 @@ public class frameNewVenta extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(0, 255, 102));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/disk.png"))); // NOI18N
         jButton1.setText("Imprimir Boleta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/arrow_refresh.png"))); // NOI18N
         jButton2.setText("Limpiar Campos");
@@ -514,7 +522,7 @@ public class frameNewVenta extends javax.swing.JFrame {
             buscarProducto.setVisible(true);
             
     }//GEN-LAST:event_jButton5ActionPerformed
- private void calculaTotales(ArrayList<Productos> carroProductos)
+ public void calculaTotales(ArrayList<Productos> carroProductos)
  {
      int montoNeto=0;
      int iva_pesos = 0;
@@ -579,7 +587,7 @@ public class frameNewVenta extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
             cargarClientes cargarCliente = null;
         try {
-            cargarCliente = new cargarClientes();
+            cargarCliente = new cargarClientes(cliente, jLabel13, jLabel14, jLabel15, jLabel16);
         } catch (SQLException ex) {
             Logger.getLogger(frameNewVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -670,6 +678,56 @@ public class frameNewVenta extends javax.swing.JFrame {
         calculaTotales(this.carroProductos);
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if(carroProductos.size()>0) //si hay cosas para vender, vendemos
+        {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        System.out.println("FechaVenta : " + dateFormat.format(cal.getTime())+"\n"); 
+        
+        System.out.println("\n Se imprimira la boleta!!\n");
+        System.out.println("Contiene los siguientes producots: \n");
+        for(int i =0 ; i< this.carroProductos.size();i++)
+        {
+            Productos p = carroProductos.get(i);
+            System.out.println("Producto : " + i);
+            System.out.println(p.getNombre()+"\n");
+            try {
+                descuentaInventario(p);
+            } catch (SQLException ex) {
+            }
+        }
+        int montoNeto = Integer.parseInt(jLabel19.getText());
+        int iva  = Integer.parseInt(jLabel21.getText());;
+        int descuento = Integer.parseInt(jLabel20.getText());;
+        int totalPagar = Integer.parseInt(jLabel22.getText());;
+        System.out.println("\n MontoNeto: "+montoNeto);
+        System.out.println("\n iva: "+iva);
+        System.out.println("\n descuento: "+descuento);
+        System.out.println("\n totala pagar: "+totalPagar);
+        guardaVenta();
+        jframe1 a = new jframe1();
+            JOptionPane.showMessageDialog(a, "Venta Generada Exitosamente, productos descontados de inventario");
+        this.dispose();
+        }
+        else{ //no hay coosas en el carro, nov endemos
+        jframe1 a = new jframe1();
+            JOptionPane.showMessageDialog(a, "Sin productos en el carrito!");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    private void guardaVenta()
+    {
+    
+    }
+    private void descuentaInventario(Productos producto) throws SQLException
+    {
+        int cantidad = producto.getCantidadDB();
+        cantidad = cantidad -1;
+        producto.setCantidadActual(cantidad);
+        new metodosDB().updateProductos(producto);
+        System.out.println("descontado");
+    }
     /**
      * @param args the command line arguments
      */

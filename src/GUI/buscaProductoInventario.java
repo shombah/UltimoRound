@@ -623,9 +623,14 @@ String nombre = jTextField1.getText();
 
         while(aux2a.size()>i)
         {
-            DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombre());
-            root.add(nodo);
-            i++;
+            Productos p = aux2a.get(i);
+            if(p.getCantidadActual()>0)
+            {
+                DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(p.getNombre());
+                root.add(nodo);
+            }
+                            i++;
+
         }
         
        

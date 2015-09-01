@@ -1,6 +1,10 @@
 
 package ObjetosDB;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 public class Productos   {
@@ -98,6 +102,15 @@ public class Productos   {
 
     public Integer getCantidadActual() {
         return cantidadActual;
+    }
+    public Integer getCantidadDB()
+    {
+        try {
+            Productos p = new metodosDB().getProductoById(this.id_producto);
+            return p.getCantidadActual();
+
+        } catch (SQLException ex) {}
+    return -1;
     }
 
     public void setCantidadActual(Integer cantidadActual) {

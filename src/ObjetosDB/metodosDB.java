@@ -520,7 +520,7 @@ public boolean updateProductos(Productos m) throws SQLException
      ArrayList<Productos> productos = new ArrayList<Productos>();
       DB_connection c = new DB_connection();
       Connection conexion = c.getConnection();
-      String query = "UPDATE productos set nombre = ? , marca= ? , talla = ? , color=?, precio_compra=?, precio_venta=?, proveedor=?,cantidad_actual=?,tipo=?,codigo_barra=? where id_producto=?";
+      String query = "UPDATE Productos set nombre = ? , marca= ? , talla = ? , color=?, precio_compra=?, precio_venta=?, proveedor=?,cantidad_actual=?,tipo=?,codigo_barra=? where id_producto=?";
     
       
       PreparedStatement stm = conexion.prepareStatement(query);
