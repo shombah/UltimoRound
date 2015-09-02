@@ -542,8 +542,9 @@ if(nombre.equals("")||nombre.equals("Buscar...")){
             nombreproducto=nombreproducto.toUpperCase();
             System.out.println("SIN FORMATO: "+nombreproducto);
             nombreproducto=nombreproducto.replace(" ","");
+            nombreproducto = nombreproducto.toUpperCase();
              System.out.println("CON FORMATO: "+nombreproducto);
-            if(nombreproducto.indexOf(nombre)!=-1){
+            if((nombreproducto.indexOf(nombre.toUpperCase()))!=-1){
                  System.out.println("ENCONTRO: "+nombreproducto);
                 root.add(nodo);}
             i++;
