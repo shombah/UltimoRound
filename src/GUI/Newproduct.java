@@ -523,8 +523,9 @@ private JComboBox combo1;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            
+        if(validaCampos())
+        {
         for (int j = 0; j < modelo.getRowCount(); j++) {
             ArrayList<Productos> productos = new ArrayList();
  //Productos(String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual) { //Constructor
@@ -560,7 +561,13 @@ private JComboBox combo1;
           jframe1 a = new jframe1();
             JOptionPane.showMessageDialog(a, "PRODUCTO(S) AGREGADOS CON EXITO");
             this.dispose();
+        }
+        else
+        {
+        JOptionPane.showMessageDialog(rootPane,  "Ningún producto fue agregado");
 
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -663,8 +670,8 @@ private JComboBox combo1;
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 
-        
-
+    if(validaCampos())  
+    {
         //DATOS DE LA TABLA
         Object[] object = new Object[10];
         object[0] = jTextField22.getText();
@@ -680,7 +687,9 @@ private JComboBox combo1;
         
         modelo.addRow(object);
             //TERMINO DATOS TABLA
-  limpiar();
+        limpiar();
+    }
+  
 
     }//GEN-LAST:event_jButton9ActionPerformed
 
@@ -860,5 +869,145 @@ private JComboBox combo1;
             }
         }
     }
-
+    public boolean validaCampos()
+    {   
+        
+        //jtextfield22 == nombre
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField22.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "nombre no puede estar vacío");
+                return false;
+                }
+        //jtexfield 20 = talla
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField20.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "talla no puede estar vacío");
+                return false;
+                }
+        //jtexfield 23 = marca
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField23.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "marca no puede estar vacío");
+                return false;
+                }
+        
+        //jtexfield 28 = color
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField28.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "color no puede estar vacío");
+                return false;
+                }
+    
+         //jtexfield 24 = cantidad
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField24.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "cantidad no puede estar vacío");
+                return false;
+                }
+        
+         try {
+            // Check whether priceField.getText()'s length equals 0
+            Integer.parseInt(jTextField24.getText().trim());
+               
+            } catch(NumberFormatException e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "cantidad debe ser un número");
+                return false;
+                }
+         
+         if (jComboBox1.getSelectedIndex()==0)
+         {
+                JOptionPane.showMessageDialog(rootPane,  "Debe seleccionar un tipo");
+                return false;
+         }
+          //jtexfield 25 = costo
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField25.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "costo no puede estar vacío");
+                return false;
+                }
+        
+         try {
+            // Check whether priceField.getText()'s length equals 0
+            Integer.parseInt(jTextField25.getText().trim());
+               
+            } catch(NumberFormatException e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "costo debe ser un número");
+                return false;
+                }
+         
+          //jtexfield 26 precio venta
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField26.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "precio venta no puede estar vacío");
+                return false;
+                }
+        
+         try {
+            // Check whether priceField.getText()'s length equals 0
+            Integer.parseInt(jTextField26.getText().trim());
+               
+            } catch(NumberFormatException e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "precio venta debe ser un número");
+                return false;
+                }
+         
+           //jtexfield 27 = proveedor
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField27.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "proveedor no puede estar vacío");
+                return false;
+                }
+        return true;
+    }
 }
