@@ -10,7 +10,7 @@ public class Cliente extends metodosDB
     private int idCliente;
     private String nombre, telefono, email;
     
-    public Cliente(int idCliente, String nombre, String telefono, String email, Boolean saveme) 
+    public Cliente(int idCliente, String nombre, String telefono, String email, Boolean saveme) throws SQLException 
     { 
         this.idCliente = idCliente;
         this.nombre = nombre;
@@ -22,16 +22,17 @@ public class Cliente extends metodosDB
             DB_connection c = new DB_connection();
             Connection conexion = c.getConnection();
             String query = "INSERT INTO Cliente (id_cliente,nombre,telefono,email) VALUES (?,?,?,?)";
-            try 
-            {
+           
                 PreparedStatement stm = conexion.prepareStatement(query);
-                stm.setInt(1,getLastId("Cliente"));
+                stm.setInt(1,this.idCliente);
                 stm.setString(2,this.nombre);
                 stm.setString(3,this.telefono);
                 stm.setString(4, this.email);
+                            System.out.println(stm);
+
                 stm.executeUpdate();
                 closeConnections(c,conexion,stm,null);
-            } catch (SQLException ex) {System.out.println("Error almacenando Cliente");}
+            
         }
     }
 

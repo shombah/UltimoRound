@@ -17,15 +17,18 @@ import javax.swing.JOptionPane;
  * @author tars
  */
 public class frameNewCliente extends javax.swing.JFrame {
-private  Cliente cliente;
+javax.swing.JLabel j13, j14, j15, j17;//email, nombew, telefono, id;
+Cliente cliente;
     /**
      * Creates new form frameNewCliente
      */
-    public frameNewCliente(Cliente cliente2) {
+    public frameNewCliente( javax.swing.JLabel j13, javax.swing.JLabel j14, javax.swing.JLabel j15, javax.swing.JLabel j17) {
+        this.j13 = j13;
+        this.j14 = j14;
+        this.j15 = j15;
+        this.j17 = j17;
         initComponents();
-        
-       this.cliente= new Cliente();
-    }
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,7 +78,7 @@ private  Cliente cliente;
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addGap(108, 108, 108)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel1)
@@ -122,9 +125,19 @@ private  Cliente cliente;
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/arrow_refresh.png"))); // NOI18N
         jButton2.setText("Limpiar Campos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/arrow_rotate_clockwise.png"))); // NOI18N
         jButton3.setText("Volver");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -159,41 +172,93 @@ private  Cliente cliente;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     
-        if(jTextField1.getText().equals("")||jTextField2.getText().equals("")||jTextField3.getText().equals("")||jTextField4.getText().equals("")){
-            jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "FALTA RELLENAR UN CAMPO");
-        }else{
-              Cliente cliente2=new Cliente(Integer.parseInt(jTextField4.getText()),jTextField1.getText(),jTextField2.getText(),jTextField3.getText(),false);
-     metodosDB metodos= new metodosDB();
-        try {
-            
-            if(metodos.addCliente(cliente2).equals(null)){
+            if(validarCampos())
+            {
+                try{
+                    this.cliente = new Cliente(Integer.parseInt(jTextField4.getText()),jTextField1.getText(),jTextField2.getText(),jTextField3.getText(),true);
+                    j13.setText(cliente.getEmail());
+                    j14.setText(cliente.getNombre());
+                    j15.setText(cliente.getEmail());
+                    j17.setText(cliente.getIdCliente().toString());
+                    JOptionPane.showMessageDialog(rootPane, "Cliente registrado con éxito");
+                    this.dispose();
+                } catch (SQLException ex) {JOptionPane.showMessageDialog(rootPane, "Cliente ya existe en la base de datos");}
                 
-                  jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "EL CLIENTE YA ESTÁ REGISTRADO");
-            cliente=cliente2;
-             
-              this.dispose();
-            }else{
-                
-                 jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "EL CLIENTE HA SIDO REGISTRADO");
-                      cliente.setIdCliente(Integer.parseInt(jTextField4.getText()));
-            cliente.setNombre(jTextField1.getText());
-            cliente.setTelefono(jTextField2.getText());
-            cliente.setEmail(jTextField3.getText());
-            System.out.println(cliente.getNombre());
-                 System.out.println(cliente.getEmail());
-           
-            this.dispose();
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(frameNewCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        }
-     
+
+            }   
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private boolean validarCampos()
+    {
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField1.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "nombre no puede estar vacío");
+                return false;
+                }
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField2.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "Correo electrónico no puede estar vacío");
+                return false;
+                }
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField3.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "teléfono no puede estar vacío");
+                return false;
+                }
+          try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField4.getText().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "rut no puede estar vacío");
+                return false;
+                }
+          try {
+            // Check whether priceField.getText()'s length equals 0
+            Integer.parseInt(jTextField4.getText().trim());
+               
+            } catch(NumberFormatException e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "rut debe ser un número");
+                return false;
+                }
+        
+        
+        return true;
+    }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

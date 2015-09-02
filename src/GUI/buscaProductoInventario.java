@@ -33,11 +33,18 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     
     DefaultTableModel modelo0 = new DefaultTableModel();
     DefaultTableModel modelo1 = new DefaultTableModel(); // Tabla Productos
+    javax.swing.JLabel j19, j20,j21,j22;
+    int montoDescuento=0;
     private javax.swing.JTable jTable0;
     /**
      * Creates new form buscaProductoInventario
      */
-    public buscaProductoInventario(ArrayList<Productos> carroProductos, DefaultTableModel modelo0,javax.swing.JTable jTable1) {
+    public buscaProductoInventario(ArrayList<Productos> carroProductos, DefaultTableModel modelo0,javax.swing.JTable jTable1, javax.swing.JLabel j19, javax.swing.JLabel j20, javax.swing.JLabel j21, javax.swing.JLabel j22, int montoDescuento) {
+        this.j19 = j19;
+        this.j20 = j20;
+        this.j21 = j21;
+        this.j22 = j22;
+        this.montoDescuento = montoDescuento;
         initComponents();
         this.carroProductos = carroProductos;
         this.modelo0 = modelo0;
@@ -481,8 +488,30 @@ public class buscaProductoInventario extends javax.swing.JFrame {
             }
             carroProductos.addAll(carroProductosLocal);
             this.dispose();
+            calculaTotales(carroProductos);
     }//GEN-LAST:event_jButton4ActionPerformed
-
+     public void calculaTotales(ArrayList<Productos> carroProductos)
+ {
+     int montoNeto=0;
+     int iva_pesos = 0;
+     int iva_porcentaje = 19;
+     int montoTotal =0;
+     
+     for(int i = 0 ; i< carroProductos.size();i++)
+     {
+         Productos producto = carroProductos.get(i);
+         montoNeto+= producto.getPrecioVenta();
+         System.out.println(montoNeto+"\n");
+     }
+     
+    j19.setText(Integer.toString(montoNeto));
+    j20.setText(Integer.toString(montoDescuento));
+    int sumaPrevia = montoNeto-montoDescuento;
+    iva_pesos = (sumaPrevia * iva_porcentaje)/100;
+    j21.setText(Integer.toString(iva_pesos));
+    montoTotal = montoNeto - montoDescuento + iva_pesos;
+    j22.setText(Integer.toString(montoTotal));
+ }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed

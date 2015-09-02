@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frameNewVenta extends javax.swing.JFrame {
     private ArrayList<Productos> carroProductos = new ArrayList<ObjetosDB.Productos>();
-    private Cliente cliente = new Cliente();
+    public Cliente cliente ;
     private ArrayList<Promociones> promos=null;
     DefaultTableModel modelo1 = new DefaultTableModel();
     String t3[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
@@ -78,7 +78,6 @@ public class frameNewVenta extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        jButton11 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -98,6 +97,8 @@ public class frameNewVenta extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva Venta");
@@ -228,14 +229,6 @@ public class frameNewVenta extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Droid Sans", 1, 24)); // NOI18N
         jLabel22.setText("0.-");
 
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/coins.png"))); // NOI18N
-        jButton11.setText("Calcular Total");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -264,8 +257,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(57, 57, 57)
-                        .addComponent(jLabel22))
-                    .addComponent(jButton11))
+                        .addComponent(jLabel22)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -291,9 +283,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel22))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton11)
-                .addContainerGap())
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         jButton1.setBackground(new java.awt.Color(0, 255, 102));
@@ -365,7 +355,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                     .addComponent(jLabel18))
                 .addGap(45, 45, 45)
                 .addComponent(jCheckBox1)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identificación del Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
@@ -402,13 +392,17 @@ public class frameNewVenta extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("NO DISPONIBLE");
+        jLabel13.setText("-");
 
-        jLabel14.setText("NO DISPONIBLE");
+        jLabel14.setText("-");
 
-        jLabel15.setText("NO DISPONIBLE");
+        jLabel15.setText("-");
 
-        jLabel16.setText("NO DISPONIBLE");
+        jLabel16.setText("No Disponible");
+
+        jLabel1.setText("ID:");
+
+        jLabel17.setText("-");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -424,19 +418,22 @@ public class frameNewVenta extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel11))
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jButton8)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
                                     .addComponent(jLabel14)
                                     .addComponent(jLabel15)
                                     .addComponent(jLabel16))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jButton8))
+                                .addGap(0, 0, Short.MAX_VALUE))))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,11 +441,15 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel17))
+                .addGap(3, 3, 3)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(jLabel14))
@@ -462,7 +463,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                     .addComponent(jLabel16))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -510,7 +511,7 @@ public class frameNewVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-            buscaProductoInventario buscarProducto = new buscaProductoInventario(this.carroProductos,this.modelo1,this.jTable1);
+            buscaProductoInventario buscarProducto = new buscaProductoInventario(this.carroProductos,this.modelo1,this.jTable1, jLabel19, jLabel20, jLabel21, jLabel22, montoDescuento );
             buscarProducto.setVisible(true);
             
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -539,13 +540,10 @@ public class frameNewVenta extends javax.swing.JFrame {
     
  }
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        frameNewCliente frameCliente = new frameNewCliente(this.cliente);
         
+        frameNewCliente frameCliente = new frameNewCliente(jLabel15, jLabel13, jLabel14, jLabel17);
         frameCliente.setVisible(true);
-        //no me guarda el cliente 
-        jLabel15.setText(this.cliente.getEmail().toString());
-        jLabel13.setText(this.cliente.getNombre().toString());
-        jLabel14.setText(this.cliente.getTelefono().toString());
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     
@@ -579,7 +577,7 @@ public class frameNewVenta extends javax.swing.JFrame {
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
             cargarClientes cargarCliente = null;
         try {
-            cargarCliente = new cargarClientes(cliente, jLabel13, jLabel14, jLabel15, jLabel16);
+            cargarCliente = new cargarClientes(jLabel13, jLabel14, jLabel15, jLabel16, jLabel17);
         } catch (SQLException ex) {
             Logger.getLogger(frameNewVenta.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -589,8 +587,9 @@ public class frameNewVenta extends javax.swing.JFrame {
          int borrar = jTable1.getSelectedRow();
         try{
             carroProductos.remove(borrar);
-        }catch(ArrayIndexOutOfBoundsException a){System.out.println("No hay nada seleccionado");}
-        modelo1.removeRow(borrar);
+            modelo1.removeRow(borrar);
+
+        }catch(ArrayIndexOutOfBoundsException a){JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un producto de la tabla");}
      calculaTotales(this.carroProductos);
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -638,13 +637,13 @@ public class frameNewVenta extends javax.swing.JFrame {
          Productos encontrado= new Productos();
       if(codigo.equals("")){
             jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "PRODUCTO(S) DEBE ESCANEAR PRODUCTO");
+            JOptionPane.showMessageDialog(a, "Debe escanear un producto para agregarlo");
       }else{
         try {
             encontrado = f.getProductoByCodigo(codigo);
             if(encontrado.getId_producto().equals(null)){
                  jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "PRODUCTO(S) NO ENCONTRADO");
+            JOptionPane.showMessageDialog(a, "Producto no encontrado!");
             }else{
                Object[] object = new Object[10];
               object[0]  = encontrado.getId_producto();
@@ -665,11 +664,6 @@ public class frameNewVenta extends javax.swing.JFrame {
            // TODO add your handling code here:}
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-        calculaTotales(this.carroProductos);
-    }//GEN-LAST:event_jButton11ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(carroProductos.size()>0) //si hay cosas para vender, vendemos
@@ -677,7 +671,12 @@ public class frameNewVenta extends javax.swing.JFrame {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
         System.out.println("FechaVenta : " + dateFormat.format(cal.getTime())+"\n"); 
-        
+            try {
+                this.cliente = new metodosDB().getClienteById(Integer.parseInt(jLabel17.getText())); //validar que no esté vacío, o que no sea -
+            } catch (SQLException ex) {
+                Logger.getLogger(frameNewVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        System.out.println("Cliente con id : "+this.cliente.getNombre());
         System.out.println("\n Se imprimira la boleta!!\n");
         System.out.println("Contiene los siguientes producots: \n");
         for(int i =0 ; i< this.carroProductos.size();i++)
@@ -762,7 +761,6 @@ public class frameNewVenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -772,6 +770,7 @@ public class frameNewVenta extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -779,6 +778,7 @@ public class frameNewVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;

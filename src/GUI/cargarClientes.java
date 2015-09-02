@@ -30,8 +30,8 @@ import javax.swing.table.DefaultTableModel;
  * @author tars
  */
 public class cargarClientes extends javax.swing.JFrame implements KeyListener, ActionListener, MouseListener{
-    Cliente cliente;
-    javax.swing.JLabel j13,j14,j15,j16;
+    Cliente cliente = new Cliente();
+    javax.swing.JLabel j13,j14,j15,j16,j17;
 
 DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int row, int column) {
@@ -41,13 +41,13 @@ DefaultTableModel modelo = new DefaultTableModel() {
     /**
      * Creates new form cargarClientes
      */
-    public cargarClientes(Cliente cliente,javax.swing.JLabel j13, javax.swing.JLabel j14, javax.swing.JLabel j15, javax.swing.JLabel j16) throws SQLException {
-        this.cliente = cliente;
+    public cargarClientes(javax.swing.JLabel j13, javax.swing.JLabel j14, javax.swing.JLabel j15, javax.swing.JLabel j16,javax.swing.JLabel j17) throws SQLException {
         this.j13 =j13;
         this.j14 = j14;
         this.j15 = j15;
         this.j16 = j16;
-        initComponents();
+        this.j17=j17;
+initComponents();
         iniciar();
     }
 
@@ -180,6 +180,11 @@ String t[] = {"RUT", "NOMBRE", "TELEFONO", "EMAIL"};
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/arrow_undo.png"))); // NOI18N
         jButton2.setText("Volver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,14 +241,27 @@ String t[] = {"RUT", "NOMBRE", "TELEFONO", "EMAIL"};
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //Cargar los datos del cliente en: clienteCargado
-        Cliente clienteCargado = new Cliente(0,"nombre","telefono","email",false);
-        this.cliente = clienteCargado;
-        this.j13.setText("nombreCargado");
-        this.j14.setText("TelefonoCargado");
-        this.j15.setText("EmailCargado");
-        this.j16.setText("FechaCargada");
-        this.dispose();
+       int seleccionado = (Integer)jTable1.getValueAt(jTable1.getSelectedRow(),0); //id del cliente
+       Cliente clienteCargado;
+        try {
+            clienteCargado = new metodosDB().getClienteById2(seleccionado);
+            this.cliente = clienteCargado;
+            this.j13.setText(this.cliente.getNombre());
+            this.j14.setText(this.cliente.getTelefono());
+            this.j15.setText(this.cliente.getEmail());
+            this.j16.setText("info. N/A");
+            this.j17.setText(this.cliente.getIdCliente().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(cargarClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+       this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
   
 
