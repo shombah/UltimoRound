@@ -692,25 +692,74 @@ public class frameNewVenta extends javax.swing.JFrame {
         {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
-        System.out.println("FechaVenta : " + dateFormat.format(cal.getTime())+"\n"); 
+        String FechaHoy = dateFormat.format(cal.getTime())+"\n";
             try {
                 this.cliente = new metodosDB().getClienteById(Integer.parseInt(jLabel17.getText())); //validar que no esté vacío, o que no sea -
             } catch (SQLException ex) {
                 Logger.getLogger(frameNewVenta.class.getName()).log(Level.SEVERE, null, ex);
             }
+        System.out.println("_________DATOS CLIENTE________\n");
         System.out.println("Cliente con id : "+this.cliente.getNombre());
-        System.out.println("\n Se imprimira la boleta!!\n");
-        System.out.println("Contiene los siguientes producots: \n");
-        for(int i =0 ; i< this.carroProductos.size();i++)
-        {
-            Productos p = carroProductos.get(i);
-            System.out.println("Producto : " + i);
-            System.out.println(p.getNombre()+"\n");
-            try {
-                descuentaInventario(p);
+        String nombrec,telefono,email;
+        int rut;
+        nombrec= this.cliente.getNombre();
+        telefono=this.cliente.getTelefono();
+        email= this.cliente.getEmail();
+        rut = this.cliente.getIdCliente();
+        System.out.println("Nombre:"+nombrec);
+        System.out.println("tel:"+telefono);
+        System.out.println("rut:"+rut);
+        System.out.println("email:"+email);
+        try {
+                System.out.println("\n Se imprimira la boleta #"+Integer.toString(new metodosDB().getLastId("Ordendeventa")+1)+"\n");
             } catch (SQLException ex) {
+                Logger.getLogger(frameNewVenta.class.getName()).log(Level.SEVERE, null, ex);
             }
+        System.out.println("Contiene los siguientes producots: \n");
+        System.out.println("_______DATOS PRODUCTO__________\n");
+
+         empaquetaProductos(this.carroProductos);
+
+        
+        for(int i=0 ; i<this.carroProductos.size();i++)
+        {
+            
+            String nombre, codigo_barra, ordenVenta;
+            int cantidad_vendida,precio_unitario_neto,precio_total_neto,descuento;
+            float precio_unitario_final,precio_total_final;
+            try {
+                ordenVenta = Integer.toString(new metodosDB().getLastId("Ordendeventa")+1);
+            } catch (SQLException ex) {
+                Logger.getLogger(frameNewVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("_________________\n");
+            System.out.println("Nombre:"+carroProductos.get(i).getNombre());
+            System.out.println("Cantidad Vendida:"+Integer.toString(carroProductos.get(i).getCantidadDB()-carroProductos.get(i).getCantidadp()));
+            System.out.println("codigo:"+carroProductos.get(i).getCodigo_barra());
+            System.out.println("fecha:"+FechaHoy);
+            cantidad_vendida = (carroProductos.get(i).getCantidadDB()-carroProductos.get(i).getCantidadp());
+            precio_unitario_neto = carroProductos.get(i).getPrecioVenta();
+            precio_unitario_final = Math.round(precio_unitario_neto * 1.19);
+            precio_total_neto = precio_unitario_neto * cantidad_vendida;
+            precio_total_final = precio_unitario_final * cantidad_vendida;  
+            
+            System.out.println("precio_unitario_final: "+precio_unitario_final);
+            System.out.println("precio_unitario_neto: "+precio_unitario_neto);
+            System.out.println("precio_total_neto: "+precio_total_neto);
+            System.out.println("precio_total_final: "+precio_total_final);
+            System.out.println("_________________\n");
+            try {
+                descuentaInventario(carroProductos.get(i));
+            } catch (SQLException ex) {
+                Logger.getLogger(frameNewVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            
         }
+
+         
+        System.out.println("______$$$__DA_MUNY__$$$___________\n");
+
         int montoNeto = Integer.parseInt(jLabel19.getText());
         int iva  = Integer.parseInt(jLabel21.getText());;
         int descuento = Integer.parseInt(jLabel20.getText());;
@@ -719,6 +768,9 @@ public class frameNewVenta extends javax.swing.JFrame {
         System.out.println("\n iva: "+iva);
         System.out.println("\n descuento: "+descuento);
         System.out.println("\n totala pagar: "+totalPagar);
+        System.out.println("_________________\n");
+        empaquetaProductos(this.carroProductos);
+
         guardaVenta();
         jframe1 a = new jframe1();
             JOptionPane.showMessageDialog(a, "Venta Generada Exitosamente, productos descontados de inventario");
@@ -731,36 +783,36 @@ public class frameNewVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
     private void empaquetaProductos(ArrayList<Productos> carroProductos)
     {
-        ArrayList<Productos> arreglo = new ArrayList<Productos>();
-        arreglo = carroProductos;
-        int productosDistintos = 0 , cantidadProductos = 0, aux=0;
-        cantidadProductos = carroProductos.size();
-        int i = 0;
-        while(cantidadProductos>0)
+        for(int i=0;i<this.carroProductos.size();i++)
         {
-            Productos p = arreglo.get(i);
-            int repeticiones = Collections.frequency(arreglo, p);
-            cantidadProductos = cantidadProductos - repeticiones;
-            for(int j = 0 ; j< arreglo.size();j++)
+            Productos producto = this.carroProductos.get(i);
+            int cv = (carroProductos.get(i).getCantidadDB()-carroProductos.get(i).getCantidadp());
+            for(int j = 0 ; j<(cv-1);j++)
             {
-                if(arreglo.get(j).equals(p))
-                    arreglo.remove(p);
+                int indice = this.carroProductos.indexOf(producto);
+                this.carroProductos.remove(indice);
+                
             }
-            
-            
         }
+        
+        
     }
     private void guardaVenta()
     {
     
     }
-    private void descuentaInventario(Productos producto) throws SQLException
+    private void descuentaInventario(Productos producto)throws SQLException
     {
+        for(int i=0;i<carroProductos.size();i++)
+        {
+            
+        }
+        
         int cantidad = producto.getCantidadDB();
         cantidad = cantidad -1;
         producto.setCantidadActual(cantidad);
         new metodosDB().updateProductos(producto);
-        System.out.println("descontado");
+        //System.out.println("descontado");
     }
     /**
      * @param args the command line arguments

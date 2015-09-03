@@ -43,7 +43,7 @@ public class metodosDB
             case "OrdenDeCompra": 
                 columname="id_orde_compra";
                 break;
-            case "OrdenDeVenta": 
+            case "Ordendeventa": 
                 columname="id_orden_venta";
                 break;
             case "Productos": 
