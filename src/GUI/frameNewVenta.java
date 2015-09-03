@@ -30,6 +30,7 @@ public class frameNewVenta extends javax.swing.JFrame {
     private ArrayList<Productos> carroProductos = new ArrayList<ObjetosDB.Productos>();
     public Cliente cliente ;
     private ArrayList<Promociones> promos=null;
+    public             ArrayList<Productos> aux2a;
     DefaultTableModel modelo1 = new DefaultTableModel();
     String t3[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
     private int montoDescuento = 0 ; //Poner descuento de la prmomoción aca porfavor.
@@ -46,7 +47,7 @@ public class frameNewVenta extends javax.swing.JFrame {
             jComboBox1.addItem(promos.get(cantidadpromos).getNombre());
             cantidadpromos=cantidadpromos+1;
         }
-     
+         aux2a = new metodosDB().getProductos();
     }
 
     /**
@@ -105,7 +106,7 @@ public class frameNewVenta extends javax.swing.JFrame {
         setTitle("Nueva Venta");
         setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Kits / Productos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, null, java.awt.Color.gray));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Kits / Productos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.gray)); // NOI18N
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/emblem-sales.png"))); // NOI18N
         jButton4.setText("Escanear Producto");
@@ -144,9 +145,9 @@ public class frameNewVenta extends javax.swing.JFrame {
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))))
+                        .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +208,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resumen Caja", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.red));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resumen Caja", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.red)); // NOI18N
 
         jLabel3.setText("Total a Pagar ($):");
 
@@ -284,7 +285,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel22))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
 
         jButton1.setBackground(new java.awt.Color(0, 255, 102));
@@ -356,12 +357,12 @@ public class frameNewVenta extends javax.swing.JFrame {
                     .addComponent(jLabel18))
                 .addGap(45, 45, 45)
                 .addComponent(jCheckBox1)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identificación del Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identificación del Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/user_add.png"))); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add.png"))); // NOI18N
         jButton7.setText("Registrar Cliente");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -512,7 +513,7 @@ public class frameNewVenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-            buscaProductoInventario buscarProducto = new buscaProductoInventario(this.carroProductos,this.modelo1,this.jTable1, jLabel19, jLabel20, jLabel21, jLabel22, montoDescuento );
+            buscaProductoInventario buscarProducto = new buscaProductoInventario(this.carroProductos,this.modelo1,this.jTable1, jLabel19, jLabel20, jLabel21, jLabel22, montoDescuento ,aux2a);
             buscarProducto.setVisible(true);
             
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -587,6 +588,8 @@ public class frameNewVenta extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
          int borrar = jTable1.getSelectedRow();
         try{
+            int posborrar=aux2a.indexOf(carroProductos.get(borrar));
+            aux2a.get(posborrar).setCantidadp(aux2a.get(posborrar).getCantidadp()+1);
             carroProductos.remove(borrar);
             modelo1.removeRow(borrar);
 
@@ -641,11 +644,27 @@ public class frameNewVenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(a, "Debe escanear un producto para agregarlo");
       }else{
         try {
+          
             encontrado = f.getProductoByCodigo(codigo);
-            if(encontrado.getId_producto().equals(null)){
+            int position=0;
+            if(encontrado==null){
+                  jframe1 a = new jframe1();
+            JOptionPane.showMessageDialog(a, "Codigo de barra no encontrado");
+            }else{
+                 for (int j = 0 ; j<aux2a.size();j++)
+                {
+                    if(aux2a.get(j).getCodigo_barra().equals( encontrado.getCodigo_barra()))
+                    {
+                      
+                        position = j;
+                    }
+                }}
+            if(encontrado.getId_producto().equals(null) || aux2a.get(position).getCantidadp()==0){
                  jframe1 a = new jframe1();
             JOptionPane.showMessageDialog(a, "Producto no encontrado!");
             }else{
+              
+                 
                Object[] object = new Object[10];
               object[0]  = encontrado.getId_producto();
             object[1] = encontrado.getNombre();
@@ -656,6 +675,8 @@ public class frameNewVenta extends javax.swing.JFrame {
             object[6] = encontrado.getPrecioCompra();
             object[7] = encontrado.getPrecioVenta();
             object[8] = encontrado.getCodigo_barra();
+           aux2a.get(position).setCantidadp(aux2a.get(position).getCantidadp()-1);
+            
             this.carroProductos.add(encontrado);
              modelo1.addRow(object);
                }

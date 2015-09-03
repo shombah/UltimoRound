@@ -452,7 +452,12 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     private void modulo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo2ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-       buscar_producto p = new buscar_producto(this, true, usuario);
+       buscar_producto p = null;
+        try {
+            p = new buscar_producto(this, true, usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
        p.setLocationRelativeTo(null);
         this.setCursor(Cursor.getDefaultCursor());
       p.setVisible(true);
@@ -586,7 +591,12 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     private void modulo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo3ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-     buscar_eliminar_producto a = new buscar_eliminar_producto(usuario);
+     buscar_eliminar_producto a = null;
+        try {
+            a = new buscar_eliminar_producto(usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
       a.setLocationRelativeTo(null);
         this.setCursor(Cursor.getDefaultCursor());
      a.setVisible(true);

@@ -42,7 +42,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     /**
      * Creates new form buscaProductoInventario
      */
-    public buscaProductoInventario(ArrayList<Productos> carroProductos, DefaultTableModel modelo0,javax.swing.JTable jTable1, javax.swing.JLabel j19, javax.swing.JLabel j20, javax.swing.JLabel j21, javax.swing.JLabel j22, int montoDescuento) {
+    public buscaProductoInventario(ArrayList<Productos> carroProductos, DefaultTableModel modelo0,javax.swing.JTable jTable1, javax.swing.JLabel j19, javax.swing.JLabel j20, javax.swing.JLabel j21, javax.swing.JLabel j22, int montoDescuento,ArrayList<Productos> aux2a) {
         this.j19 = j19;
         this.j20 = j20;
         this.j21 = j21;
@@ -52,7 +52,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         this.carroProductos = carroProductos;
         this.modelo0 = modelo0;
         this.jTable0 =jTable1;
-        
+        this.aux2a=aux2a;
         try {
             iniciar();
         } catch (SQLException ex) {
@@ -421,12 +421,16 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         Object nodeInfo = node.getUserObject();
         Object[] object = new Object[10];
         Productos producto = null;
-        try {
-            producto = new metodosDB().getProductoByNombre((String) nodeInfo);
-        } catch (SQLException ex) {
-            Logger.getLogger(buscaProductoInventario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        int position=-1;
+    for (int j = 0 ; j<aux2a.size();j++)
+                {
+                    if(aux2a.get(j).getNombre().equals((String) nodeInfo))
+                    {
+                      
+                        position = j;
+                    }
+                }
+    producto=aux2a.get(position);
         if(validaSpinner())
             for(int i= 0; i<(int)jSpinner1.getValue();i++)
             {
@@ -453,7 +457,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                         index = j;
                     }
                 }
-                
+              
                 System.out.println("objetos"+aux2a.size());
                int indice = aux2a.indexOf(producto.getId_producto());
              System.out.println("\n encontrado en indice "+index);
@@ -461,15 +465,22 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                 producto.setCantidadp(cantidadp);
                 System.out.println("\ncp:"+producto.getCantidadp());
                 jLabel13.setText(Integer.toString(producto.getCantidadp()));
-                aux2a.remove(index);
-                aux2a.add(producto);
+                aux2a.set(index, producto);
                 carroProductosLocal.add(producto);
-                jTree1.
+                pintaArbol();
+
                 //rp
             }
-                        pintaArbol();
-
-        
+                jTree1.requestFocus();
+                jTextField1.requestFocus();
+                            jLabel8.setText("-");
+            jLabel9.setText("-");
+            jLabel10.setText("-");
+            jLabel11.setText("-");
+            jLabel12.setText("-");
+            jLabel13.setText("-");
+            jLabel14.setText("-");
+            jLabel15.setText("-");
             
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -505,32 +516,35 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         return true;
     }
     private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseClicked
-        
+        String var="";
         final int en =1;
         DefaultMutableTreeNode node = (DefaultMutableTreeNode)
                            jTree1.getLastSelectedPathComponent();
         /* if nothing is selected */ 
         if (node == null) return;
 
-        Productos producto = new Productos();
+       
         Object nodeInfo = node.getUserObject();
         System.out.println("seleccionado : "+(String) nodeInfo);
-        try {
-            producto = new metodosDB().getProductoByNombre((String) nodeInfo);
-            
-            producto.setCantidadActual(producto.getCantidadp());
-            jLabel8.setText(producto.getNombre().trim());
-            jLabel9.setText(producto.getTipo().trim());
-            jLabel10.setText(producto.getMarca().trim());
-            jLabel11.setText((producto.getPrecioVenta()).toString().trim());
-            jLabel12.setText(producto.getProveedor().trim());
-            jLabel13.setText(Integer.toString(producto.getCantidadp()));
-            jLabel14.setText(producto.getTalla().trim());
-            jLabel15.setText(producto.getColor().trim());
-            String path = "/Imagenes/"+producto.getImagen();
-            ImageIcon iconLogo = createImageIcon2(path);
-            jLabel18.setIcon(iconLogo);
-        } catch (SQLException ex) { System.out.println("Error de producto desde arbol a tabla"+ex); }
+        int valor=0;
+        while(valor<aux2a.size()){
+               var=(String) nodeInfo;
+                     
+
+                            if(var.indexOf(aux2a.get(valor).getNombre().trim())!=-1){
+            jLabel8.setText(aux2a.get(valor).getNombre().trim());
+            jLabel9.setText(aux2a.get(valor).getTipo().trim());
+            jLabel10.setText(aux2a.get(valor).getMarca().trim());
+            jLabel11.setText((aux2a.get(valor).getPrecioVenta()).toString().trim());
+            jLabel12.setText(aux2a.get(valor).getProveedor().trim());
+            jLabel13.setText(Integer.toString(aux2a.get(valor).getCantidadp()));
+            jLabel14.setText(aux2a.get(valor).getTalla().trim());
+            jLabel15.setText(aux2a.get(valor).getColor().trim());
+           // String path = "/Imagenes/"+aux2a.get(valor).getImagen();
+        //    ImageIcon iconLogo = createImageIcon2(path);
+       //     jLabel18.setIcon(iconLogo);}
+          }  valor++;
+        }
         
 
 
@@ -766,7 +780,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     }
     private void iniciar() throws SQLException
         {
-        aux2a = new metodosDB().getProductos();
+    
         int i = 0;
         Object[] object = new Object[5];
         System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
