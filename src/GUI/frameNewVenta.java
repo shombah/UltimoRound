@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -707,6 +708,27 @@ public class frameNewVenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(a, "Sin productos en el carrito!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+    private void empaquetaProductos(ArrayList<Productos> carroProductos)
+    {
+        ArrayList<Productos> arreglo = new ArrayList<Productos>();
+        arreglo = carroProductos;
+        int productosDistintos = 0 , cantidadProductos = 0, aux=0;
+        cantidadProductos = carroProductos.size();
+        int i = 0;
+        while(cantidadProductos>0)
+        {
+            Productos p = arreglo.get(i);
+            int repeticiones = Collections.frequency(arreglo, p);
+            cantidadProductos = cantidadProductos - repeticiones;
+            for(int j = 0 ; j< arreglo.size();j++)
+            {
+                if(arreglo.get(j).equals(p))
+                    arreglo.remove(p);
+            }
+            
+            
+        }
+    }
     private void guardaVenta()
     {
     

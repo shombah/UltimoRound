@@ -5,6 +5,7 @@
 package GUI;
 
 import Clases.funciones;
+import ObjetosDB.Kitproductos;
 import ObjetosDB.Productos;
 import ObjetosDB.metodosDB;
 import com.itextpdf.text.*;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,26 +50,26 @@ public class buscar_producto extends javax.swing.JDialog implements KeyListener,
         }
     };
 
-    public buscar_producto(java.awt.Frame parent, boolean modal) {
+    public buscar_producto(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
         iniciar();
     }
 
-    buscar_producto(int usuario) {
+    buscar_producto(int usuario) throws SQLException {
         initComponents();
         this.usuario = usuario;
         iniciar();
     }
 
-    buscar_producto(jframeUsuario aThis, boolean b, int u) {
+    buscar_producto(jframeUsuario aThis, boolean b, int u) throws SQLException {
         super(aThis, b);
         initComponents();
         this.usuario = u;
         iniciar();
     }
 
-    private void iniciar() {
+    private void iniciar() throws SQLException {
 String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROVEEDOR","PRECIO COMPRA", "PRECIO VENTA","CODIGO"};
         modelo.setColumnIdentifiers(t);
         jTable1.setModel(modelo);
@@ -95,7 +97,31 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jTable1.setRowHeight(22);
         jTable1.setCellSelectionEnabled(false);
         jTable1.setRowSelectionAllowed(true);
-
+ArrayList<Productos> aux2 = new ArrayList<Productos>();
+            metodosDB f = new metodosDB();
+        modelo.setNumRows(0);
+        int aux3;
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+          
+		         aux2 = f.getProductoByNombre1();//Cargar resultados , debe ser por nombres
+                    Object[] object = new Object[10];
+                    int i=0;
+                    while(aux2.size()>i){
+       
+        object[0]  = aux2.get(i).getId_producto();
+        object[1] = aux2.get(i).getNombre();
+        object[2] = aux2.get(i).getTalla();
+        object[3] = aux2.get(i).getMarca();
+        object[4] = aux2.get(i).getCantidadActual();
+        object[5] = aux2.get(i).getTipo();
+        object[6] = aux2.get(i).getProveedor();
+        object[7] = aux2.get(i).getPrecioCompra();
+        object[8] = aux2.get(i).getPrecioVenta();
+        object[9] = aux2.get(i).getCodigo_barra();
+        
+         modelo.addRow(object);i++;}
+		// Accion a realizar cuando el JComboBox cambia de item seleccionado.
+        
     }
 
   
@@ -109,7 +135,6 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -163,10 +188,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 16)); // NOI18N
-        jLabel3.setText("BUSCAR");
-
-        jComboBox1.setFont(new java.awt.Font("DejaVu Sans", 1, 16)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NOMBRE", "ID PRODUCTO", "MARCA" }));
+        jLabel3.setText("BUSCAR POR NOMBRE");
 
         jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -181,18 +203,19 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -201,7 +224,6 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -218,91 +240,75 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         metodosDB f = new metodosDB();
         modelo.setNumRows(0);
         int aux3;
+        int i=0;
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        Productos aux2 = new Productos();
-        if (jComboBox1.getSelectedIndex()==0) { // si quiere buscar por solicitud
+        ArrayList<Productos> aux2 = new ArrayList<Productos>();
             if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio                
-                this.setCursor(Cursor.getDefaultCursor());
-                mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR UN NOMBRE", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
-                return;
-            }else{
-                try {
-                    aux2 = f.getProductoById(Integer.parseInt(jTextField1.getText()));//Cargar resultados , debe ser por nombres
+             
+        modelo.setNumRows(0);
+       
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+          
+            try {
+                aux2 = f.getProductoByNombre1();//Cargar resultados , debe ser por nombres
+            } catch (SQLException ex) {
+                Logger.getLogger(buscar_producto.class.getName()).log(Level.SEVERE, null, ex);
+            }
                     Object[] object = new Object[10];
-        object[0]  = aux2.getId_producto();
-        object[1] = aux2.getNombre();
-        object[2] = aux2.getTalla();
-        object[3] = aux2.getMarca();
-        object[4] = aux2.getCantidadActual();
-        object[5] = aux2.getTipo();
-        object[6] = aux2.getProveedor();
-        object[7] = aux2.getPrecioCompra();
-        object[8] = aux2.getPrecioVenta();
-        object[9] = aux2.getCodigo_barra();
-         modelo.addRow(object);
-                } catch (SQLException ex) {
-                    Logger.getLogger(buscar_producto.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                    int k=0;
+                    while(aux2.size()>k){
+       
+        object[0]  = aux2.get(k).getId_producto();
+        object[1] = aux2.get(k).getNombre();
+        object[2] = aux2.get(k).getTalla();
+        object[3] = aux2.get(k).getMarca();
+        object[4] = aux2.get(k).getCantidadActual();
+        object[5] = aux2.get(k).getTipo();
+        object[6] = aux2.get(k).getProveedor();
+        object[7] = aux2.get(k).getPrecioCompra();
+        object[8] = aux2.get(k).getPrecioVenta();
+        object[9] = aux2.get(k).getCodigo_barra();
+        
+         modelo.addRow(object);k++;}
+		// Accion a realizar cuando el JComboBox cambia de item seleccionado.
+            }else{
+                String nombre="";
+                String var="";
+                nombre=jTextField1.getText().toUpperCase();
+                
+                try {
+                    aux2 = f.getProductoByNombre1();//Cargar resultados , debe ser por nombres
+                   if(aux2.equals(null)){
+                        this.setCursor(Cursor.getDefaultCursor());
+                mnsj = JOptionPane.showConfirmDialog(null, "NO SE ENCONTRO NINGUN PRODUCTO", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
+                   }else{
+                    while(aux2.size()>i){   
+                       var=aux2.get(i).getNombre().toUpperCase();
+                       var=var.replace(" ","");
+                       nombre = nombre.replace(" ","");
+                       System.out.println(var);
+                        System.out.println(nombre);
+                            if(var.indexOf(nombre)!=-1){
+                    Object[] object = new Object[10];
+          object[0]  = aux2.get(i).getId_producto();
+        object[1] = aux2.get(i).getNombre();
+        object[2] = aux2.get(i).getTalla();
+        object[3] = aux2.get(i).getMarca();
+        object[4] = aux2.get(i).getCantidadActual();
+        object[5] = aux2.get(i).getTipo();
+        object[6] = aux2.get(i).getProveedor();
+        object[7] = aux2.get(i).getPrecioCompra();
+        object[8] = aux2.get(i).getPrecioVenta();
+        object[9] = aux2.get(i).getCodigo_barra();
+         modelo.addRow(object);}i++;}
+                } 
+            } catch (SQLException ex) {
+                Logger.getLogger(buscar_producto.class.getName()).log(Level.SEVERE, null, ex);
             }
          
               this.setCursor(Cursor.getDefaultCursor());
-        }
-  this.setCursor(Cursor.getDefaultCursor());
-        if (jComboBox1.getSelectedIndex()==1) { // si quiere buscar por rut
-            if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
-                this.setCursor(Cursor.getDefaultCursor());
-                mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR UN ID DE PRODUCTO", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
-                return;
-            }else{
-                try {
-                      aux2 = f.getProductoById(Integer.parseInt(jTextField1.getText()));//Cargar resultados , debe ser por nombres
-                    Object[] object = new Object[10];
-        object[0]  = aux2.getId_producto();
-        object[1] = aux2.getNombre();
-        object[2] = aux2.getTalla();
-        object[3] = aux2.getMarca();
-        object[4] = aux2.getCantidadActual();
-        object[5] = aux2.getTipo();
-        object[6] = aux2.getProveedor();
-        object[7] = aux2.getPrecioCompra();
-        object[8] = aux2.getPrecioVenta();
-        object[9] = aux2.getCodigo_barra();
-         modelo.addRow(object);
-                } catch (SQLException ex) {
-                    Logger.getLogger(buscar_producto.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-          
-          
-        }  this.setCursor(Cursor.getDefaultCursor());
-          if (jComboBox1.getSelectedIndex()==2) { // si quiere buscar por rut
-            if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
-                this.setCursor(Cursor.getDefaultCursor());
-                mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR UNA MARCA", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
-                return;
-            }else{
-                try {
-                      aux2 = f.getProductoById(Integer.parseInt(jTextField1.getText()));//Cargar resultados , debe ser por nombres
-                    Object[] object = new Object[10];
-        object[0]  = aux2.getId_producto();
-        object[1] = aux2.getNombre();
-        object[2] = aux2.getTalla();
-        object[3] = aux2.getMarca();
-        object[4] = aux2.getCantidadActual();
-        object[5] = aux2.getTipo();
-        object[6] = aux2.getProveedor();
-        object[7] = aux2.getPrecioCompra();
-        object[8] = aux2.getPrecioVenta();
-        object[9] = aux2.getCodigo_barra();
-         modelo.addRow(object);
-                } catch (SQLException ex) {
-                    Logger.getLogger(buscar_producto.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-          
-           
-        }
-          this.setCursor(Cursor.getDefaultCursor());
+        
+  }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -383,7 +389,12 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                buscar_producto dialog = new buscar_producto(new javax.swing.JFrame(), true);
+                buscar_producto dialog = null;
+                try {
+                    dialog = new buscar_producto(new javax.swing.JFrame(), true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(buscar_producto.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -399,7 +410,6 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

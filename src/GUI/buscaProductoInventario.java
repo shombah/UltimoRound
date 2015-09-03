@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -30,6 +31,8 @@ import javax.swing.tree.TreeModel;
 public class buscaProductoInventario extends javax.swing.JFrame {
     private final ArrayList<ObjetosDB.Productos> carroProductosLocal = new ArrayList<Productos>();
     private ArrayList<Productos> carroProductos;
+    private             ArrayList<Productos> aux2a;
+
     
     DefaultTableModel modelo0 = new DefaultTableModel();
     DefaultTableModel modelo1 = new DefaultTableModel(); // Tabla Productos
@@ -93,6 +96,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -177,6 +181,8 @@ public class buscaProductoInventario extends javax.swing.JFrame {
 
         jLabel18.setMaximumSize(new java.awt.Dimension(100, 100));
 
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -214,7 +220,9 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                         .addGap(135, 135, 135)
                         .addComponent(jLabel7))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
+                        .addGap(60, 60, 60)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(97, 97, 97))
         );
@@ -264,7 +272,9 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                             .addComponent(jLabel13))
                         .addGap(22, 22, 22))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -310,6 +320,11 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         );
 
         jTextField1.setText("Buscar...");
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/zoom.png"))); // NOI18N
         jButton1.setText("BUSCAR");
@@ -405,28 +420,92 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         if (node == null) return;
         Object nodeInfo = node.getUserObject();
         Object[] object = new Object[10];
-        
+        Productos producto = null;
         try {
-            Productos producto = new metodosDB().getProductoByNombre((String) nodeInfo);
-            object[0]  = producto.getId_producto();
-            object[1] = producto.getNombre();
-            object[2] = producto.getTalla();
-            object[3] = producto.getMarca();
-            object[4] = producto.getTipo();
-            object[5] = producto.getProveedor();
-            object[6] = producto.getPrecioCompra();
-            object[7] = producto.getPrecioVenta();
-            object[8] = producto.getCodigo_barra();
-            modelo1.addRow(object);
-            carroProductosLocal.add(producto);
+            producto = new metodosDB().getProductoByNombre((String) nodeInfo);
+        } catch (SQLException ex) {
+            Logger.getLogger(buscaProductoInventario.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        } catch (SQLException ex) {System.out.println("Error agregando a la tabla"+ex);}
+        if(validaSpinner())
+            for(int i= 0; i<(int)jSpinner1.getValue();i++)
+            {
+                object[0]  = producto.getId_producto();
+                object[1] = producto.getNombre();
+                object[2] = producto.getTalla();
+                object[3] = producto.getMarca();
+                object[4] = producto.getTipo();
+                object[5] = producto.getProveedor();
+                object[6] = producto.getPrecioCompra();
+                object[7] = producto.getPrecioVenta();
+                object[8] = producto.getCodigo_barra();
+                modelo1.addRow(object);
+                //producto.setCantidadActual(producto.getCantidadActual()-1);
+                //jLabel13.setText(producto.getCantidadActual().toString());
+                int index=-1;
+                for (int j = 0 ; j<aux2a.size();j++)
+                {
+                      System.out.println("\n aux2a :"+aux2a.get(j).getId_producto());
+                        System.out.println("\n producto :"+producto.getId_producto());
+                    if(aux2a.get(j).getId_producto() == producto.getId_producto())
+                    {
+                      
+                        index = j;
+                    }
+                }
+                
+                System.out.println("objetos"+aux2a.size());
+               int indice = aux2a.indexOf(producto.getId_producto());
+             System.out.println("\n encontrado en indice "+index);
+                int cantidadp = producto.getCantidadp() -1;
+                producto.setCantidadp(cantidadp);
+                System.out.println("\ncp:"+producto.getCantidadp());
+                jLabel13.setText(Integer.toString(producto.getCantidadp()));
+                aux2a.remove(index);
+                aux2a.add(producto);
+                carroProductosLocal.add(producto);
+                jTree1.
+                //rp
+            }
+                        pintaArbol();
 
-
-
+        
+            
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public boolean validaSpinner()
+    {
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if(jSpinner1.getValue().toString().trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "cantidad no puede estar vacío");
+                return false;
+                }
+        
+         try {
+            // Check whether priceField.getText()'s length equals 0
+            int a = (int)jSpinner1.getValue();
+               
+            } catch(NumberFormatException e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "cantidad debe ser un número");
+                return false;
+                }
+         
+         if((int)jSpinner1.getValue()> Integer.parseInt(jLabel13.getText()))
+         {
+             JOptionPane.showMessageDialog(rootPane,  "cantidad excede inventario actual");
+             return false;
+         }
+        return true;
+    }
     private void jTree1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTree1MouseClicked
+        
         final int en =1;
         DefaultMutableTreeNode node = (DefaultMutableTreeNode)
                            jTree1.getLastSelectedPathComponent();
@@ -438,12 +517,14 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         System.out.println("seleccionado : "+(String) nodeInfo);
         try {
             producto = new metodosDB().getProductoByNombre((String) nodeInfo);
+            
+            producto.setCantidadActual(producto.getCantidadp());
             jLabel8.setText(producto.getNombre().trim());
             jLabel9.setText(producto.getTipo().trim());
             jLabel10.setText(producto.getMarca().trim());
             jLabel11.setText((producto.getPrecioVenta()).toString().trim());
             jLabel12.setText(producto.getProveedor().trim());
-            jLabel13.setText((producto.getCantidadActual()).toString().trim());
+            jLabel13.setText(Integer.toString(producto.getCantidadp()));
             jLabel14.setText(producto.getTalla().trim());
             jLabel15.setText(producto.getColor().trim());
             String path = "/Imagenes/"+producto.getImagen();
@@ -517,29 +598,33 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-ArrayList<Productos> aux2a = null;
-String nombre = jTextField1.getText();
+    
+        ArrayList<Productos> aux2a = null;
+    String nombre = jTextField1.getText();
 
         try {
             aux2a = new metodosDB().getProductos();
         } catch (SQLException ex) {
             Logger.getLogger(buscaProductoInventario.class.getName()).log(Level.SEVERE, null, ex);
         }
-if(nombre.equals("")||nombre.equals("Buscar...")){
-    
-        int i = 0;
-        Object[] object = new Object[5];
-        System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
-
-        while(aux2a.size()>i)
-        {
-            DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombre());
-            root.add(nodo);
-            i++;
-        }
         
-       
+        if(nombre.equals("")||nombre.equals("Buscar..."))
+        {
+            int i = 0;
+            Object[] object = new Object[5];
+            System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
+            DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
+
+            while(aux2a.size()>i)
+            {
+                if(aux2a.get(i).getCantidadActual()>0)
+                {
+                    DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombre());
+                    root.add(nodo);
+                }
+                i++;
+            }
+            
         DefaultTreeModel modeloarbol = new DefaultTreeModel(root);
         DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) jTree1.getCellRenderer();
         ImageIcon leafIcon = createImageIcon("/Iconos/emblem-sales.png");
@@ -556,52 +641,53 @@ if(nombre.equals("")||nombre.equals("Buscar...")){
         modelo1.setColumnIdentifiers(t);
         jTable1.setModel(modelo1);
     
-}else{
-        String nombreproducto="";
-        int i = 0;
-        Object[] object = new Object[5];
-        System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
+        }else
+        {
+            String nombreproducto="";
+            int i = 0;
+            Object[] object = new Object[5];
+            System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
+            DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
 
-        while(aux2a.size()>i)
-        {   System.out.println("NOMBRE A BUSCAR: "+nombre);
-            nombreproducto="";
-            DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombre());
-            nombreproducto=aux2a.get(i).getNombre();
-            nombreproducto=nombreproducto.toUpperCase();
-            System.out.println("SIN FORMATO: "+nombreproducto);
-            nombreproducto=nombreproducto.replace(" ","");
-            nombreproducto = nombreproducto.toUpperCase();
-             System.out.println("CON FORMATO: "+nombreproducto);
-            if((nombreproducto.indexOf(nombre.toUpperCase()))!=-1){
-                 System.out.println("ENCONTRO: "+nombreproducto);
-                root.add(nodo);}
-            i++;
+            while(aux2a.size()>i)
+            {   System.out.println("NOMBRE A BUSCAR: "+nombre);
+                nombreproducto="";
+                DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombre());
+                nombreproducto=aux2a.get(i).getNombre();
+                nombreproducto=nombreproducto.toUpperCase();
+                System.out.println("SIN FORMATO: "+nombreproducto);
+                nombreproducto=nombreproducto.replace(" ","");
+                nombreproducto = nombreproducto.toUpperCase();
+                 System.out.println("CON FORMATO: "+nombreproducto);
+                if((nombreproducto.indexOf(nombre.toUpperCase()))!=-1){
+                     System.out.println("ENCONTRO: "+nombreproducto);
+                    root.add(nodo);}
+                i++;
+            }
+
+
+            DefaultTreeModel modeloarbol = new DefaultTreeModel(root);
+            DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) jTree1.getCellRenderer();
+            ImageIcon leafIcon = createImageIcon("/Iconos/emblem-sales.png");
+            Icon closedIcon = createImageIcon("/Iconos/boxing_gloves_red.png");
+            Icon openIcon = createImageIcon("/Iconos/boxing_gloves_red.png");
+            renderer.setClosedIcon(closedIcon);
+            renderer.setOpenIcon(openIcon);
+            renderer.setLeafIcon(leafIcon);
+
+            jTree1.setModel(modeloarbol);
+            traverse(jTree1);
+
+            String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+            modelo1.setColumnIdentifiers(t);
+            jTable1.setModel(modelo1);       // TODO add your handling code here:
         }
-        
-       
-        DefaultTreeModel modeloarbol = new DefaultTreeModel(root);
-        DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) jTree1.getCellRenderer();
-        ImageIcon leafIcon = createImageIcon("/Iconos/emblem-sales.png");
-        Icon closedIcon = createImageIcon("/Iconos/boxing_gloves_red.png");
-        Icon openIcon = createImageIcon("/Iconos/boxing_gloves_red.png");
-        renderer.setClosedIcon(closedIcon);
-        renderer.setOpenIcon(openIcon);
-        renderer.setLeafIcon(leafIcon);
-        
-        jTree1.setModel(modeloarbol);
-        traverse(jTree1);
-        
-        String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
-        modelo1.setColumnIdentifiers(t);
-        jTable1.setModel(modelo1);       // TODO add your handling code here:
-}
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
        ArrayList<Productos> aux2a = null;
-String nombre = jTextField1.getText();
+       String nombre = jTextField1.getText();
 
         try {
             aux2a = new metodosDB().getProductos();
@@ -617,8 +703,10 @@ String nombre = jTextField1.getText();
 
         while(aux2a.size()>i)
         {
+            if(aux2a.get(i).getCantidadActual()>0){
             DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombre());
-            root.add(nodo);
+            root.add(nodo);}
+            
             i++;
         }
         
@@ -642,14 +730,14 @@ String nombre = jTextField1.getText();
  // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void iniciar() throws SQLException
-        {
-            ArrayList<Productos> aux2a;
-        aux2a = new metodosDB().getProductos();
-        int i = 0;
-        Object[] object = new Object[5];
-        System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
+    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+        // TODO add your handling code here:
+        jTextField1.setText("");
+    }//GEN-LAST:event_jTextField1MouseClicked
+    private void pintaArbol()
+    {
+        int i=0;
+     DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
 
         while(aux2a.size()>i)
         {
@@ -675,6 +763,14 @@ String nombre = jTextField1.getText();
         
         jTree1.setModel(modeloarbol);
         traverse(jTree1);
+    }
+    private void iniciar() throws SQLException
+        {
+        aux2a = new metodosDB().getProductos();
+        int i = 0;
+        Object[] object = new Object[5];
+        System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
+        pintaArbol();
         
         String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
         modelo1.setColumnIdentifiers(t);
@@ -768,6 +864,7 @@ String nombre = jTextField1.getText();
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTree jTree1;

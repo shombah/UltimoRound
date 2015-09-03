@@ -18,6 +18,7 @@ public class metodosDB
     public metodosDB() //Constructor
     { 
     }
+    
 
 /*METODOS DE UTILIDAD*/
  // <editor-fold defaultstate="collapsed" desc="Metodos de Utilidad">                          
@@ -342,7 +343,7 @@ return m;
 /*METODOS VENTA PRODUCTO*/
 // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas VentaProducto">                          
 
-     public ArrayList<VentaProducto> getVentaProductoByIdOrdenVenta(int id_orden_venta) throws SQLException //Implementar
+     public ArrayList<VentaProducto> getVentaProductoByIdOrdenVenta(int id_orden_venta) throws SQLException 
      {      //Retorna un arraylist con ventasproducto segun la orden de venta dada.
         ArrayList<VentaProducto> ventasAsociadas = new ArrayList<VentaProducto>();
         VentaProducto ventaEncontrada = null;
@@ -371,6 +372,7 @@ return m;
          closeConnections(c,conexion,stm,resultados);
          return ventasAsociadas;
      }
+     
 //</editor-fold>
 /*FIN METODOS VENTAPRODUCTO*/
      
@@ -455,6 +457,27 @@ return m;
 
 /*METODOS PRODUCTOS*/
 // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Productos">
+     public ArrayList<Productos> getProductoByNombre1() throws SQLException
+{
+    ArrayList<Productos> aux2 = new ArrayList<Productos>();
+Productos producto = null;
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "SELECT * FROM Productos";
+      System.out.println(query);
+      PreparedStatement stm = conexion.prepareStatement(query);
+     
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
+       aux2.add(producto);
+      }
+        conexion.close();
+         stm.close();
+    return aux2;
+}
+     
 public ArrayList<Productos> getProductos() throws SQLException
 {
      ArrayList<Productos> productos = new ArrayList<Productos>();

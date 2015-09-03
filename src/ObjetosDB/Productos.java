@@ -21,6 +21,7 @@ public class Productos   {
     private String codigo_barra;
     private Integer id_producto;
     private String imagen = "notFound.png";
+    private int cantidadp;
     public Productos(int id_producto,String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual, String tipo, String codigo_barra) 
     { //Constructor
         this.id_producto=id_producto;
@@ -34,12 +35,12 @@ public class Productos   {
         this.cantidadActual = cantidadActual;
         this.tipo = tipo;
         this.codigo_barra = codigo_barra;
+        this.cantidadp = cantidadActual;
        
     }
     public Productos(){}
 
     /*Setters y Getters*/
-   
     public String getNombre() {
         return nombre;
     }
@@ -164,6 +165,14 @@ public class Productos   {
      */
     public void setId_producto(Integer id_producto) {
         this.id_producto = id_producto;
+    }
+
+    public int getCantidadp() {
+        return cantidadp;
+    }
+
+    public void setCantidadp(int cantidadp) {
+        this.cantidadp = cantidadp;
     }
     
 }
