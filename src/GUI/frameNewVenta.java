@@ -7,8 +7,10 @@ package GUI;
 
 import Clases.funciones;
 import ObjetosDB.Cliente;
+import ObjetosDB.OrdenDeVenta;
 import ObjetosDB.Productos;
 import ObjetosDB.Promociones;
+import ObjetosDB.VentaProducto;
 import ObjetosDB.metodosDB;
 import java.awt.Cursor;
 import java.sql.SQLException;
@@ -28,7 +30,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frameNewVenta extends javax.swing.JFrame {
     private ArrayList<Productos> carroProductos = new ArrayList<ObjetosDB.Productos>();
-    public Cliente cliente ;
+    public Cliente cliente=null ;
+    public boolean clientesel=false;
     private ArrayList<Promociones> promos=null;
     public             ArrayList<Productos> aux2a;
     DefaultTableModel modelo1 = new DefaultTableModel();
@@ -43,6 +46,7 @@ public class frameNewVenta extends javax.swing.JFrame {
         modelo1.setColumnIdentifiers(t3);
         jTable1.setModel(modelo1);
         this.getPromos();
+        jLabel17.setText("-");
         while(cantidadpromos<promos.size()){
             jComboBox1.addItem(promos.get(cantidadpromos).getNombre());
             cantidadpromos=cantidadpromos+1;
@@ -688,14 +692,23 @@ public class frameNewVenta extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int idordenventa=0;
         if(carroProductos.size()>0) //si hay cosas para vender, vendemos
         {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
         String FechaHoy = dateFormat.format(cal.getTime())+"\n";
-            try {
-                this.cliente = new metodosDB().getClienteById(Integer.parseInt(jLabel17.getText())); //validar que no esté vacío, o que no sea -
-            } catch (SQLException ex) {
+            try {  
+               
+                
+               
+                this.cliente = new metodosDB().getClienteById(Integer.parseInt(jLabel17.getText())); 
+                 if(this.cliente==null){
+                    
+   jframe1 a = new jframe1();
+            JOptionPane.showMessageDialog(a, "Debe seleccionar un cliente");
+                 }
+           } catch (SQLException ex) {
                 Logger.getLogger(frameNewVenta.class.getName()).log(Level.SEVERE, null, ex);
             }
         System.out.println("_________DATOS CLIENTE________\n");
@@ -728,6 +741,7 @@ public class frameNewVenta extends javax.swing.JFrame {
             int cantidad_vendida,precio_unitario_neto,precio_total_neto,descuento;
             float precio_unitario_final,precio_total_final;
             try {
+                idordenventa=new metodosDB().getLastId("Ordendeventa")+1;
                 ordenVenta = Integer.toString(new metodosDB().getLastId("Ordendeventa")+1);
             } catch (SQLException ex) {
                 Logger.getLogger(frameNewVenta.class.getName()).log(Level.SEVERE, null, ex);
@@ -770,7 +784,12 @@ public class frameNewVenta extends javax.swing.JFrame {
         System.out.println("\n totala pagar: "+totalPagar);
         System.out.println("_________________\n");
         empaquetaProductos(this.carroProductos);
-
+        OrdenDeVenta orden= new OrdenDeVenta(idordenventa,FechaHoy,Integer.toString(totalPagar),idordenventa,"Efectivo",montoNeto,this.cliente,null);
+            try {
+               new metodosDB().nuevaVentasDiaria(orden, rut);
+            } catch (SQLException ex) {
+                Logger.getLogger(frameNewVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
         guardaVenta();
         jframe1 a = new jframe1();
             JOptionPane.showMessageDialog(a, "Venta Generada Exitosamente, productos descontados de inventario");

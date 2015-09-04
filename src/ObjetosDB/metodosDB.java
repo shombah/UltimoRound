@@ -388,7 +388,7 @@ return m;
       ArrayList<OrdenDeVenta> ordenesEncontradas=null;
         ordenesEncontradas = new ArrayList<OrdenDeVenta>();
        
-      String query = "SELECT * FROM ordendeventa WHERE id_cliente="+id_cliente;
+      String query = "SELECT * FROM OrdenDeVenta WHERE id_cliente="+id_cliente;
       PreparedStatement stm = conexion.prepareStatement(query);
       ResultSet resultados = stm.executeQuery();
       
@@ -451,7 +451,29 @@ return m;
             closeConnections(c,conexion,stm,resultados);
             return ordenesEncontradas;
      }
+      public void nuevaVentasDiaria(OrdenDeVenta orden,int rut) throws SQLException
+     {//Retorna un arraylist con las ventas de la fecha indicada
+          
+            DB_connection c = new DB_connection();
+            Connection conexion = c.getConnection();
+            
+             String query = "INSERT INTO Ordendeventa (id_orden_venta,fecha,monto_total,numero_boleta,medio_pago,estado_presupuesto,id_cliente) VALUES (?,?,?,?,?,?,?);";    
      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      
+       stm.setInt(1,orden.getIdOrdenVenta());
+       stm.setString (2, orden.getFecha());
+      stm.setString(3, orden.getMontoTotal());
+      stm.setInt(4, orden.getIdOrdenVenta());
+       stm.setString(5,orden.getMedioPago());
+       stm.setInt(6, orden.getEstadoPresupuesto());
+      stm.setInt(7, rut); System.out.print(stm);
+      
+               stm.executeUpdate();
+    stm.close();
+           
+          
+     }
 //</editor-fold>
 /*FIN METODOS ORDENDEVENTA*/
 

@@ -17,7 +17,7 @@ public class OrdenDeVenta   {
         this.idOrdenVenta = idOrdenVenta;
         this.fecha = fecha;
         this.montoTotal = montoTotal;
-        this.numeroBoleta = numeroBoleta;
+        this.numeroBoleta = numeroBolta;
         this.medioPago = medioPago;
         this.estadoPresupuesto = estadoPresupuesto;
         this.cliente = cliente;
