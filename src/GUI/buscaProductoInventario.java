@@ -449,8 +449,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                 int index=-1;
                 for (int j = 0 ; j<aux2a.size();j++)
                 {
-                      System.out.println("\n aux2a :"+aux2a.get(j).getId_producto());
-                        System.out.println("\n producto :"+producto.getId_producto());
+                      
                     if(aux2a.get(j).getId_producto() == producto.getId_producto())
                     {
                       
@@ -458,12 +457,10 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                     }
                 }
               
-                System.out.println("objetos"+aux2a.size());
                int indice = aux2a.indexOf(producto.getId_producto());
-             System.out.println("\n encontrado en indice "+index);
                 int cantidadp = producto.getCantidadp() -1;
                 producto.setCantidadp(cantidadp);
-                System.out.println("\ncp:"+producto.getCantidadp());
+                System.out.println("\nProducto"+producto.getNombre()+"cp:"+producto.getCantidadp());
                 jLabel13.setText(Integer.toString(producto.getCantidadp()));
                 aux2a.set(index, producto);
                 carroProductosLocal.add(producto);
@@ -520,6 +517,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         final int en =1;
         DefaultMutableTreeNode node = (DefaultMutableTreeNode)
                            jTree1.getLastSelectedPathComponent();
+        Productos p =null;
         /* if nothing is selected */ 
         if (node == null) return;
 
@@ -527,44 +525,71 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         Object nodeInfo = node.getUserObject();
         System.out.println("seleccionado : "+(String) nodeInfo);
         int valor=0;
-        while(valor<aux2a.size()){
-               var=(String) nodeInfo;
-                     
-
-                            if(var.indexOf(aux2a.get(valor).getNombre().trim())!=-1){
-            jLabel8.setText(aux2a.get(valor).getNombre().trim());
-            jLabel9.setText(aux2a.get(valor).getTipo().trim());
-            jLabel10.setText(aux2a.get(valor).getMarca().trim());
-            jLabel11.setText((aux2a.get(valor).getPrecioVenta()).toString().trim());
-            jLabel12.setText(aux2a.get(valor).getProveedor().trim());
-            jLabel13.setText(Integer.toString(aux2a.get(valor).getCantidadp()));
-            jLabel14.setText(aux2a.get(valor).getTalla().trim());
-            jLabel15.setText(aux2a.get(valor).getColor().trim());
-           // String path = "/Imagenes/"+aux2a.get(valor).getImagen();
-        //    ImageIcon iconLogo = createImageIcon2(path);
-       //     jLabel18.setIcon(iconLogo);}
-          }  valor++;
+        for (Productos a :aux2a)
+        {
+            if (a.getNombre().equals(nodeInfo))
+                    p = a;
         }
+        var=(String) nodeInfo;
         
-
-
-
+        if(p!=null)
+        {
+            jLabel8.setText(p.getNombre().trim());
+            jLabel9.setText(p.getTipo().trim());
+            jLabel10.setText(p.getMarca().trim());
+            jLabel11.setText((p.getPrecioVenta()).toString().trim());
+            jLabel12.setText(p.getProveedor().trim());
+            jLabel13.setText(Integer.toString(p.getCantidadp()));
+            jLabel14.setText(p.getTalla().trim());
+            jLabel15.setText(p.getColor().trim());
+            String path = "/Imagenes/"+aux2a.get(valor).getImagen();
+            ImageIcon iconLogo = createImageIcon2(path);
+            jLabel18.setIcon(iconLogo);
+         
+            
+        }
 
     }//GEN-LAST:event_jTree1MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
+        
         int borrar = jTable1.getSelectedRow();
+        //quitar no pone cantidad p bien
+        int id_p = (Integer)jTable1.getValueAt(borrar, 0);
+        
+        
         try{
             carroProductosLocal.remove(borrar);
-        }catch(ArrayIndexOutOfBoundsException a){System.out.println("No hay nada seleccionado");}
-        modelo1.removeRow(borrar);
+            modelo1.removeRow(borrar);
+            for(Productos p: aux2a)
+                if(p.getId_producto() == id_p)
+                    p.setCantidadp(p.getCantidadp()+1);
+                
+            jTree1.requestFocus();
+                jTextField1.requestFocus();
+                            jLabel8.setText("-");
+            jLabel9.setText("-");
+            jLabel10.setText("-");
+            jLabel11.setText("-");
+            jLabel12.setText("-");
+            jLabel13.setText("-");
+            jLabel14.setText("-");
+            jLabel15.setText("-");
+            
+
+        }catch(ArrayIndexOutOfBoundsException a)
+        {
+                       JOptionPane.showMessageDialog(rootPane,  "No ha seleccionado ningún producto");
+
+        }
+
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
             Object[] object = new Object[10];
-
+       if(carroProductosLocal.size()>0)
+       {
             for(int i=0;i<carroProductosLocal.size();i++)
             {
                 System.out.println("Producto a Agregar : "+ carroProductosLocal.get(i).getNombre()+"\n");
@@ -584,6 +609,11 @@ public class buscaProductoInventario extends javax.swing.JFrame {
             carroProductos.addAll(carroProductosLocal);
             this.dispose();
             calculaTotales(carroProductos);
+       }else
+       {
+           JOptionPane.showMessageDialog(rootPane,  "No ha seleccionado ningún producto");
+
+       }
     }//GEN-LAST:event_jButton4ActionPerformed
      public void calculaTotales(ArrayList<Productos> carroProductos)
  {
@@ -604,10 +634,14 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     int sumaPrevia = montoNeto-montoDescuento;
     iva_pesos = (sumaPrevia * iva_porcentaje)/100;
     j21.setText(Integer.toString(iva_pesos));
-    montoTotal = montoNeto - montoDescuento + iva_pesos;
+    montoTotal = montoNeto - montoDescuento - iva_pesos;
     j22.setText(Integer.toString(montoTotal));
  }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        for(Productos p : carroProductosLocal)
+        {
+            p.setCantidadp(p.getCantidadp()+1);
+        }
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -626,7 +660,6 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         {
             int i = 0;
             Object[] object = new Object[5];
-            System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
             DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
 
             while(aux2a.size()>i)
@@ -660,21 +693,17 @@ public class buscaProductoInventario extends javax.swing.JFrame {
             String nombreproducto="";
             int i = 0;
             Object[] object = new Object[5];
-            System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
             DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
 
             while(aux2a.size()>i)
-            {   System.out.println("NOMBRE A BUSCAR: "+nombre);
+            {   
                 nombreproducto="";
                 DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(aux2a.get(i).getNombre());
                 nombreproducto=aux2a.get(i).getNombre();
                 nombreproducto=nombreproducto.toUpperCase();
-                System.out.println("SIN FORMATO: "+nombreproducto);
                 nombreproducto=nombreproducto.replace(" ","");
                 nombreproducto = nombreproducto.toUpperCase();
-                 System.out.println("CON FORMATO: "+nombreproducto);
                 if((nombreproducto.indexOf(nombre.toUpperCase()))!=-1){
-                     System.out.println("ENCONTRO: "+nombreproducto);
                     root.add(nodo);}
                 i++;
             }
@@ -712,7 +741,6 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     
         int i = 0;
         Object[] object = new Object[5];
-        System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
         DefaultMutableTreeNode root = new DefaultMutableTreeNode( "Productos Disponibles" );
 
         while(aux2a.size()>i)
@@ -783,7 +811,6 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     
         int i = 0;
         Object[] object = new Object[5];
-        System.out.println("aux2a = "+aux2a.size()+"asd i"+i);
         pintaArbol();
         
         String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
@@ -812,10 +839,8 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         cc = model.getChildCount(o); 
         for( int i=0; i < cc; i++) { 
             Object child = model.getChild(o, i ); 
-            if (model.isLeaf(child)) 
-                System.out.println("Leaf: "+i+" "+child.toString()); 
+            if (model.isLeaf(child)) {}
             else { 
-                System.out.print("\n\rParent: "+i+" "+child.toString()+"\n\r"); 
                 walk(model,child ); 
             } 
         } 
@@ -884,3 +909,4 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     private javax.swing.JTree jTree1;
     // End of variables declaration//GEN-END:variables
 }
+

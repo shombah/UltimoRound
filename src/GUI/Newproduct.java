@@ -6,11 +6,13 @@ package GUI;
 
 import Clases.Metodos_objetos;
 import Clases.funciones;
+import static GUI.buscaProductoInventario.createImageIcon2;
 import ObjetosDB.Productos;
 import ObjetosDB.metodosDB;
 import com.mxrck.autocompleter.TextAutoCompleter;
 
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -32,6 +34,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import jbarcodebean.JBarcodeBean;
 import net.sourceforge.jbarcodebean.model.Interleaved25;
+import javax.swing.JFileChooser;
+import java.io.File; 
 
 public class Newproduct extends javax.swing.JDialog implements KeyListener {
 
@@ -101,6 +105,7 @@ private JComboBox combo1;
         //  jTextField2.setEditable(false);
         //   jTextField9.setEditable(false);
         //   jTextField6.setEditable(false);
+        
         Calendar c = Calendar.getInstance();
       //  jDateChooser1.setDate(c.getTime());
         //   jDateChooser1.addKeyListener(this);
@@ -130,7 +135,7 @@ private JComboBox combo1;
  
 		
 		// Accion a realizar cuando el JComboBox cambia de item seleccionado.
-		
+
         cargar();
     }
 
@@ -424,7 +429,7 @@ private JComboBox combo1;
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, Short.MAX_VALUE)
                                         .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING))
@@ -1004,4 +1009,19 @@ private JComboBox combo1;
                 }
         return true;
     }
+     protected static ImageIcon createImageIcon2(String path) {
+    java.net.URL imgURL = frameInventarioActual.class.getResource(path);
+    if (imgURL != null) {
+        ImageIcon imageIcon =new ImageIcon(imgURL);
+        Image image = imageIcon.getImage();
+        Image nueva = image.getScaledInstance(200,200,java.awt.Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(nueva);
+        
+      return imageIcon;
+    } else {
+      System.err.println("Couldn't find file: " + path);
+      return null;
+    }
+    
+  }
 }

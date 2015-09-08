@@ -80,6 +80,10 @@ public class OrdenDeVenta   {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+      public ArrayList<VentaProducto> getVentasProducto()
+    {
+        return this.ventaProducto;
+    }
 
     /*Fin Getters y Setters*/
     

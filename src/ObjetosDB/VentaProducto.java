@@ -36,6 +36,10 @@ public class VentaProducto   {
     public Integer getIdVentaProducto() {
         return idVentaProducto;
     }
+       public int getIdProducto()
+    {
+        return this.producto.getId_producto();
+    }
 
     public void setIdVentaProducto(Integer idVentaProducto) {
         this.idVentaProducto = idVentaProducto;

@@ -52,7 +52,7 @@ public class metodosDB
             case "Usuarios": 
                 columname="id_usuario";
                 break;
-            case "VentaProducto": 
+            case "Ventaproducto": 
                 columname="id_venta_producto";
                 break;
             case "Promociones":
@@ -434,7 +434,7 @@ return m;
             ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
             DB_connection c = new DB_connection();
             Connection conexion = c.getConnection();
-            String query = "SELECT * FROM OrdenDeVenta WHERE fecha = ?";
+            String query = "SELECT * FROM Ordendeventa WHERE fecha = ?";
             PreparedStatement stm = conexion.prepareStatement(query);
             stm.setString(1, fecha);
             ResultSet resultados = stm.executeQuery();
@@ -450,6 +450,25 @@ return m;
             }
             closeConnections(c,conexion,stm,resultados);
             return ordenesEncontradas;
+     }
+     public ArrayList<OrdenDeVenta> getVentasDia(String fecha) throws SQLException
+     {
+        ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
+        DB_connection c = new DB_connection();
+            Connection conexion = c.getConnection();
+            String query = "SELECT * FROM Ordendeventa WHERE fecha = ?";
+            PreparedStatement stm = conexion.prepareStatement(query);
+            stm.setString(1, fecha);
+            ResultSet resultados = stm.executeQuery();
+            while(resultados.next())
+            {
+              Cliente cliente = getClienteById(resultados.getInt("id_cliente"));
+              OrdenDeVenta orden  = new OrdenDeVenta(resultados.getInt("id_orden_venta"),resultados.getString("fecha"),resultados.getString("monto_total"),resultados.getInt("numero_boleta"),resultados.getString("medio_pago"),resultados.getInt("estado_presupuesto"),cliente,null);
+              ordenesEncontradas.add(orden);
+            }
+                        closeConnections(c,conexion,stm,resultados);
+
+        return ordenesEncontradas;
      }
       public void nuevaVentasDiaria(OrdenDeVenta orden,int rut) throws SQLException
      {//Retorna un arraylist con las ventas de la fecha indicada
@@ -474,6 +493,57 @@ return m;
            
           
      }
+      
+      
+      
+      public void addOrdenVenta(OrdenDeVenta o) throws SQLException
+      {
+          DB_connection c = new DB_connection();
+          Connection conexion = c.getConnection();
+
+          String query = "INSERT INTO Ordendeventa (id_orden_venta,fecha,monto_total,numero_boleta,medio_pago,estado_presupuesto,id_cliente) VALUES (?,?,?,?,?,?,?);";
+          PreparedStatement stm = conexion.prepareStatement(query);
+          stm.setInt(1, getLastId("Ordendeventa")+1);
+          stm.setString(2, o.getFecha());
+          stm.setString(3,o.getMontoTotal());
+          stm.setInt(4,o.getNumeroBoleta());
+          stm.setString(5, o.getMedioPago());
+          stm.setInt(6, o.getEstadoPresupuesto());
+          stm.setInt(7, o.getCliente().getIdCliente());
+          System.out.println("\n **addOrdenventa : "+stm);
+          stm.executeUpdate();
+          System.out.println("asddedordenventa");
+          closeConnections(c,conexion,stm,null);
+                    addVentaProducto(o.getVentasProducto(),o);
+
+
+      }
+      public void addVentaProducto(ArrayList<VentaProducto> ventas, OrdenDeVenta o) throws SQLException
+      { //Para ventas de un producto
+          DB_connection c = new DB_connection();
+          Connection conexion = c.getConnection();
+          String query = "INSERT INTO Ventaproducto (id_venta_producto,id_orden_de_venta,id_kit_producto,fecha,precio_unitario_neto,cantidad_producto,precio_unitario_final,precio_total_neto,precio_total_final,descuento) VALUES(?,?,?,?,?,?,?,?,?,?);";
+          PreparedStatement stm = conexion.prepareStatement(query);
+
+          for(VentaProducto v: ventas)
+          {
+              
+              stm.setInt(1, getLastId("Ventaproducto")+1);
+              stm.setInt(2, o.getIdOrdenVenta());
+              stm.setInt(3, v.getIdProducto());
+              stm.setString(4, v.getFecha());
+              stm.setInt(5, v.getPrecioUnitarioNeto());
+              stm.setInt(6,v.getCantidadProducto());
+              stm.setInt(7, v.getPrecioUnitarioFinal());
+              stm.setInt(8,v.getPrecioTotalNeto());
+              stm.setInt(9,v.getPrecioTotalFinal());
+              stm.setInt(10,v.getDescuento());
+              System.out.println("\n addventa : "+stm);
+              stm.executeUpdate();
+              System.out.println("asdded venta producta");
+          }
+            closeConnections(c,conexion,stm,null);
+      }
 //</editor-fold>
 /*FIN METODOS ORDENDEVENTA*/
 
@@ -707,7 +777,7 @@ public int addKitProductos(Kitproductos kit) throws SQLException
      ArrayList<Productos> productos = new ArrayList<Productos>();
       DB_connection c = new DB_connection();
       Connection conexion = c.getConnection();
- String query = "INSERT INTO Kit_Productos (id_kit_productos,nombre_kit,precio_compra_productos,precio_venta_kit,descripcion_kit) VALUES (?,?,?,?,?);";    
+ String query = "INSERT INTO Kit_productos (id_kit_productos,nombre_kit,precio_compra_productos,precio_venta_kit,descripcion_kit) VALUES (?,?,?,?,?);";    
       
       PreparedStatement stm = conexion.prepareStatement(query);
       kit.setIdKitProductos(new metodosDB().getLastId("Kit_productos")+1);
