@@ -68,7 +68,7 @@ private JComboBox combo1;
         Productos producto = new Productos();
         this.mainProduct=kitproducto;
         metodosDB metodos= new metodosDB();
-        jButton1.setEnabled(false);
+        jButton1.setEnabled(true);
         
           jTextField22.setText(kitproducto.getNombreKit());
         jTextArea1.setText(kitproducto.getDescripcionKit());
@@ -182,7 +182,6 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -225,16 +224,6 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton8.setBackground(new java.awt.Color(255, 0, 0));
-        jButton8.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Minus Red Button.png"))); // NOI18N
-        jButton8.setText("ELIMINAR KIT");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
             }
         });
 
@@ -318,7 +307,6 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
                             .addComponent(jTextField22)
                             .addComponent(jTextField24)))
                     .addComponent(jScrollPane2)
-                    .addComponent(jButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
@@ -356,9 +344,7 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
                     .addComponent(jLabel10))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -372,7 +358,11 @@ String t[] = {"ID", "NOMBRE", "TALLA", "MARCA", "CANTIDAD ACTUAL", "TIPO", "PROV
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 metodosDB metodos= new metodosDB();
-
+int confirmado = JOptionPane.showConfirmDialog(
+   this,
+   "¿CONFIRMAR ELIMINACION?");
+ 
+if (JOptionPane.YES_NO_OPTION == confirmado){
     
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
      
@@ -384,7 +374,13 @@ metodosDB metodos= new metodosDB();
         } catch (SQLException ex) {
             Logger.getLogger(modificar_producto.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }else{
+ 
+      JOptionPane.showMessageDialog(this, "NO ELIMINADO");
+                return;
+      
     
+     } 
        
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -397,16 +393,6 @@ metodosDB metodos= new metodosDB();
         }
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        funciones f = new funciones();
-        jButton8.setText(("ELIMINADO"));
-        this.eliminado=true;
-        jButton1.setEnabled(true);
-        jButton8.setEnabled(false);
-        ///Eliminar de la base de datos, se debe realizar las validaciones correspondientes
-        //por ejemplo que no este en un kit de productos
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jTextField22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField22ActionPerformed
         // TODO add your handling code here:safsd
@@ -447,7 +433,6 @@ metodosDB metodos= new metodosDB();
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;

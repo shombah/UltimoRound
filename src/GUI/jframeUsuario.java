@@ -78,13 +78,13 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
                     modulo5.setEnabled(true);
                     break;
                 case 6:
-                    modulo6.setEnabled(true);
+                   // modulo6.setEnabled(true);
                     break;
                 case 7:
                     modulo7.setEnabled(true);
                     break;
                 case 8:
-                    modulo8.setEnabled(true);
+                  //  modulo8.setEnabled(true);
                     break;
                 case 14:
                     modulo14.setEnabled(true);
@@ -146,9 +146,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         modulo5 = new javax.swing.JMenuItem();
         modulo11 = new javax.swing.JMenuItem();
         comprobante = new javax.swing.JMenu();
-        modulo6 = new javax.swing.JMenuItem();
         modulo7 = new javax.swing.JMenuItem();
-        modulo8 = new javax.swing.JMenuItem();
         contabilidad = new javax.swing.JMenu();
         modulo15 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -169,7 +167,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bienvenido");
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 520));
         setResizable(false);
 
         jButton1.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
@@ -266,14 +264,6 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         comprobante.setMaximumSize(new java.awt.Dimension(110, 32767));
         comprobante.setPreferredSize(new java.awt.Dimension(100, 21));
 
-        modulo6.setText("Inventario por Producto");
-        modulo6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modulo6ActionPerformed(evt);
-            }
-        });
-        comprobante.add(modulo6);
-
         modulo7.setText("Inventario General");
         modulo7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -286,14 +276,6 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
             }
         });
         comprobante.add(modulo7);
-
-        modulo8.setText("Inventario Critico");
-        modulo8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modulo8ActionPerformed(evt);
-            }
-        });
-        comprobante.add(modulo8);
 
         jMenuBar1.add(comprobante);
 
@@ -473,14 +455,6 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     }//GEN-LAST:event_modulo1ActionPerformed
 
-    private void modulo6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo6ActionPerformed
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-     //   dialog_ing_comp a = new dialog_ing_comp(this, true, usuario);
-     //   a.setLocationRelativeTo(null);
-        this.setCursor(Cursor.getDefaultCursor());
-      //  a.setVisible(true);
-    }//GEN-LAST:event_modulo6ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         System.exit(0);
@@ -561,16 +535,6 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
      //   a.setVisible(true);
 
     }//GEN-LAST:event_modulo18ActionPerformed
-
-    private void modulo8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo8ActionPerformed
-
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-     //   dialog_generar_comp a = new dialog_generar_comp(this, usuario);
-     //   a.setLocationRelativeTo(null);
-        this.setCursor(Cursor.getDefaultCursor());
-     //   a.setVisible(true);
-
-    }//GEN-LAST:event_modulo8ActionPerformed
 
     private void modulo19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo19ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -747,9 +711,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JMenuItem modulo3;
     private javax.swing.JMenuItem modulo4;
     private javax.swing.JMenuItem modulo5;
-    private javax.swing.JMenuItem modulo6;
     private javax.swing.JMenuItem modulo7;
-    private javax.swing.JMenuItem modulo8;
     private javax.swing.JMenu opciones;
     private javax.swing.JMenuItem salir;
     private javax.swing.JMenu solicitud;

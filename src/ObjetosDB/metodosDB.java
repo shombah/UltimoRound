@@ -492,7 +492,7 @@ Productos producto = null;
       ResultSet resultados = stm.executeQuery();
       while(resultados.next())
       {
-        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
+        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
        aux2.add(producto);
       }
         conexion.close();
@@ -510,7 +510,7 @@ public ArrayList<Productos> getProductos() throws SQLException
       ResultSet resultados = stm.executeQuery();
       while(resultados.next())
       {
-        Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
+        Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
         productos.add(product);
       }
       closeConnections(c,conexion,stm,resultados);
@@ -527,7 +527,7 @@ public ArrayList<Productos> getProductosStockCritico() throws SQLException
       while(resultados.next())
       {
           if(resultados.getInt("cantidad_actual")<=StockCritico)
-          { Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
+          { Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
             productos.add(product);
           }
       }
@@ -618,7 +618,11 @@ public Productos getProductoById(int id_producto) throws SQLException
       ResultSet resultados = stm.executeQuery();
       while(resultados.next())
       {
-        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
+        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre")
+                ,resultados.getString("marca"),resultados.getString("talla")
+                ,resultados.getString("color"),resultados.getInt("precio_compra")
+                ,resultados.getInt("precio_venta"),resultados.getString("proveedor")
+                ,resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
        
       }
         conexion.close();
@@ -637,7 +641,7 @@ Productos producto = null;
       ResultSet resultados = stm.executeQuery();
       while(resultados.next())
       {
-        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
+        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
        
       }
         conexion.close();
@@ -657,7 +661,7 @@ Productos producto = null;
       ResultSet resultados = stm.executeQuery();
       while(resultados.next())
       {
-        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),"tipo",resultados.getString("codigo_barra"));      
+        producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
        
       }
         conexion.close();
@@ -775,7 +779,31 @@ public Kitproductos getKitProductoByName( String name) throws SQLException
       return kitproduct;
 
 }
+public ArrayList<Kitproductos> getKitsProductoByName( String name) throws SQLException
+{
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      ArrayList<Kitproductos> kits = new ArrayList<Kitproductos>(); 
+ String query = "SELECT * FROM Kit_productos";    
+      PreparedStatement stm = conexion.prepareStatement(query);
+      ResultSet resultados = stm.executeQuery();
+      Kitproductos kitproduct = null;
+      String var="";
+      while(resultados.next())
+      {
+       
+                     kitproduct = new Kitproductos(resultados.getInt("id_kit_productos"),resultados.getString("nombre_kit"),resultados.getInt("precio_compra_productos"),resultados.getInt("precio_venta_kit"),resultados.getString("descripcion_kit"));      
 
+                     kits.add(kitproduct);
+                     
+                     
+          
+          
+      }
+      closeConnections(c,conexion,stm,resultados);
+      return kits;
+
+}
 public ArrayList<Productos> getrelacionKitproductos(int id_kit_productos) throws SQLException
 {
      ArrayList<Productos> productos = new ArrayList<Productos>();
@@ -793,7 +821,26 @@ public ArrayList<Productos> getrelacionKitproductos(int id_kit_productos) throws
       closeConnections(c,conexion,stm,resultados);
     return productos;
 }
-
+public int getIDKitproductos(int id_producto) throws SQLException
+{
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+ String query = "SELECT * FROM relacion_kit_productos where id_producto=?";    
+      PreparedStatement stm = conexion.prepareStatement(query);
+       stm.setInt(1,id_producto);
+      ResultSet resultados = stm.executeQuery();
+      while(resultados.next())
+      {
+          int var=resultados.getInt("id_kit_productos");
+        productos.add(this.getProductoById(resultados.getInt("id_producto")));
+         stm.close();
+        return var;
+      }
+      closeConnections(c,conexion,stm,resultados);
+       stm.close();
+    return -1;
+}
 public boolean deleteKit(Kitproductos kitproducto) throws SQLException
 {
    Productos producto = null;
@@ -815,7 +862,29 @@ public boolean deleteKit(Kitproductos kitproducto) throws SQLException
   stm2.close();
     return true;
 }
-
+public boolean deleteProductsKit(int id_producto, int id_kit) throws SQLException
+{
+   Productos producto = null;
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+     
+      String query = "DELETE FROM Kit_productos WHERE id_kit_productos=?";
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      
+       stm.setInt   (1, id_kit);
+     stm.executeUpdate();
+        String query2 = "DELETE FROM relacion_kit_productos WHERE id_kit_productos=?";
+      
+      PreparedStatement stm2 = conexion.prepareStatement(query2);
+      
+       stm2.setInt   (1, id_kit);
+        stm2.executeUpdate();
+  conexion.close();
+  stm.close();
+  stm2.close();
+    return true;
+}
 /*FIN METODOS KITPRODUCTOS*/ 
 
 /*FIN METODOS KITPRODUCTOS*/   

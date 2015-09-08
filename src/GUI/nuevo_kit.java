@@ -204,7 +204,6 @@ private JComboBox combo1;
         jButton9 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -300,11 +299,8 @@ private JComboBox combo1;
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NOMBRE", "ID PRODUCTO", "MARCA" }));
-
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jLabel3.setText("BUSCAR PRODUCTOS DISPONIBLES");
+        jLabel3.setText("BUSCAR PRODUCTOS DISPONIBLES POR NOMBRE:");
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Productos Agregados Al Kit", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -358,15 +354,13 @@ private JComboBox combo1;
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE))
+                        .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(9, 9, 9)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -399,7 +393,6 @@ private JComboBox combo1;
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5))
                 .addGap(18, 18, 18)
@@ -436,14 +429,22 @@ private JComboBox combo1;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 int id_producto_asociado=0;
         int id_kit_producto=0;
-          int row=0;
-          Kitproductos kit2=new Kitproductos(0,null,0,0,null);
+          int row=0;   Kitproductos kit2=new Kitproductos(0,null,0,0,null);
           Kitproductos kit = new Kitproductos(0,null,0,0,null);
-          kit.setNombreKit(jTextField4.getText());
+           if (jTextField4.getText().isEmpty() || jTextField4.getText().equals("")||
+                   precio_kit==0 
+                        ||   Integer.parseInt(jTextField3.getText())==0 
+                   ||   jTextArea1.getText().isEmpty() || jTextArea1.getText().equals("")) {
+       
+          this.setCursor(Cursor.getDefaultCursor());
+                mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR LOS DATOS DEL KIT", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
+                return;
+        }else{   kit.setNombreKit(jTextField4.getText());
           kit.setPrecioCompraProductos(precio_kit);
           kit.setPrecioVentaKit(Integer.parseInt(jTextField3.getText()));
           kit.setDescripcionKit(jTextArea1.getText());
-         metodosDB f=new metodosDB();
+              
+           } metodosDB f=new metodosDB();
      try {
           id_kit_producto=f.addKitProductos(kit);
      } catch (SQLException ex) {
@@ -464,8 +465,10 @@ int id_producto_asociado=0;
                       
                       //validar campos
                       //guardar en la base de datos si es consistente
-                     
-                      this.dispose(); //dispose para salir de la ventana
+                      this.setCursor(Cursor.getDefaultCursor());this.dispose(); //dispose para salir de la ventana
+                JOptionPane.showMessageDialog(this, "CREADO DE FORMA EXITOSA");
+                return;
+                      
         
     
        
@@ -484,6 +487,7 @@ int id_producto_asociado=0;
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         funciones f = new funciones();
         int linea = jTable2.getSelectedRow();
+        
         if (linea != -1) {
             modelo1.removeRow(linea);
           precio_kit=precio_kit-(Integer.parseInt(modelo1.getValueAt(linea, 5).toString()));
@@ -492,7 +496,12 @@ int id_producto_asociado=0;
             //    jTextField14.setText(f.getNumcPto(b2));
             //    jTextField18.requestFocus();
             i = -1;
-        }
+        }else{
+             
+              this.setCursor(Cursor.getDefaultCursor());
+                mnsj = JOptionPane.showConfirmDialog(null, "DEBE SELECCIONAR UN PRODUCTO", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
+                return;
+         } 
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -510,7 +519,7 @@ int id_producto_asociado=0;
                 //  jTextField6.setEnabled(false);
             }
             i = linea;
-            jComboBox1.setEnabled(true);
+        
            // jTextField7.setEnabled(true);
             // jTextField9.setEnabled(true);
             int porciento = 0;// Integer.valueOf(jTextField16.getText().replace("%", "").trim());
@@ -519,15 +528,18 @@ int id_producto_asociado=0;
             //  jTextField22.setText(modelo.getValueAt(linea, 4).toString());
             //  jTextField9.setText(modelo.getValueAt(linea, 5).toString());
             //  jTextField10.setText(modelo.getValueAt(linea, 6).toString());
-            jComboBox1.setSelectedItem(modelo.getValueAt(linea, 7).toString());
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
           int j=0;   jTable1.addKeyListener(this);
                   j=jTable1.getSelectedRow();
-         
-          
+     
+         if(j==-1){
+              this.setCursor(Cursor.getDefaultCursor());
+                mnsj = JOptionPane.showConfirmDialog(null, "DEBE SELECCIONAR UN PRODUCTO", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
+                return;
+         } else{
         
         
         String t[] = {"NOMBRE PRODUCTO","TALLA","MARCA", "TIPO", "PRECIO VENTA", "COSTO", "CANTIDAD","PROVEEDOR","COD.","ID"};
@@ -570,94 +582,58 @@ int id_producto_asociado=0;
     
      jTextField2.setText(Integer.toString(precio_kit));
   limpiar();
-
+}
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         metodosDB f = new metodosDB();
         modelo.setNumRows(0);
         int aux3;
+         
+        int i=0;
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        ArrayList<Productos> aux4 = new ArrayList<Productos>();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         Productos aux2 = new Productos();
-        if (jComboBox1.getSelectedIndex()==0) { // si quiere buscar por solicitud
-            if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
-                this.setCursor(Cursor.getDefaultCursor());
-                mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR UN NOMBRE", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
-                return;
-            }else{
+        // si quiere buscar por solicitud
+           String nombre="";
+                String var="";
+                nombre=jTextField1.getText().toUpperCase();
+                
                 try {
-                    aux2 = f.getProductoById(Integer.parseInt(jTextField1.getText()));//Cargar resultados , debe ser por nombres
+                    aux4 = f.getProductoByNombre1();//Cargar resultados , debe ser por nombres
+                   if(aux4.equals(null)){
+                        this.setCursor(Cursor.getDefaultCursor());
+                        iniciar();
+                mnsj = JOptionPane.showConfirmDialog(null, "NO SE ENCONTRO NINGUN PRODUCTO", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
+                   }else{
+                    while(aux4.size()>i){   
+                       var=aux4.get(i).getNombre().toUpperCase();
+                       var=var.replace(" ","");
+                       nombre = nombre.replace(" ","");
+                       System.out.println(var);
+                        System.out.println(nombre);
+                            if(var.indexOf(nombre)!=-1){
                     Object[] object = new Object[10];
-                    object[0]  = aux2.getId_producto();
-                    object[1] = aux2.getNombre();
-                    object[2] = aux2.getTalla();
-                    object[3] = aux2.getMarca();
-                    object[4] = aux2.getCantidadActual();
-                    object[5] = aux2.getTipo();
-                    object[6] = aux2.getProveedor();
-                    object[7] = aux2.getPrecioCompra();
-                    object[8] = aux2.getPrecioVenta();
-                    object[9] = aux2.getCodigo_barra();
-                    modelo.addRow(object);
-                } catch (SQLException ex) {
-                    Logger.getLogger(buscar_producto.class.getName()).log(Level.SEVERE, null, ex);
-                }
+          object[0]  = aux4.get(i).getId_producto();
+        object[1] = aux4.get(i).getNombre();
+        object[2] = aux4.get(i).getTalla();
+        object[3] = aux4.get(i).getMarca();
+        object[4] = aux4.get(i).getCantidadActual();
+        object[5] = aux4.get(i).getTipo();
+        object[6] = aux4.get(i).getProveedor();
+        object[7] = aux4.get(i).getPrecioCompra();
+        object[8] = aux4.get(i).getPrecioVenta();
+        object[9] = aux4.get(i).getCodigo_barra();
+         modelo.addRow(object);}i++;}
+                } 
+            } catch (SQLException ex) {
+                Logger.getLogger(buscar_producto.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }
+        
 
-        if (jComboBox1.getSelectedIndex()==1) { // si quiere buscar por rut
-            if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
-                this.setCursor(Cursor.getDefaultCursor());
-                mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR UN ID DE PRODUCTO", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
-                return;
-            }else{
-                try {
-                    aux2 = f.getProductoById(Integer.parseInt(jTextField1.getText()));//Cargar resultados , debe ser por nombres
-                    Object[] object = new Object[10];
-                    object[0]  = aux2.getId_producto();
-                    object[1] = aux2.getNombre();
-                    object[2] = aux2.getTalla();
-                    object[3] = aux2.getMarca();
-                    object[4] = aux2.getCantidadActual();
-                    object[5] = aux2.getTipo();
-                    object[6] = aux2.getProveedor();
-                    object[7] = aux2.getPrecioCompra();
-                    object[8] = aux2.getPrecioVenta();
-                    object[9] = aux2.getCodigo_barra();
-                    modelo.addRow(object);
-                } catch (SQLException ex) {
-                    Logger.getLogger(buscar_producto.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-        }
-        if (jComboBox1.getSelectedIndex()==2) { // si quiere buscar por rut
-            if (jTextField1.getText().isEmpty() | jTextField1.getText().equals("")) {  // si el campo esta vacio
-                this.setCursor(Cursor.getDefaultCursor());
-                mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR UNA MARCA", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
-                return;
-            }else{
-                try {
-                    aux2 = f.getProductoById(Integer.parseInt(jTextField1.getText()));//Cargar resultados , debe ser por nombres
-                    Object[] object = new Object[10];
-                    object[0]  = aux2.getId_producto();
-                    object[1] = aux2.getNombre();
-                    object[2] = aux2.getTalla();
-                    object[3] = aux2.getMarca();
-                    object[4] = aux2.getCantidadActual();
-                    object[5] = aux2.getTipo();
-                    object[6] = aux2.getProveedor();
-                    object[7] = aux2.getPrecioCompra();
-                    object[8] = aux2.getPrecioVenta();
-                    object[9] = aux2.getCodigo_barra();
-                    modelo.addRow(object);
-                } catch (SQLException ex) {
-                    Logger.getLogger(buscar_producto.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-
-        }
+       
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -702,7 +678,6 @@ int id_producto_asociado=0;
  private void limpiar(){
 
      
-        jComboBox1.setSelectedIndex(0); 
   
       
     }
@@ -886,7 +861,6 @@ int id_producto_asociado=0;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

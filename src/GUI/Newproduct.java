@@ -377,7 +377,7 @@ private JComboBox combo1;
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR ITEM", "KIMONO", "RASHGUARD", "SHORT", "POLERON", "ACCESORIOS" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR ITEM", "HOMBRE", "MUJER", "NIÑO", "MMA", "JIUJITSU", "BOXEO", "KICKBOXING", "MUAYTHAI", "ENTRETENIMIENTO" }));
         jComboBox1.setSelectedItem(jComboBox1);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -409,7 +409,7 @@ private JComboBox combo1;
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 199, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1)
@@ -524,8 +524,7 @@ private JComboBox combo1;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             
-        if(validaCampos())
-        {
+       
         for (int j = 0; j < modelo.getRowCount(); j++) {
             ArrayList<Productos> productos = new ArrayList();
  //Productos(String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual) { //Constructor
@@ -561,12 +560,7 @@ private JComboBox combo1;
           jframe1 a = new jframe1();
             JOptionPane.showMessageDialog(a, "PRODUCTO(S) AGREGADOS CON EXITO");
             this.dispose();
-        }
-        else
-        {
-        JOptionPane.showMessageDialog(rootPane,  "Ningún producto fue agregado");
-
-        }
+       
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

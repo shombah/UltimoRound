@@ -74,7 +74,7 @@ private JComboBox combo1;
         
         metodosDB metodos= new metodosDB();
         producto=metodos.getProductoById(id_producto);
-        jButton1.setEnabled(false);
+        jButton1.setEnabled(true);
          jTextField22.setEnabled(false);
         jTextField23.setEnabled(false);
         jTextField24.setEnabled(false);
@@ -190,7 +190,6 @@ private JComboBox combo1;
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -238,16 +237,6 @@ private JComboBox combo1;
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton8.setBackground(new java.awt.Color(255, 0, 0));
-        jButton8.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Minus Red Button.png"))); // NOI18N
-        jButton8.setText("ELIMINAR");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
             }
         });
 
@@ -374,8 +363,7 @@ private JComboBox combo1;
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jTextField24)
                                             .addComponent(jTextField25)
-                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(26, 26, 26)
@@ -424,9 +412,7 @@ private JComboBox combo1;
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jTextField27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -440,20 +426,30 @@ private JComboBox combo1;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 metodosDB metodos= new metodosDB();
-
-    
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+int confirmado = JOptionPane.showConfirmDialog(
+   this,
+   "¿CONFIRMAR ELIMINACION?");
+ 
+if (JOptionPane.YES_NO_OPTION == confirmado){
+     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
      
         try {
             metodos.DeleteProductoById(mainProduct.getId_producto());
+            int id_kit=metodos.getIDKitproductos(mainProduct.getId_producto());
+            metodos.deleteProductsKit(mainProduct.getId_producto(),id_kit);
             jframe1 a = new jframe1();
             JOptionPane.showMessageDialog(a, "PRODUCTO ELIMINADO CON EXITO");
             this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(modificar_producto.class.getName()).log(Level.SEVERE, null, ex);
         }
+}else{
+  JOptionPane.showMessageDialog(this, "NO ELIMINADO");
+                return;
     
-       
+      
+    
+     }  
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -475,16 +471,6 @@ metodosDB metodos= new metodosDB();
         // a.setVisible(true);
 
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        funciones f = new funciones();
-        jButton8.setText(("ELIMINADO"));
-        this.eliminado=true;
-        jButton1.setEnabled(true);
-        jButton8.setEnabled(false);
-        ///Eliminar de la base de datos, se debe realizar las validaciones correspondientes
-        //por ejemplo que no este en un kit de productos
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
         // TODO add your handling code here:
@@ -624,7 +610,6 @@ metodosDB metodos= new metodosDB();
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
