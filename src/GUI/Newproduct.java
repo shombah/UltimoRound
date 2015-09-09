@@ -382,7 +382,7 @@ private JComboBox combo1;
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR ITEM", "HOMBRE", "MUJER", "NIÑO", "MMA", "JIUJITSU", "BOXEO", "KICKBOXING", "MUAYTHAI", "ENTRETENIMIENTO" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR ITEM", "POLERA", "SHORT", "POLERON ", "JOCKEY ", "ESCUDO ", "PADS", "FOCOS ", "GUANTILLAS ", "GUANTES DE BOXEO", "CANILLERAS ENTRENAMIENTO", "GI JIUJITSU", "CINTURONES JIUJITSU", "TIMER ", "ZAPATILLAS DE BOXEO", "BUCALES ", "VENDAS ", "ELEVATION TRAINING MASK ", "ACCESORIOS", "SPATS ", " " }));
         jComboBox1.setSelectedItem(jComboBox1);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -429,7 +429,7 @@ private JComboBox combo1;
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, Short.MAX_VALUE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                                         .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING))
@@ -528,9 +528,11 @@ private JComboBox combo1;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            
-       
+            boolean correcto=false;
+        System.out.println("q wea pasa"+modelo.getRowCount());
         for (int j = 0; j < modelo.getRowCount(); j++) {
+           
+            if(modelo.getRowCount()!=0){
             ArrayList<Productos> productos = new ArrayList();
  //Productos(String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual) { //Constructor
             String color = ""; //deberia ser modelo.getColor
@@ -550,6 +552,10 @@ private JComboBox combo1;
             try {
                 
                 metodos.addProductos(producto);
+                   jframe1 a = new jframe1();
+            JOptionPane.showMessageDialog(a, "PRODUCTO(S) AGREGADOS CON EXITO");
+            correcto =true;
+            this.dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(Newproduct.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -560,13 +566,16 @@ private JComboBox combo1;
                       //guardar en la base de datos si es consistente
                      
                       this.dispose(); //dispose para salir de la ventana
-        }
-    
+        }else{
+              JOptionPane.showMessageDialog(rootPane,  "NO HA AGREGADO NINGUN PRODUCTO".toUpperCase());
+                
+                }} 
+    if(correcto==false){
           jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "PRODUCTO(S) AGREGADOS CON EXITO");
+            JOptionPane.showMessageDialog(a, "NO SE AGREGO NINGUN PRODUCTO");
             this.dispose();
        
-        
+        } 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -880,7 +889,7 @@ private JComboBox combo1;
                 }
             } catch(Exception e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "nombre no puede estar vacío");
+                JOptionPane.showMessageDialog(rootPane,  "nombre no puede estar vacío".toUpperCase());
                 return false;
                 }
         //jtexfield 20 = talla
@@ -892,7 +901,7 @@ private JComboBox combo1;
                 }
             } catch(Exception e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "talla no puede estar vacío");
+                JOptionPane.showMessageDialog(rootPane,  "talla no puede estar vacío".toUpperCase());
                 return false;
                 }
         //jtexfield 23 = marca
@@ -904,7 +913,7 @@ private JComboBox combo1;
                 }
             } catch(Exception e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "marca no puede estar vacío");
+                JOptionPane.showMessageDialog(rootPane,  "marca no puede estar vacío".toUpperCase());
                 return false;
                 }
         
@@ -917,7 +926,7 @@ private JComboBox combo1;
                 }
             } catch(Exception e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "color no puede estar vacío");
+                JOptionPane.showMessageDialog(rootPane,  "color no puede estar vacío".toUpperCase());
                 return false;
                 }
     
@@ -930,7 +939,7 @@ private JComboBox combo1;
                 }
             } catch(Exception e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "cantidad no puede estar vacío");
+                JOptionPane.showMessageDialog(rootPane,  "cantidad no puede estar vacío".toUpperCase());
                 return false;
                 }
         
@@ -940,13 +949,13 @@ private JComboBox combo1;
                
             } catch(NumberFormatException e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "cantidad debe ser un número");
+                JOptionPane.showMessageDialog(rootPane,  "cantidad debe ser un número".toUpperCase());
                 return false;
                 }
          
          if (jComboBox1.getSelectedIndex()==0)
          {
-                JOptionPane.showMessageDialog(rootPane,  "Debe seleccionar un tipo");
+                JOptionPane.showMessageDialog(rootPane,  "Debe seleccionar un tipo".toUpperCase());
                 return false;
          }
           //jtexfield 25 = costo
@@ -958,7 +967,7 @@ private JComboBox combo1;
                 }
             } catch(Exception e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "costo no puede estar vacío");
+                JOptionPane.showMessageDialog(rootPane,  "costo no puede estar vacío".toUpperCase());
                 return false;
                 }
         
@@ -968,7 +977,7 @@ private JComboBox combo1;
                
             } catch(NumberFormatException e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "costo debe ser un número");
+                JOptionPane.showMessageDialog(rootPane,  "costo debe ser un número".toUpperCase());
                 return false;
                 }
          
@@ -981,7 +990,7 @@ private JComboBox combo1;
                 }
             } catch(Exception e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "precio venta no puede estar vacío");
+                JOptionPane.showMessageDialog(rootPane,  "precio venta no puede estar vacío".toUpperCase());
                 return false;
                 }
         
@@ -991,7 +1000,7 @@ private JComboBox combo1;
                
             } catch(NumberFormatException e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "precio venta debe ser un número");
+                JOptionPane.showMessageDialog(rootPane,  "precio venta debe ser un número".toUpperCase());
                 return false;
                 }
          
@@ -1004,7 +1013,7 @@ private JComboBox combo1;
                 }
             } catch(Exception e) 
                 {
-                JOptionPane.showMessageDialog(rootPane,  "proveedor no puede estar vacío");
+                JOptionPane.showMessageDialog(rootPane,  "proveedor no puede estar vacío".toUpperCase());
                 return false;
                 }
         return true;

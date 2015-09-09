@@ -101,38 +101,59 @@ private JComboBox combo1;
         jTextField2.setText(producto.getColor().toString());
         jTextField1.setText(producto.getCodigo_barra().toString());
       System.out.println(producto.getTipo());
+ 
         if(producto.getTipo().equals("SELECCIONAR ITEM")){
                  jComboBox1.setSelectedIndex(0);  
         }
-         if(producto.getTipo().equals("HOMBRE")){
+         if(producto.getTipo().equals("POLERA")){
                  jComboBox1.setSelectedIndex(1);  
         }
-          if(producto.getTipo().equals("MUJER")){
+          if(producto.getTipo().equals("SHORT")){
                  jComboBox1.setSelectedIndex(2);  
         }
-           if(producto.getTipo().equals("NIÑO")){
+           if(producto.getTipo().equals("POLERON")){
                  jComboBox1.setSelectedIndex(3);  
         }
-            if(producto.getTipo().equals("MMA")){
+            if(producto.getTipo().equals("JOCKEY")){
                  jComboBox1.setSelectedIndex(4);  
         }
-                 if(producto.getTipo().equals("JIUJITSU")){
+                 if(producto.getTipo().equals("ESCUDO")){
                  jComboBox1.setSelectedIndex(5);  
         }
-             if(producto.getTipo().equals("BOXEO")){
+             if(producto.getTipo().equals("PADS")){
                  jComboBox1.setSelectedIndex(6);  
         }
-              if(producto.getTipo().equals("KICKBOXING")){
+              if(producto.getTipo().equals("FOCOS")){
                  jComboBox1.setSelectedIndex(7);  
         }
-               if(producto.getTipo().equals("MUAYTHAI")){
+               if(producto.getTipo().equals("GUANTILLAS")){
                  jComboBox1.setSelectedIndex(8);  
         }
-                if(producto.getTipo().equals("ENTRETENIMIENTO")){
+                if(producto.getTipo().equals("GUANTES DE BOXEO")){
                  jComboBox1.setSelectedIndex(9);  
         }
-         
-               
+             if(producto.getTipo().equals("CANILLERAS ENTRENAMIENTO")){
+                 jComboBox1.setSelectedIndex(10);  
+        }    if(producto.getTipo().equals("GI JIUJITSU")){
+                 jComboBox1.setSelectedIndex(11);  
+        }    if(producto.getTipo().equals("CINTURONES JIUJITSU")){
+                 jComboBox1.setSelectedIndex(12);  
+        }    if(producto.getTipo().equals("TIMER")){
+                 jComboBox1.setSelectedIndex(13);  
+        }    if(producto.getTipo().equals("ZAPATILLAS DE BOXEO")){
+                 jComboBox1.setSelectedIndex(14);  
+        }    if(producto.getTipo().equals("BUCALES")){
+                 jComboBox1.setSelectedIndex(15);  
+        } if(producto.getTipo().equals("VENDAS")){
+                 jComboBox1.setSelectedIndex(16);  
+        } if(producto.getTipo().equals("ELEVATION TRAINING MASK ")){
+                 jComboBox1.setSelectedIndex(17);  
+        } if(producto.getTipo().equals("ACCESORIOS")){
+                 jComboBox1.setSelectedIndex(18);  
+        }
+          if(producto.getTipo().equals("SPATS")){
+                 jComboBox1.setSelectedIndex(19);  
+        }     
         
        
         jTextField27.setText(producto.getProveedor()); 
@@ -356,7 +377,7 @@ private JComboBox combo1;
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR ITEM", "HOMBRE", "MUJER", "NIÑO", "MMA", "JIUJITSU", "BOXEO", "KICKBOXING", "MUAYTHAI", "ENTRETENIMIENTO" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR ITEM", "POLERA", "SHORT", "POLERON ", "JOCKEY ", "ESCUDO ", "PADS", "FOCOS ", "GUANTILLAS ", "GUANTES DE BOXEO", "CANILLERAS ENTRENAMIENTO", "GI JIUJITSU", "CINTURONES JIUJITSU", "TIMER ", "ZAPATILLAS DE BOXEO", "BUCALES ", "VENDAS ", "ELEVATION TRAINING MASK ", "ACCESORIOS", "SPATS " }));
         jComboBox1.setSelectedItem(jComboBox1);
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
