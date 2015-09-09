@@ -507,46 +507,159 @@ private JComboBox combo1;
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-metodosDB metodos= new metodosDB();
-if(jTextField24.getText().equals("")||jTextField1.getText().equals("") 
-        ||jTextField1.getText().equals("")||jTextField2.getText().equals("")
-         ||jTextField23.getText().equals("")||jTextField22.getText().equals("")
-         ||jTextField25.getText().equals("")||jTextField26.getText().equals("")
-         ||jTextField27.getText().equals("")||jTextField20.getText().equals("")){
-       jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "FALTA LLENAR UN CAMPO");
-   }else{
-    
-     if(jComboBox1.getSelectedIndex()==0){
-           jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "NO SELECCIONO TIPO");
-    }else{
-    mainProduct.setCantidadActual(Integer.parseInt(jTextField24.getText()));
-            mainProduct.setCodigo_barra(jTextField1.getText());
-            mainProduct.setColor(jTextField2.getText()); // falt hacer el del COLOR))
-                    mainProduct.setMarca(jTextField23.getText());
-                            mainProduct.setNombre(jTextField22.getText());
-                            mainProduct.setPrecioCompra(Integer.parseInt(jTextField25.getText()));
-                                    mainProduct.setPrecioVenta(Integer.parseInt(jTextField26.getText()));
-                                    mainProduct.setProveedor(jTextField27.getText());
-                                    mainProduct.setTalla(jTextField20.getText());
-                                            mainProduct.setTipo(jComboBox1.getSelectedItem().toString());
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-     
-        try {
-            metodos.updateProductos(mainProduct);
-            jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "PRODUCTO MODIFICADO CON EXITO");
-            this.dispose();
-        } catch (SQLException ex) {
-            Logger.getLogger(modificar_producto.class.getName()).log(Level.SEVERE, null, ex);
-        }}
+public boolean validaCampos()
+{
+            try {
+            
+                if(jTextField22.getText().trim().length() == 0) 
+                    {
+                    throw new Exception();
+                    }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "nombre no puede estar vacío".toUpperCase());
+                return false;
+                }
+            try {
+            
+                if(jTextField20.getText().trim().length() == 0) 
+                    {
+                    throw new Exception();
+                    }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "talla no puede estar vacío".toUpperCase());
+                return false;
+                }
+            
+            try {
+            
+                if(jTextField23.getText().trim().length() == 0) 
+                    {
+                    throw new Exception();
+                    }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "marca no puede estar vacío".toUpperCase());
+                return false;
+                }
+            try {
+            
+                if(jTextField24.getText().trim().length() == 0) 
+                    {
+                    throw new Exception();
+                    }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "cantidad no puede estar vacío".toUpperCase());
+                return false;
+                }
+            try {
+            // Check whether priceField.getText()'s length equals 0
+            Integer.parseInt(jTextField24.getText().trim());
+               
+            } catch(NumberFormatException e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "cantidad debe ser un número".toUpperCase());
+                return false;
+                }
+            //VALIDAR QUE TIPO TENGA ALGO SELECCIONADO
+            try {
+            
+                if(jTextField25.getText().trim().length() == 0) 
+                    {
+                    throw new Exception();
+                    }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "COSTO no puede estar vacío".toUpperCase());
+                return false;
+                }
+            try {
+            
+                if(jTextField26.getText().trim().length() == 0) 
+                    {
+                    throw new Exception();
+                    }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "PRECIO VENTA no puede estar vacío".toUpperCase());
+                return false;
+                }
+            try {
+            // Check whether priceField.getText()'s length equals 0
+            Integer.parseInt(jTextField26.getText().trim());
+               
+            } catch(NumberFormatException e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "PRECIO VENTA debe ser un número".toUpperCase());
+                return false;
+                }            try {
+            
+                if(jTextField27.getText().trim().length() == 0) 
+                    {
+                    throw new Exception();
+                    }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "PROVEEDOR no puede estar vacío".toUpperCase());
+                return false;
+                }
+            try {
+            
+                if(jTextField2.getText().trim().length() == 0) 
+                    {
+                    throw new Exception();
+                    }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "COLOR no puede estar vacío".toUpperCase());
+                return false;
+                }
+            try {
+            
+                if(jTextField1.getText().trim().length() == 0) 
+                    {
+                    throw new Exception();
+                    }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "CODIGO DE BARRA no puede estar vacío".toUpperCase());
+                return false;
+                }
+            if (jComboBox1.getSelectedIndex()==0)
+                {
+                JOptionPane.showMessageDialog(rootPane,  "Debe seleccionar un tipo".toUpperCase());
+                return false;
+                }
+            
+            return true;  
 }
-    
-       
-
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        metodosDB metodos= new metodosDB();
+        if(validaCampos() == true)
+            {
+                mainProduct.setCantidadActual(Integer.parseInt(jTextField24.getText()));
+                mainProduct.setCodigo_barra(jTextField1.getText());
+                mainProduct.setColor(jTextField2.getText()); 
+                mainProduct.setMarca(jTextField23.getText());
+                mainProduct.setNombre(jTextField22.getText());
+                mainProduct.setPrecioCompra(Integer.parseInt(jTextField25.getText()));
+                mainProduct.setPrecioVenta(Integer.parseInt(jTextField26.getText()));
+                mainProduct.setProveedor(jTextField27.getText());
+                mainProduct.setTalla(jTextField20.getText());
+                mainProduct.setTipo(jComboBox1.getSelectedItem().toString());
+                try {
+                    metodos.updateProductos(mainProduct);
+                    jframe1 a = new jframe1();
+                    JOptionPane.showMessageDialog(a, "PRODUCTO MODIFICADO CON EXITO");
+                    this.dispose();
+                    } catch (SQLException ex) 
+                        {
+                        Logger.getLogger(modificar_producto.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        
+            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

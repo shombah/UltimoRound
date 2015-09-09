@@ -114,15 +114,60 @@ public class metodosDB
         ResultSet resultados = stm.executeQuery();
         while(resultados.next())
         {
-            Usuarios user = new Usuarios(resultados.getInt("id_usuario"),resultados.getString("nombre"),resultados.getString("login"),resultados.getString("password"));
+            Usuarios user = new Usuarios(resultados.getInt("id_usuario"),resultados.getString("nombre"),resultados.getInt("privilegios"),resultados.getString("password"));
             usuarios.add(user);
         }
-        System.out.println("Cargados "+usuarios.size()+"Usuarios!"); //Delete
+  
         //Cerramos las conexiones a la BD. y retornamos el ArrayList
         closeConnections(c,conexion,stm,resultados);
        return usuarios;
         
     }
+    
+      public ArrayList<Usuarios> addUser(String nombre,String password,int id,int privilegios) throws SQLException
+    {   //Retorna ArrayList con usuarios desde la base de datos
+        ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
+        DB_connection c = new DB_connection();
+        Connection conexion = c.getConnection();
+     
+    String query = "INSERT INTO usuarios (id_usuario,nombre,password,privilegios) VALUES (?,?,?,?)";    
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      
+       stm.setInt(1,id);
+       stm.setString   (2, nombre);
+      stm.setString(3, password);
+             stm.setInt(4,0);
+              stm.executeUpdate();
+    stm.close();
+    
+        //Cerramos las conexiones a la BD. y retornamos el ArrayList
+     
+       return usuarios;
+        
+    }
+    public boolean updateUsers(int id, String nombre,String password) throws SQLException
+{
+     ArrayList<Productos> productos = new ArrayList<Productos>();
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "UPDATE usuarios set  nombre= ? , password = ? where id_usuario=?";
+    
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      
+      
+      
+      stm.setString(1, nombre);
+      stm.setString   (2, password);
+      stm.setInt(3,id);
+     
+       stm.executeUpdate();
+    stm.close();
+    
+    return true;
+}
+      
 // </editor-fold>
 /*FIN METODOS DE USUARIOS*/
     

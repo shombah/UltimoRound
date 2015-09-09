@@ -23,33 +23,53 @@ import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
 public class jframe1 extends javax.swing.JFrame implements ActionListener {
-
-    String vacio = "NO SE OBTUVO RESULTADO CON LOS PARAMETROS INGRESADOS.";
-    String correcto = "OPERACIÓN REALIZADA CON ÉXITO.", error = "HA OCURRIDO EL SIGUIENTE ERROR:\n";
-    String no_empleado = "NO SE REGISTRA EMPLEADO CON EL RUT INGRESADO.";
-    String no_opcion = "DEBE SELECCIONAR UNA DE LAS OPCIONES DEL SISTEMA.";
-    String no_numero = "DEBE INGRESAR UN DATO NUMÉRICO EN EL CAMPO ";
-    String num_no_valido = "DEBE INGRESAR UN NÚMERO VÁLIDO EN EL CAMPO ";
-    String campo_vacio = "DEBE COMPLETAR EL SIGUIENTE CAMPO:\n";
-    String sin_conexion = "NO SE HA PODIDO ESTABLECER LA CONEXIÓN PARA OBTENER LA INFORMACIÓN.";
-    int mnsj;
-    DB_connection conn = new DB_connection();
     ArrayList<Usuarios> usuariosCargados = new ArrayList<Usuarios>();
     public jframe1() {
         metodosDB cargaUsuarios = new metodosDB();
         try {
             usuariosCargados = cargaUsuarios.cargaUsuariosDB();
-            } catch (SQLException ex) { }
+            } catch (SQLException ex) 
+            {            
+                JOptionPane.showMessageDialog(rootPane,"ERROR AL CARGAR USUARIOS DESDE LA BASE DE DATOS");
+            }
         initComponents();
         centrarVentana();
         jpanel1 panel = new jpanel1();
         this.add(panel, BorderLayout.CENTER);
-        
         this.pack();
-        jTextField1.addActionListener(this);
-        jPasswordField1.addActionListener(this);
-        String dia=(Calendar.getInstance().getTime().getDate()<10)?"0"+Calendar.getInstance().getTime().getDate():Calendar.getInstance().getTime().getDate()+"";
-        String anio=(Calendar.getInstance().getTime().getYear()+1900)+"";
+        jTextField1.addActionListener(new ActionListener(){
+
+                public void actionPerformed(ActionEvent e){
+
+                    if(verificar_usuario())
+                            {
+                                jframeUsuario as = new jframeUsuario();
+                                as.setVisible(true);
+                                dispose();
+                            }
+                            else
+                            {
+                              JOptionPane.showMessageDialog(rootPane,  "login incorrecto".toUpperCase());
+
+                            }
+                }});
+        jPasswordField1.addActionListener(new ActionListener(){
+
+                public void actionPerformed(ActionEvent e){
+
+                            if(verificar_usuario())
+                            {
+                                jframeUsuario as = new jframeUsuario();
+                                as.setVisible(true);
+                                dispose();
+                            }
+                            else
+                            {
+                              JOptionPane.showMessageDialog(rootPane,  "login incorrecto".toUpperCase());
+
+                            }
+                }});
+   
     }
 
     
@@ -65,134 +85,51 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
                 (pantalla.height - ventana.height) / 2);
     }
 
-    private void verificar_usuario() {
-        String aux;
-        boolean nu = jTextField1.getText().isEmpty();
-        boolean np = jPasswordField1.getText().isEmpty();
-        if (nu & np) {
-            jLabel6.setText("DEBE COMPLETAR LOS CAMPOS");
-            this.setCursor(Cursor.getDefaultCursor());
-            return;
+    private boolean verificar_usuario() {
+        boolean login = false;
+        if(verificaCampos())
+        {
+            String user = jTextField1.getText();
+            String password = new String(jPasswordField1.getPassword());
+            for(Usuarios u : usuariosCargados)
+            {
+                if(Integer.toString(u.getIdUsuario()).equals(user))
+                    if(u.getPassword().equals(password))
+                        login = true;
+            }
         }
-        if (nu) {
-            jLabel6.setText("DEBE INGRESAR UN USUARIO");
-            this.setCursor(Cursor.getDefaultCursor());
-            return;
-        }
-        if (np) {
-            jLabel6.setText("DEBE INGRESAR UNA CONTRASEÑA");
-            this.setCursor(Cursor.getDefaultCursor());
-            return;
-        }
-        String plaintext = jPasswordField1.getText();
-        MessageDigest m = null;
+        return login;
+    }
+    public boolean verificaCampos()
+    {
         try {
-            m = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(jframe1.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        m.reset();
-        m.update(plaintext.getBytes());
-        byte[] digest = m.digest();
-        BigInteger bigInt = new BigInteger(1, digest);
-        String hashtext = bigInt.toString(16);
-        if (nu == false & np == false) {
-            setCursor(Cursor.WAIT_CURSOR);
-            aux = validarUsuario(jTextField1.getText(), hashtext);
-            if (aux.equals("-1")) {
-                this.setCursor(Cursor.getDefaultCursor());
-                jLabel6.setText("CONTRASEÑA INCORRECTA");
-            } else {
-                if (aux.equals("-2")) {
-                    this.setCursor(Cursor.getDefaultCursor());
-                    jLabel6.setText("LOGIN INCORRECTO");
-                } else {
-                    try {
-                        jframeUsuario u = new jframeUsuario(jTextField1.getText());
-                        u.setLocationRelativeTo(null);
-                        this.setCursor(Cursor.getDefaultCursor());
-                        dispose();
-                        u.setVisible(true);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
+            // Check whether priceField.getText()'s length equals 0
+            if(jTextField1.getText().trim().length() == 0) 
+                {
+                throw new Exception();
                 }
-            }
-        }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "Debe ingresar nombre de usuario".toUpperCase());
+                return false;
+                }
+        try {
+            // Check whether priceField.getText()'s length equals 0
+            if((new String(jPasswordField1.getPassword())).trim().length() == 0) 
+                {
+                throw new Exception();
+                }
+            } catch(Exception e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "Debe ingresar Contraseña".toUpperCase());
+                return false;
+                }
+        return true;
     }
-
     public void siguiente() {
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        final SwingWorker worker = new SwingWorker() {
-
-            @Override
-            protected Void doInBackground() throws Exception {
-                try {
-                    String aux;
-                    boolean nu = jTextField1.getText().isEmpty();
-                    boolean np = jPasswordField1.getText().isEmpty();
-                    if (nu & np) {
-                        jLabel6.setText("DEBE COMPLETAR LOS CAMPOS");
-                        setCursor(Cursor.getDefaultCursor());
-                        return null;
-                    }
-                    if (nu) {
-                        jLabel6.setText("DEBE INGRESAR UN USUARIO");
-                        setCursor(Cursor.getDefaultCursor());
-                        return null;
-                    }
-                    if (np) {
-                        jLabel6.setText("DEBE INGRESAR UNA CONTRASEÑA");
-                        setCursor(Cursor.getDefaultCursor());
-                        return null;
-                    }
-                    String plaintext = jPasswordField1.getText();
-                    MessageDigest m = null;
-                    try {
-                        m = MessageDigest.getInstance("MD5");
-                    } catch (NoSuchAlgorithmException ex) {
-                        Logger.getLogger(jframe1.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    m.reset();
-                    m.update(plaintext.getBytes());
-                    byte[] digest = m.digest();
-                    BigInteger bigInt = new BigInteger(1, digest);
-                    String hashtext = bigInt.toString(16);
-                    if (nu == false & np == false) {
-                        setCursor(Cursor.WAIT_CURSOR);
-                        aux = validarUsuario(jTextField1.getText(), hashtext);
-                        if (aux.equals("-1")) {
-                            setCursor(Cursor.getDefaultCursor());
-                            jLabel6.setText("CONTRASEÑA INCORRECTA");
-                        } else {
-                            if (aux.equals("-2")) {
-                                setCursor(Cursor.getDefaultCursor());
-                                jLabel6.setText("RUT INCORRECTO");
-                            } else {
-                                try {
-                                    jframeUsuario u = new jframeUsuario("168141211");
-                                    u.setLocationRelativeTo(null);
-                                    setCursor(Cursor.getDefaultCursor());
-                                    dispose();
-                                    u.setVisible(true);
-                                } catch (Exception e) {
-                                    System.out.println(e.getMessage());
-                                }
-                            }
-                        }
-                    }
-
-                } catch (Exception ex) {
-                    setCursor(Cursor.getDefaultCursor());
-                    mnsj = JOptionPane.showConfirmDialog(null, error + ex.getMessage(), "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
-                }
-                return null;
-            }
-        };
-        worker.execute();
+        
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -224,18 +161,8 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
         jLabel3.setAlignmentX(0.5F);
 
         jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         jPasswordField1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
-            }
-        });
 
         jButton1.setFont(new java.awt.Font("DejaVu Sans", 1, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 102));
@@ -340,8 +267,17 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        this.siguiente();
-        
+        if(verificar_usuario())
+        {
+            jframeUsuario as = new jframeUsuario();
+            as.setVisible(true);
+            this.dispose();
+        }
+        else
+        {
+          JOptionPane.showMessageDialog(rootPane,  "usuario y/o contraseña incorrectos".toUpperCase());
+
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -349,18 +285,6 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
         System.exit(0);
 
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-
-        jPasswordField1.requestFocus();
-
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-
-        this.verificar_usuario();
-
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     public static void main(String args[]) {
 
@@ -413,13 +337,7 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
 
     private String validarUsuario(java.lang.String login, java.lang.String pass) 
     {
-        /*
-        Jorge: Te aviso altiro que el login no funciona por que lo que llama a esta función, le pasa un Hash 
-        Y me da paja ponerme a entenderlo. Así que si quieres lo cambias, de lo contrario, copipastea weás que 
-        Nos sirvan de algo. Además, si el login es incorrecto te arroja un mensaje de "contraseña incorrecta" 
-        Pero si clickeas denuevo en "Entrar", entra igual XDDDDDDDDD.
-        */
-        
+      
         /*Retornos de esta funcion :
         "0" -> OK
         "-1" -> contraseña incorrecta
@@ -440,26 +358,6 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
         }
         return "0";
     }
-    public class RoundJTextField extends JTextField {
-    private Shape shape;
-    public RoundJTextField(int size) {
-        super(size);
-        setOpaque(false); // As suggested by @AVD in comment.
-    }
-    protected void paintComponent(Graphics g) {
-         g.setColor(getBackground());
-         g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
-         super.paintComponent(g);
-    }
-    protected void paintBorder(Graphics g) {
-         g.setColor(getForeground());
-         g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
-    }
-    public boolean contains(int x, int y) {
-         if (shape == null || !shape.getBounds().equals(getBounds())) {
-             shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
-         }
-         return shape.contains(x, y);
-    }
-}
+    
+    
 }

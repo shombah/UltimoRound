@@ -334,6 +334,12 @@ private JComboBox combo1;
 
         jLabel2.setText("PRECIO KIT");
 
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
         jLabel4.setText("NOMBRE KIT");
 
         jLabel5.setText("DESCRIPCION");
@@ -436,6 +442,15 @@ int id_producto_asociado=0;
                         ||   Integer.parseInt(jTextField3.getText())==0 
                    ||   jTextArea1.getText().isEmpty() || jTextArea1.getText().equals("")) {
        
+                   try {
+            // Check whether priceField.getText()'s length equals 0
+            Integer.parseInt(jTextField3.getText().trim());
+               
+            } catch(NumberFormatException e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "costo debe ser un número".toUpperCase());
+                return;
+                }        // TODO add your handling code here:
           this.setCursor(Cursor.getDefaultCursor());
                 mnsj = JOptionPane.showConfirmDialog(null, "DEBE INGRESAR LOS DATOS DEL KIT", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
                 return;
@@ -675,6 +690,18 @@ int id_producto_asociado=0;
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    try {
+            // Check whether priceField.getText()'s length equals 0
+            Integer.parseInt(jTextField3.getText().trim());
+               
+            } catch(NumberFormatException e) 
+                {
+                JOptionPane.showMessageDialog(rootPane,  "costo debe ser un número".toUpperCase());
+                return ;
+                }        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
  private void limpiar(){
 
      
