@@ -362,7 +362,7 @@ int confirmado = JOptionPane.showConfirmDialog(
    this,
    "¿CONFIRMAR ELIMINACION?");
  
-if (JOptionPane.YES_NO_OPTION == confirmado){
+if (JOptionPane.OK_CANCEL_OPTION == confirmado){
     
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
      

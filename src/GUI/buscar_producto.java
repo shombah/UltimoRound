@@ -188,7 +188,7 @@ ArrayList<Productos> aux2 = new ArrayList<Productos>();
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         jLabel3.setFont(new java.awt.Font("DejaVu Sans", 1, 16)); // NOI18N
-        jLabel3.setText("BUSCAR POR NOMBRE");
+        jLabel3.setText("BUSCAR POR NOMBRE O TIPO");
 
         jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -284,6 +284,7 @@ ArrayList<Productos> aux2 = new ArrayList<Productos>();
                    }else{
                     while(aux2.size()>i){   
                        var=aux2.get(i).getNombre().toUpperCase();
+                       var= var+aux2.get(i).getTipo().toUpperCase();
                        var=var.replace(" ","");
                        nombre = nombre.replace(" ","");
                        System.out.println(var);

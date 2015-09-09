@@ -428,29 +428,7 @@ return m;
       closeConnections(c,conexion,stm,resultados);
       return ordenesEncontradas;
      }
-     public ArrayList<OrdenDeVenta> getVentasDiarias(String fecha) throws SQLException
-     {//Retorna un arraylist con las ventas de la fecha indicada
-            ArrayList<VentaProducto> ventasAsociadas = new ArrayList<VentaProducto>();
-            ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
-            DB_connection c = new DB_connection();
-            Connection conexion = c.getConnection();
-            String query = "SELECT * FROM Ordendeventa WHERE fecha = ?";
-            PreparedStatement stm = conexion.prepareStatement(query);
-            stm.setString(1, fecha);
-            ResultSet resultados = stm.executeQuery();
-            while(resultados.next())
-            {
-               //Buscamos el cliente asociado a esta orden de venta
-                Cliente cliente = getClienteById(resultados.getInt("id_cliente"));
-                //Buscamos las ventas producto asociadas a esta orden de venta
-                ventasAsociadas = getVentaProductoByIdOrdenVenta(resultados.getInt("id_orden_venta"));
-                //Armamos el objeto OrdenDeVenta
-                OrdenDeVenta orden  = new OrdenDeVenta(resultados.getInt("id_orden_venta"),resultados.getString("fecha"),resultados.getString("monto_total"),resultados.getInt("numero_boleta"),resultados.getString("medio_pago"),resultados.getInt("estado_presupuesto"),cliente,ventasAsociadas);
-                ordenesEncontradas.add(orden);
-            }
-            closeConnections(c,conexion,stm,resultados);
-            return ordenesEncontradas;
-     }
+   
      public ArrayList<OrdenDeVenta> getVentasDia(String fecha) throws SQLException
      {
         ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
