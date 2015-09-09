@@ -433,9 +433,28 @@ return m;
      {
         ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
         DB_connection c = new DB_connection();
-            Connection conexion = c.getConnection();
-            String query = "SELECT * FROM Ordendeventa WHERE fecha = ?";
-            PreparedStatement stm = conexion.prepareStatement(query);
+        Connection conexion = c.getConnection();
+        String query = "SELECT * FROM Ordendeventa WHERE fecha = ? and estado_presupuesto=0";
+        PreparedStatement stm = conexion.prepareStatement(query);
+            stm.setString(1, fecha);
+            ResultSet resultados = stm.executeQuery();
+            while(resultados.next())
+            {
+              Cliente cliente = getClienteById(resultados.getInt("id_cliente"));
+              OrdenDeVenta orden  = new OrdenDeVenta(resultados.getInt("id_orden_venta"),resultados.getString("fecha"),resultados.getString("monto_total"),resultados.getInt("numero_boleta"),resultados.getString("medio_pago"),resultados.getInt("estado_presupuesto"),cliente,null);
+              ordenesEncontradas.add(orden);
+            }
+                        closeConnections(c,conexion,stm,resultados);
+
+        return ordenesEncontradas;
+     }
+     public ArrayList<OrdenDeVenta> getCotizacionesDia(String fecha) throws SQLException
+     {
+        ArrayList<OrdenDeVenta> ordenesEncontradas = new ArrayList<OrdenDeVenta>();
+        DB_connection c = new DB_connection();
+        Connection conexion = c.getConnection();
+        String query = "SELECT * FROM Ordendeventa WHERE fecha = ? and estado_presupuesto=1";
+        PreparedStatement stm = conexion.prepareStatement(query);
             stm.setString(1, fecha);
             ResultSet resultados = stm.executeQuery();
             while(resultados.next())
