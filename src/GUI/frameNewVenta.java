@@ -12,20 +12,34 @@ import ObjetosDB.Productos;
 import ObjetosDB.Promociones;
 import ObjetosDB.VentaProducto;
 import ObjetosDB.metodosDB;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -143,12 +157,13 @@ public class frameNewVenta extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva Venta");
         setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Kits / Productos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, null, java.awt.Color.gray));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Kits / Productos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.gray)); // NOI18N
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/emblem-sales.png"))); // NOI18N
         jButton4.setText("Escanear Producto");
@@ -250,7 +265,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resumen Caja", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.red));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Resumen Caja", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.red)); // NOI18N
 
         jLabel3.setText("Total a Pagar ($):");
 
@@ -402,7 +417,7 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addContainerGap(86, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identificación del Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, java.awt.Color.blue));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Identificación del Cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), java.awt.Color.blue)); // NOI18N
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add.png"))); // NOI18N
         jButton7.setText("Registrar Cliente");
@@ -510,6 +525,14 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Export To Document.png"))); // NOI18N
+        jButton2.setText("Cotización");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -527,6 +550,9 @@ public class frameNewVenta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -547,7 +573,8 @@ public class frameNewVenta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -828,6 +855,201 @@ public class frameNewVenta extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+
+         
+         
+                try {
+                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+               
+                    funciones f = new funciones();
+                    String dia=(Calendar.getInstance().getTime().getDate()<10)?"0"+Calendar.getInstance().getTime().getDate():Calendar.getInstance().getTime().getDate()+"";
+                    String mes=f.get_mesMay((Calendar.getInstance().getTime().getMonth()+1));
+                    String anio=(Calendar.getInstance().getTime().getYear()+1900)+"";
+                    
+               
+                   
+                     
+                            String nombre="COTIZACION";
+                            String rut_socio="";
+                            int mon=0;
+                            String arch = Calendar.getInstance().getTimeInMillis() + "_" + nombre + ".pdf";
+                             DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+                             Date date = new Date();
+                            String stringToEncrypt =nombre.trim()+dateFormat.format(date);
+                     
+                        
+                            int encryptedString = stringToEncrypt.trim().hashCode();
+                                 String aRemplazar=Integer.toString(encryptedString);
+		String remplazado=aRemplazar.replace("-", "");
+		
+                            String url = f.getRutaCotizacion() + arch;
+                            FileOutputStream archivo = new FileOutputStream(url);
+                            
+                            int deuda = Integer.parseInt("1");
+                            
+                            String palabra = f.Convertir(deuda + "", false);
+                                 
+                            palabra = palabra.substring(0, palabra.length() - 2);
+                            if (palabra.split(" ")[palabra.split(" ").length - 1].equals("millones") | palabra.split(" ")[palabra.split(" ").length - 1].equals("millón")) {
+                                palabra = palabra + "de pesos";
+                            } else {
+                                palabra = palabra + "pesos";
+                            }
+                          
+                            Document documento = new Document(PageSize.LETTER);
+                            PdfWriter.getInstance(documento, archivo);
+                            documento.open();
+                            try {
+                                Image im = Image.getInstance(f.getRutaCotizacion() + "headerword.png");
+                                im.setAlignment(Image.ALIGN_CENTER);
+                                im.scaleToFit(600, 400);
+                                documento.add(im);  
+                            } catch (Exception e) {
+                                setCursor(Cursor.getDefaultCursor());
+                               
+                                JOptionPane.showConfirmDialog(null, "HA OCURRIDO UN ERROR AL INTENTAR AGREGAR EL ENCABEZADO.", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
+                           
+                            }
+                      
+                            int linea = 0;
+                            Font fuente = new Font();
+                            fuente.setStyle(Font.UNDERLINE | Font.BOLD);
+                            fuente.setSize(11);
+                            fuente.setColor(BaseColor.BLACK);
+                            documento.add(new Paragraph(" "));
+                            Paragraph fecha = new Paragraph( dia+" de "+mes.toLowerCase()+" de "+anio+"\n", FontFactory.getFont("times new roman", 8, Font.NORMAL, BaseColor.BLACK));
+                            fecha.setAlignment(Paragraph.ALIGN_RIGHT);
+                            documento.add(fecha);
+                            Paragraph obp = new Paragraph( "ULTIMO ROUND\n", FontFactory.getFont("times new roman", 8, Font.NORMAL, BaseColor.BLACK));
+                            obp.setAlignment(Paragraph.ALIGN_RIGHT);
+                            documento.add(obp);
+                              Paragraph codigo = new Paragraph( "COD."+remplazado, FontFactory.getFont("times new roman", 8, Font.NORMAL, BaseColor.BLACK));
+                            codigo.setAlignment(Paragraph.ALIGN_RIGHT);
+                            documento.add(codigo);
+                              Paragraph space = new Paragraph("\n", FontFactory.getFont("times new roman", 10, Font.BOLD, BaseColor.BLACK));
+                            space.setAlignment(Paragraph.ALIGN_LEFT);
+                            documento.add(space);
+                            Paragraph origen = new Paragraph("ESTIMADO CLIENTE:\n", FontFactory.getFont("times new roman", 10, Font.NORMAL, BaseColor.BLACK));
+                            origen.setAlignment(Paragraph.ALIGN_LEFT);
+                            documento.add(origen);
+                            Paragraph a = new Paragraph(nombre, FontFactory.getFont("times new roman", 10, Font.NORMAL, BaseColor.BLACK));
+                            a.setAlignment(Paragraph.ALIGN_LEFT);
+                            documento.add(a);
+                            Paragraph rut = new Paragraph(rut_socio, FontFactory.getFont("times new roman", 10, Font.NORMAL, BaseColor.BLACK));
+                            rut.setAlignment(Paragraph.ALIGN_LEFT);
+                            documento.add(rut);
+                            Paragraph ref = new Paragraph("REF:COTIZACION POR PRODUCTOS TIENDA ULTIMO ROUND\n", FontFactory.getFont("times new roman", 10, Font.BOLD, BaseColor.BLACK));
+                            ref.setAlignment(Paragraph.ALIGN_RIGHT);
+                            documento.add(ref);
+                           
+                            documento.add(space);
+                            int numerocheque=0;
+                            int montofinal=0;
+                            String montostring="";
+                            String detalle ="";
+                           String monto=jLabel22.getText();
+                            
+                             String montoaux=monto.replace(".", "");
+            
+                            deuda = Integer.parseInt(montoaux);
+                 
+                               palabra = f.Convertir(deuda + "", false);
+                               System.out.println(palabra);
+                               palabra=palabra.replaceAll("0", "");
+                               System.out.println(palabra);
+                            Paragraph e = new Paragraph("Junto con saludarlo, adjunto la cotización detallada de los siguientes productos"
+                                    + " por el monto de $"+monto+".- ( "+palabra+"pesos ) ,según detalle:\n\n", FontFactory.getFont("times new roman", 11, Font.NORMAL, BaseColor.BLACK));
+                            e.setAlignment(Paragraph.ALIGN_LEFT);
+                            documento.add(e);
+                            documento.add(new Paragraph(" "));
+                            // ACA DEBE IR LA TABLA
+                               //special font sizes
+   Font bfBold10 = new Font(Font.FontFamily.TIMES_ROMAN, 10, Font.BOLD, new BaseColor(0, 0, 0)); 
+   Font bf10 = new Font(Font.FontFamily.TIMES_ROMAN, 10); 
+                            //specify column widths
+ 
+   //create PDF table with the given widths
+   
+ 
+   
+    
+    documento.add(new Paragraph(" "));
+                            float[] colsWidth = {1.5f, 1.5f};
+                            PdfPTable tabla = new PdfPTable(2);
+                            tabla.setWidths(colsWidth);
+                            String[] titulos = {"PRODUCTO", "VALOR PRODUCTO"};
+                       
+                            tabla.setWidthPercentage(100);
+                            PdfPCell celda;
+                            for (int k = 0; k < titulos.length; k++) {
+                                celda = new PdfPCell(new Paragraph(titulos[k], FontFactory.getFont("times new roman", 10, java.awt.Font.BOLD, BaseColor.BLACK)));
+                                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                                tabla.addCell(celda);
+                            }
+                           int var=0;
+                            int w = 0;
+                            for ( w =0; w < jTable1.getRowCount(); w++) {
+                                celda = new PdfPCell(new Paragraph(jTable1.getValueAt(w, 1).toString(), FontFactory.getFont("times new roman", 10, java.awt.Font.ROMAN_BASELINE, BaseColor.BLACK)));
+                                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                                tabla.addCell(celda);
+                                celda = new PdfPCell(new Paragraph("$"+jTable1.getValueAt(w, 7).toString(), FontFactory.getFont("times new roman", 10, java.awt.Font.ROMAN_BASELINE, BaseColor.BLACK)));
+                                celda.setHorizontalAlignment(Element.ALIGN_CENTER);
+                                tabla.addCell(celda);
+                           
+                            
+                            }
+                            
+                         
+                            documento.add(tabla);
+        
+                            //FOOOTER
+   documento.add(space);
+                            Paragraph despido = new Paragraph("Quedando a vuestra disposición, saluda atentamente a Ud.,\n", FontFactory.getFont("times new roman", 10, Font.NORMAL, BaseColor.BLACK));
+                            despido.setAlignment(Paragraph.ALIGN_LEFT);
+                            documento.add(despido);
+                            documento.add(space);
+                         
+                             Paragraph firma2 = new Paragraph( "TIENDA ULTIMO ROUND\n", FontFactory.getFont("times new roman", 10, Font.NORMAL, BaseColor.BLACK));
+                            firma2.setAlignment(Paragraph.ALIGN_RIGHT);
+                            documento.add(firma2);
+                            documento.add(space);
+                             documento.add(space);
+   documento.add(space);
+      Paragraph firma3 = new Paragraph( "Cotización válida por siete días\n", FontFactory.getFont("times new roman", 10, Font.NORMAL, BaseColor.BLACK));
+                            firma3.setAlignment(Paragraph.ALIGN_CENTER);
+                            documento.add(firma3);
+   documento.add(space);
+     documento.add(space);
+                            try {
+                                Image im = Image.getInstance(f.getRutaCotizacion() + "footerword.png");
+                                im.setAlignment(Image.ALIGN_CENTER);
+                                im.scaleToFit(600, 500);
+                                documento.add(im);
+                            } catch (Exception ex) {
+                                setCursor(Cursor.getDefaultCursor());
+                            
+                              JOptionPane.showConfirmDialog(null, "HA OCURRIDO UN ERROR AL INTENTAR AGREGAR EL PIE DE PAGINA.", "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
+                          
+                            }
+                            documento.close();
+                       
+                    
+                    setCursor(Cursor.getDefaultCursor());
+               
+                   JOptionPane.showConfirmDialog(null, "REALIZADO CORRECTAMENTE", "INFORMACIÓN", JOptionPane.PLAIN_MESSAGE, JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    setCursor(Cursor.getDefaultCursor());
+                 
+                JOptionPane.showConfirmDialog(null, "ERROR" + ex.getMessage(), "ERROR", JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE);
+                }
+              
+            
+               
+
+    }//GEN-LAST:event_jButton2ActionPerformed
  private void empaquetaProductos(ArrayList<Productos> carroProductos)
     {
         for(int i=0;i<this.carroProductos.size();i++)
@@ -931,6 +1153,7 @@ public class frameNewVenta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

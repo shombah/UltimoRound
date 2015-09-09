@@ -22,6 +22,7 @@ public class Productos   {
     private Integer id_producto;
     private String imagen = "notFound.png";
     private int cantidadp;
+    
     public Productos(int id_producto,String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual, String tipo, String codigo_barra) 
     { //Constructor
         this.id_producto=id_producto;
@@ -173,6 +174,13 @@ public class Productos   {
 
     public void setCantidadp(int cantidadp) {
         this.cantidadp = cantidadp;
+    }
+
+    /**
+     * @param imagen the imagen to set
+     */
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
     
 }

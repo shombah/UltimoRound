@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Clases.funciones;
 import static GUI.frameInventarioActual.createImageIcon;
 import ObjetosDB.Kitproductos;
 import ObjetosDB.Productos;
@@ -113,7 +114,8 @@ public class buscaProductoInventario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Productos al Carro");
-        setPreferredSize(new java.awt.Dimension(1000, 618));
+        setPreferredSize(new java.awt.Dimension(1000, 700));
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Productos Disponibles"));
 
@@ -579,7 +581,8 @@ public class buscaProductoInventario extends javax.swing.JFrame {
             jLabel13.setText(Integer.toString(p.getCantidadp()));
             jLabel14.setText(p.getTalla().trim());
             jLabel15.setText(p.getColor().trim());
-            String path = "/Imagenes/"+aux2a.get(valor).getImagen();
+                  funciones f= new funciones();
+               String path = f.getRutaFotoProducto()+p.getImagen();
             ImageIcon iconLogo = createImageIcon2(path);
             jLabel18.setIcon(iconLogo);
          
@@ -883,11 +886,10 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         } 
     }
     protected static ImageIcon createImageIcon2(String path) {
-    java.net.URL imgURL = frameInventarioActual.class.getResource(path);
-    if (imgURL != null) {
-        ImageIcon imageIcon =new ImageIcon(imgURL);
+    if (path != null) {
+        ImageIcon imageIcon =new ImageIcon(path);
         Image image = imageIcon.getImage();
-        Image nueva = image.getScaledInstance(200,200,java.awt.Image.SCALE_SMOOTH);
+        Image nueva = image.getScaledInstance(250,200,java.awt.Image.SCALE_FAST);
         imageIcon = new ImageIcon(nueva);
         
       return imageIcon;

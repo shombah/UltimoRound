@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import Clases.funciones;
 import static GUI.Newproduct.createImageIcon2;
 import ObjetosDB.Productos;
 import java.awt.Image;
@@ -34,17 +35,18 @@ public class frameDescripcionProducto extends javax.swing.JFrame {
         jLabel15.setText(p.getColor());
         jLabel14.setText(p.getTalla());
         jLabel13.setText(Integer.toString(p.getCantidadActual()));
-        String path = "/fotosProductos/"+p.getImagen();
+         funciones f= new funciones();
+        String path = f.getRutaFotoProducto()+p.getImagen();
         ImageIcon iconLogo = createImageIcon2(path);
         jLabel18.setIcon(iconLogo);
         
     }
       protected static ImageIcon createImageIcon2(String path) {
     java.net.URL imgURL = frameInventarioActual.class.getResource(path);
-    if (imgURL != null) {
-        ImageIcon imageIcon =new ImageIcon(imgURL);
+    if (path != null) {
+        ImageIcon imageIcon =new ImageIcon(path);
         Image image = imageIcon.getImage();
-        Image nueva = image.getScaledInstance(250,200,java.awt.Image.SCALE_SMOOTH);
+        Image nueva = image.getScaledInstance(250,200,java.awt.Image.SCALE_FAST);
         imageIcon = new ImageIcon(nueva);
         
       return imageIcon;

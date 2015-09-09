@@ -61,7 +61,11 @@ public class funciones {
         }
         return true;
     }
-
+  public String getRutaCotizacion() {
+        File folder = new File("C:\\UR\\cotizacion");
+        folder.mkdirs();
+        return folder.getAbsolutePath() + "\\";
+    }
     public String getRutaExcel() {
         File folder = new File("C:\\UR\\librosDiarios");
         folder.mkdirs();

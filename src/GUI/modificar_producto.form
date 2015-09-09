@@ -401,7 +401,7 @@
             <StringItem index="16" value="VENDAS "/>
             <StringItem index="17" value="ELEVATION TRAINING MASK "/>
             <StringItem index="18" value="ACCESORIOS"/>
-            <StringItem index="19" value="SPATS "/>
+            <StringItem index="19" value="SPATS"/>
           </StringArray>
         </Property>
         <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">

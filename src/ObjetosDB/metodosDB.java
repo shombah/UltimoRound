@@ -560,7 +560,9 @@ Productos producto = null;
       while(resultados.next())
       {
         producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
-       aux2.add(producto);
+              producto.setImagen(resultados.getString("imagen"));
+
+        aux2.add(producto);
       }
         conexion.close();
          stm.close();
@@ -578,7 +580,10 @@ public ArrayList<Productos> getProductos() throws SQLException
       while(resultados.next())
       {
         Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
+                       product.setImagen(resultados.getString("imagen"));
+
         productos.add(product);
+
       }
       closeConnections(c,conexion,stm,resultados);
     return productos;
@@ -595,7 +600,10 @@ public ArrayList<Productos> getProductosStockCritico() throws SQLException
       {
           if(resultados.getInt("cantidad_actual")<=StockCritico)
           { Productos product = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
-            productos.add(product);
+                             product.setImagen(resultados.getString("imagen"));
+  
+          productos.add(product);
+
           }
       }
       closeConnections(c,conexion,stm,resultados);
@@ -606,7 +614,7 @@ public boolean addProductos(Productos m) throws SQLException
      ArrayList<Productos> productos = new ArrayList<Productos>();
       DB_connection c = new DB_connection();
       Connection conexion = c.getConnection();
- String query = "INSERT INTO Productos (id_producto,codigo_barra,nombre,marca,talla,color,precio_compra,precio_venta,proveedor,cantidad_actual,tipo) VALUES (?,?,?,?,?,?,?,?,?,?,?);";    
+ String query = "INSERT INTO Productos (id_producto,codigo_barra,nombre,marca,talla,color,precio_compra,precio_venta,proveedor,cantidad_actual,tipo, imagen) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";    
       
       PreparedStatement stm = conexion.prepareStatement(query);
       
@@ -621,6 +629,7 @@ public boolean addProductos(Productos m) throws SQLException
       stm.setInt(10, m.getCantidadActual());
           stm.setString   (11, m.getTipo());
               stm.setString   (2, m.getCodigo_barra());
+       stm.setString(12,m.getImagen());
        System.out.print(stm);
               stm.executeUpdate();
     stm.close();
@@ -690,7 +699,7 @@ public Productos getProductoById(int id_producto) throws SQLException
                 ,resultados.getString("color"),resultados.getInt("precio_compra")
                 ,resultados.getInt("precio_venta"),resultados.getString("proveedor")
                 ,resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
-       
+       producto.setImagen(resultados.getString("imagen"));
       }
         conexion.close();
   stm.close();
@@ -709,7 +718,8 @@ Productos producto = null;
       while(resultados.next())
       {
         producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
-       
+              producto.setImagen(resultados.getString("imagen"));
+
       }
         conexion.close();
          stm.close();
@@ -729,7 +739,8 @@ Productos producto = null;
       while(resultados.next())
       {
         producto = new Productos(resultados.getInt("id_producto"),resultados.getString("nombre"),resultados.getString("marca"),resultados.getString("talla"),resultados.getString("color"),resultados.getInt("precio_compra"),resultados.getInt("precio_venta"),resultados.getString("proveedor"),resultados.getInt("cantidad_actual"),resultados.getString("tipo"),resultados.getString("codigo_barra"));      
-       
+              producto.setImagen(resultados.getString("imagen"));
+
       }
         conexion.close();
          stm.close();
