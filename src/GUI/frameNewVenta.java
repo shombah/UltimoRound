@@ -13,6 +13,8 @@ import ObjetosDB.Promociones;
 import ObjetosDB.VentaProducto;
 import ObjetosDB.metodosDB;
 import java.awt.Cursor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,7 +23,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -52,6 +56,40 @@ public class frameNewVenta extends javax.swing.JFrame {
             cantidadpromos=cantidadpromos+1;
         }
          aux2a = new metodosDB().getProductos();
+          final JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem deleteItem = new JMenuItem("Información del Producto");
+         
+                deleteItem.addActionListener(new ActionListener() 
+                {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                int id = -1;
+                                boolean error = false;
+                                try{
+                                    int s = jTable1.getSelectedRow();
+                                     id = (int)jTable1.getValueAt(s, 0);
+                                     
+                                }catch(ArrayIndexOutOfBoundsException a)
+                                {
+                                    JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un item de la tabla");
+                                    error = true;
+                                }
+                            if(error == false)
+                             {
+                                try {
+                                    Productos p = new metodosDB().getProductoById(id);
+                                    frameDescripcionProducto freim = new frameDescripcionProducto(p);
+                                    freim.setVisible(true);
+                                } catch (SQLException ex) {
+                                    JOptionPane.showMessageDialog(rootPane, "Error en el producto / producto no existe en base de datos");
+                                }
+                             }
+                        }
+
+                });
+        popupMenu.add(deleteItem);
+        jTable1.setComponentPopupMenu(popupMenu);
     }
 
     /**
@@ -123,7 +161,6 @@ public class frameNewVenta extends javax.swing.JFrame {
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/search.png"))); // NOI18N
         jButton5.setText("Buscar Producto en Inventario");
-        jButton5.setActionCommand("Buscar Producto en Inventario");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -327,7 +364,7 @@ public class frameNewVenta extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("% Descuento:");
+        jLabel2.setText("Descuento($):");
 
         jLabel18.setText("jLabel18");
 
@@ -541,7 +578,7 @@ public class frameNewVenta extends javax.swing.JFrame {
     int sumaPrevia = montoNeto-montoDescuento;
     iva_pesos = (sumaPrevia * iva_porcentaje)/100;
     jLabel21.setText(Integer.toString(iva_pesos));
-    montoTotal = montoNeto - montoDescuento - iva_pesos;
+    montoTotal = montoNeto - montoDescuento ;
     jLabel22.setText(Integer.toString(montoTotal));
     
     

@@ -9,10 +9,15 @@ import ObjetosDB.Kitproductos;
 import ObjetosDB.Productos;
 import ObjetosDB.Promociones;
 import ObjetosDB.metodosDB;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -445,6 +450,40 @@ public class frameInventarioActual extends javax.swing.JFrame {
             modelo1.addRow(object);
             i++;
         }
+         final JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem deleteItem = new JMenuItem("Información del Producto");
+         
+                deleteItem.addActionListener(new ActionListener() 
+                {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                int id = -1;
+                                boolean error = false;
+                                try{
+                                    int s = jTable1.getSelectedRow();
+                                     id = (int)jTable1.getValueAt(s, 0);
+                                     
+                                }catch(ArrayIndexOutOfBoundsException a)
+                                {
+                                    JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un item de la tabla");
+                                    error = true;
+                                }
+                            if(error == false)
+                             {
+                                try {
+                                    Productos p = new metodosDB().getProductoById(id);
+                                    frameDescripcionProducto freim = new frameDescripcionProducto(p);
+                                    freim.setVisible(true);
+                                } catch (SQLException ex) {
+                                    JOptionPane.showMessageDialog(rootPane, "Error en el producto / producto no existe en base de datos");
+                                }
+                             }
+                        }
+
+                });
+        popupMenu.add(deleteItem);
+        jTable1.setComponentPopupMenu(popupMenu);
         
         /*Cargamos datos de Productos Stock Critico*/
         String t2[] = {"ID","PRODUCTO","TALLA","MARCA","CANTIDAD","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
@@ -468,6 +507,9 @@ public class frameInventarioActual extends javax.swing.JFrame {
             modelo2.addRow(object);
             i++;
         }
+         
+        jTable2.setComponentPopupMenu(popupMenu);
+        
         /*Cargamos arbol de Kits*/
       String t3[] = {"ID","KIT","PCompra","PVenta","Descripcion"};
         modelo3.setColumnIdentifiers(t3);
@@ -498,7 +540,7 @@ public class frameInventarioActual extends javax.swing.JFrame {
         
         jTree1.setModel(modeloarbol);
         traverse(jTree1);
-        
+        jTable3.setComponentPopupMenu(popupMenu);
         /*Cargamos datos de promociones*/
         String t4[]={"Nombre","Monto Descuento"};
         modelo4.setColumnIdentifiers(t4);

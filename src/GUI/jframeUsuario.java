@@ -623,13 +623,16 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-     //   dialog_buscar_atencion_social a = new dialog_buscar_atencion_social(usuario);
-     //   a.setLocationRelativeTo(null);
-        this.setCursor(Cursor.getDefaultCursor());
-     //   a.setVisible(true);
-
+        libro_diario frame = null;
+        try {
+                frame = new libro_diario(this,false);
+            } catch (SQLException ex) 
+            {
+                Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            frame.setVisible(true);
+       this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed

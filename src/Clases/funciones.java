@@ -62,56 +62,60 @@ public class funciones {
         return true;
     }
 
-    public String getRuta() {
-        File folder = new File("C:\\SISTEMA DE BENEFICIOS");
+    public String getRutaExcel() {
+        File folder = new File("C:\\UR\\librosDiarios");
         folder.mkdirs();
         return folder.getAbsolutePath() + "\\";
     }
-
+   public String getRutaFotoProducto() {
+        File folder = new File("C:\\UR\\fotosProductos");
+        folder.mkdirs();
+        return folder.getAbsolutePath() + "\\";
+    }
     public String getRuta_benef(String fecha) {
-        File folder = new File("C:\\SISTEMA DE BENEFICIOS\\" + fecha + "_CARTAS");
+        File folder = new File("C:\\UR\\" + fecha + "_CARTAS");
         folder.mkdirs();
         return folder.getAbsolutePath() + "\\";
     }
 
     public String getRuta_carta_deudores() {
-        File folder = new File("C:\\SISTEMA DE BENEFICIOS\\" +"CARTA DEUDORES DAB");
+        File folder = new File("C:\\UR\\" +"CARTA DEUDORES DAB");
         folder.mkdirs();
         return folder.getAbsolutePath() + "\\";
     }
 
     public String getRuta_contabilidad_dab() {
-        File folder = new File("C:\\SISTEMA DE BENEFICIOS\\CONTABILIDAD DAB");
+        File folder = new File("C:\\UR\\CONTABILIDAD DAB");
         folder.mkdirs();
         return folder.getAbsolutePath() + "\\";
     }
 
     public String getRuta_formatos() {
-        File folder = new File("C:\\SISTEMA DE BENEFICIOS\\FORMATOS DE ARCHIVOS DE ENTRADA");
+        File folder = new File("C:\\UR\\FORMATOS DE ARCHIVOS DE ENTRADA");
         folder.mkdirs();
         return folder.getAbsolutePath() + "\\";
     }
 
     public String getRuta_cheques() {
-        File folder = new File("C:\\SISTEMA DE BENEFICIOS\\CHEQUES");
+        File folder = new File("C:\\UR\\CHEQUES");
         folder.mkdirs();
         return folder.getAbsolutePath() + "\\";
     }
 
     public String getRuta_seguro() {
-        File folder = new File("C:\\SISTEMA DE BENEFICIOS\\SEGUROS Y ATENCIONES SOCIALES");
+        File folder = new File("C:\\UR\\SEGUROS Y ATENCIONES SOCIALES");
         folder.mkdirs();
         return folder.getAbsolutePath() + "\\";
     }
 
     public String getRuta_reportes() {
-        File folder = new File("C:\\SISTEMA DE BENEFICIOS\\REPORTES");
+        File folder = new File("C:\\UR\\REPORTES");
         folder.mkdirs();
         return folder.getAbsolutePath() + "\\";
     }
 
     public String getRuta_cartaGarantia() {
-        File folder = new File("C:\\SISTEMA DE BENEFICIOS\\CARTAS DE GARANTIA");
+        File folder = new File("C:\\UR\\CARTAS DE GARANTIA");
         folder.mkdirs();
         return folder.getAbsolutePath() + "\\";
     }

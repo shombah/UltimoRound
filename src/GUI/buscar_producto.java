@@ -23,16 +23,14 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Alejandro
- */
 public class buscar_producto extends javax.swing.JDialog implements KeyListener, ActionListener, MouseListener {
 
     int usuario, a = 1, mnsj, num_celdas = 44;
@@ -51,7 +49,6 @@ public class buscar_producto extends javax.swing.JDialog implements KeyListener,
     };
 
     public buscar_producto(java.awt.Frame parent, boolean modal) throws SQLException {
-        super(parent, modal);
         initComponents();
         iniciar();
     }
@@ -63,7 +60,7 @@ public class buscar_producto extends javax.swing.JDialog implements KeyListener,
     }
 
     buscar_producto(jframeUsuario aThis, boolean b, int u) throws SQLException {
-        super(aThis, b);
+        //super(aThis, b);
         initComponents();
         this.usuario = u;
         iniciar();
@@ -121,7 +118,40 @@ ArrayList<Productos> aux2 = new ArrayList<Productos>();
         
          modelo.addRow(object);i++;}
 		// Accion a realizar cuando el JComboBox cambia de item seleccionado.
-        
+         final JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem deleteItem = new JMenuItem("Información del Producto");
+         
+                deleteItem.addActionListener(new ActionListener() 
+                {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                int id = -1;
+                                boolean error = false;
+                                try{
+                                    int s = jTable1.getSelectedRow();
+                                     id = (int)jTable1.getValueAt(s, 0);
+                                     
+                                }catch(ArrayIndexOutOfBoundsException a)
+                                {
+                                    JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un item de la tabla");
+                                    error = true;
+                                }
+                            if(error == false)
+                             {
+                                try {
+                                    Productos p = new metodosDB().getProductoById(id);
+                                    frameDescripcionProducto freim = new frameDescripcionProducto(p);
+                                   freim.setVisible(true);
+                                } catch (SQLException ex) {
+                                    JOptionPane.showMessageDialog(rootPane, "Error en el producto / producto no existe en base de datos");
+                                }
+                             }
+                        }
+
+                });
+        popupMenu.add(deleteItem);
+        jTable1.setComponentPopupMenu(popupMenu);
     }
 
   
