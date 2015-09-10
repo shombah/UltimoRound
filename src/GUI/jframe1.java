@@ -43,7 +43,12 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
 
                     if(verificar_usuario())
                             {
-                                jframeUsuario as = new jframeUsuario();
+                                jframeUsuario as = null;
+                        try {
+                            as = new jframeUsuario(jTextField1.getText());
+                        } catch (SQLException ex) {
+                            Logger.getLogger(jframe1.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                                 as.setVisible(true);
                                 dispose();
                             }
@@ -58,8 +63,13 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
                 public void actionPerformed(ActionEvent e){
 
                             if(verificar_usuario())
-                            {
-                                jframeUsuario as = new jframeUsuario();
+                            {  
+                                jframeUsuario as = null;
+                                try {
+                                    as = new jframeUsuario(jTextField1.getText());
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(jframe1.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 as.setVisible(true);
                                 dispose();
                             }
@@ -163,6 +173,11 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
         jTextField1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
         jPasswordField1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("DejaVu Sans", 1, 20)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 102));
@@ -207,44 +222,42 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                        .addComponent(jPasswordField1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 149, Short.MAX_VALUE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                                    .addComponent(jPasswordField1)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addComponent(jLabel1)))))
-                        .addGap(104, 104, 104))))
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel1)
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel4)))
+                .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(148, 148, 148))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(104, 104, 104))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(148, 148, 148))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel4)))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,8 +282,15 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
         
         if(verificar_usuario())
         {
-            jframeUsuario as = new jframeUsuario();
+            jframeUsuario as = null;
+            try {
+                as = new jframeUsuario(jTextField1.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(jframe1.class.getName()).log(Level.SEVERE, null, ex);
+            }
+              as.setLocationRelativeTo(null);
             as.setVisible(true);
+            
             this.dispose();
         }
         else
@@ -285,6 +305,10 @@ public class jframe1 extends javax.swing.JFrame implements ActionListener {
         System.exit(0);
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     public static void main(String args[]) {
 

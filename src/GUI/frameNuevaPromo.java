@@ -177,7 +177,7 @@ public class frameNuevaPromo extends javax.swing.JFrame {
         }
         if (error == 0)
                 JOptionPane.showMessageDialog(rootPane,  "Promoción creada exitosamente");
-            
+            dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

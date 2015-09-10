@@ -477,7 +477,7 @@ private JComboBox combo1;
                                         .addComponent(jTextField25)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -571,6 +571,7 @@ private JComboBox combo1;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             boolean correcto=false;
+            boolean correcto2=false;
         System.out.println("q wea pasa"+modelo.getRowCount());
         for (int j = 0; j < modelo.getRowCount(); j++) {
            
@@ -593,10 +594,9 @@ private JComboBox combo1;
             metodosDB metodos= new metodosDB();
             try {
                 
-                metodos.addProductos(producto);
-                   jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "PRODUCTO(S) AGREGADOS CON EXITO");
-            correcto =true;
+                correcto=metodos.addProductos(producto);
+            correcto2=metodos.addProductos(producto);
+          
             this.dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(Newproduct.class.getName()).log(Level.SEVERE, null, ex);
@@ -606,18 +606,22 @@ private JComboBox combo1;
                       
                       //validar campos
                       //guardar en la base de datos si es consistente
-                     
+                         
                       this.dispose(); //dispose para salir de la ventana
         }else{
+               
               JOptionPane.showMessageDialog(rootPane,  "NO HA AGREGADO NINGUN PRODUCTO".toUpperCase());
                 
-                }} 
+                }}     if(correcto2==false)
     if(correcto==false){
           jframe1 a = new jframe1();
-            JOptionPane.showMessageDialog(a, "NO SE AGREGO NINGUN PRODUCTO");
+            JOptionPane.showMessageDialog(a, "ERROR: PRODUCTO CON MISMO CODIGO DE BARRA ALMACENADO");
             this.dispose();
        
-        } 
+        } else{
+        jframe1 a = new jframe1();
+            JOptionPane.showMessageDialog(a, "PRODUCTO(S) AGREGADOS CON EXITO");
+    }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

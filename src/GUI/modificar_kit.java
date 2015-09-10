@@ -315,7 +315,7 @@ private JComboBox combo1;
         });
 
         jButton9.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/add.png"))); // NOI18N
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Add.png"))); // NOI18N
         jButton9.setText("AGREGAR");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

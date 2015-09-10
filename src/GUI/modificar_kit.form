@@ -209,7 +209,7 @@
           <Font name="Times New Roman" size="16" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Iconos/add.png"/>
+          <Image iconType="3" name="/Iconos/Add.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="AGREGAR"/>
       </Properties>

@@ -22,7 +22,7 @@ public class Productos   {
     private Integer id_producto;
     private String imagen = "notFound.png";
     private int cantidadp;
-    
+    private int kit_or_product=0;
     public Productos(int id_producto,String nombre, String marca, String talla, String color, int precioCompra, int precioVenta, String proveedor, int cantidadActual, String tipo, String codigo_barra) 
     { //Constructor
         this.id_producto=id_producto;
@@ -38,6 +38,15 @@ public class Productos   {
         this.codigo_barra = codigo_barra;
         this.cantidadp = cantidadActual;
        
+    }
+    
+    public void setKit(int p)
+    {
+        this.kit_or_product = p;
+    }
+    public int  getkit()
+    {
+        return this.kit_or_product;
     }
     public Productos(){}
 

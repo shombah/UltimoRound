@@ -249,7 +249,7 @@ String t[] = {"RUT", "NOMBRE", "TELEFONO", "EMAIL"};
             this.j13.setText(this.cliente.getNombre());
             this.j14.setText(this.cliente.getTelefono());
             this.j15.setText(this.cliente.getEmail());
-            this.j16.setText("info. N/A");
+//            this.j16.setText("info. N/A");
             this.j17.setText(this.cliente.getIdCliente().toString());
         } catch (SQLException ex) {
             Logger.getLogger(cargarClientes.class.getName()).log(Level.SEVERE, null, ex);

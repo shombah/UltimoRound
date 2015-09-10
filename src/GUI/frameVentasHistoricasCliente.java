@@ -39,12 +39,13 @@ public class frameVentasHistoricasCliente extends javax.swing.JFrame  implements
     /**
      * Creates new form frameVentasHistoricasCliente
      */
-    public frameVentasHistoricasCliente(Cliente cliente) throws SQLException {
+    public frameVentasHistoricasCliente(String cliente) throws SQLException {
         initComponents();
-        this.cliente=cliente;
-        jLabel5.setText(cliente.getNombre());
-        jLabel6.setText(cliente.getTelefono());
-        jLabel7.setText(cliente.getEmail());
+        metodosDB f= new metodosDB();
+        this.cliente=f.getClienteById(Integer.parseInt(cliente));
+        jLabel5.setText(this.cliente.getNombre());
+        jLabel6.setText(this.cliente.getTelefono());
+        jLabel7.setText(this.cliente.getEmail());
         iniciar();
     }
  private void iniciar()throws SQLException {
@@ -185,21 +186,26 @@ String t[] = {"ID VENTA", "FECHA", "MONTO", "MEDIO PAGO"};
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/arrow_rotate_clockwise.png"))); // NOI18N
         jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(176, 176, 176)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(121, 121, 121)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,6 +221,10 @@ String t[] = {"ID VENTA", "FECHA", "MONTO", "MEDIO PAGO"};
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+     dispose();   // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
 

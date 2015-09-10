@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -206,6 +207,8 @@ public class frameModificarPromo extends javax.swing.JFrame {
             int linea = jTable1.getSelectedRow();
             int idPromo = (int) jTable1.getValueAt(linea, 0);
             new metodosDB().updatePromo(new Promociones(idPromo,Integer.parseInt(jTextField2.getText()),jTextField1.getText(),check));
+             JOptionPane.showMessageDialog(rootPane,  "Promo creada exitosamente");
+            dispose();
         } catch (SQLException ex) {  System.out.println("error"+ex);  }
     }//GEN-LAST:event_jButton1ActionPerformed
 

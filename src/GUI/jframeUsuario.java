@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import ObjetosDB.metodosDB;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 
 public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
@@ -33,90 +35,83 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     }
 
-    private void modulosDefault() {
-//        modulo1.setEnabled(false);
-//        modulo2.setEnabled(false);
-//        modulo3.setEnabled(false);
-//        modulo4.setEnabled(false);
-//        modulo5.setEnabled(false);
-//        modulo6.setEnabled(false);
-//        modulo7.setEnabled(false);
-//        modulo8.setEnabled(false);
-//        modulo9.setEnabled(false);
-//        modulo10.setEnabled(false);
-//        modulo12.setEnabled(false);
-//        modulo13.setEnabled(false);
-//        modulo14.setEnabled(false);
-//        modulo15.setEnabled(false);
-//        modulo16.setEnabled(false);
-//        modulo17.setEnabled(false);
-//        modulo18.setEnabled(false);
-//        modulo19.setEnabled(false);
-//        modulo20.setEnabled(false);
-//        modulo21.setEnabled(false);
-    }
-
-    private void modulosPrivilegios(String m) {
-        String[] p = m.split("-");
-        int i = 0, aux;
-        /*while (i < p.length) {*/
-            aux = Integer.valueOf(p[i]);
-            switch (aux) {
-                case 1:
+    private void modulosPrivilegios(int privilegio) {
+           
+       System.out.println("q wea");
+        System.out.println(privilegio);
+            if (privilegio==1) {
+        
                     modulo1.setEnabled(true);
-                    break;
-                case 2:
+                 
                     modulo2.setEnabled(true);
-                    break;
-                case 3:
+                    
                     modulo3.setEnabled(true);
-                    break;
-                case 4:
+                    
                     modulo4.setEnabled(true);
-                    break;
-                case 5:
+                   
                     modulo5.setEnabled(true);
-                    break;
-                case 6:
+                   
                    // modulo6.setEnabled(true);
-                    break;
-                case 7:
+                   
                     modulo7.setEnabled(true);
-                    break;
-                case 8:
+                    
                   //  modulo8.setEnabled(true);
-                    break;
-                case 14:
+                    
                     modulo14.setEnabled(true);
-                    break;
-                case 15:
+                   
                     modulo15.setEnabled(true);
-                    break;
-                case 16:
-                    modulo16.setEnabled(true);
-                    break;
-                case 17:
-                    modulo17.setEnabled(true);
-                    break;
-                case 18:
-                    modulo18.setEnabled(true);
-                    break;
-                case 19:
-                    modulo19.setEnabled(true);
-                    break;
+                   
+                   jMenuItem3.setEnabled(true);
+                    
                 
+                   
+                    modulo18.setEnabled(true);
+                    
+                    modulo19.setEnabled(true);
+                       solicitud.setEnabled(true);
+        empleado.setEnabled(true);
+        comprobante.setEnabled(true);
+        contabilidad.setEnabled(true);
+        gestion.setEnabled(true);
+         jMenu1.setEnabled(true);
+                  administrador.setEnabled(true);
             }
-            i++;
-       // }
+ }
+    private void modulosDefault() {
+     modulo1.setEnabled(false);
+     modulo2.setEnabled(false);
+   modulo3.setEnabled(false);
+        modulo4.setEnabled(false);
+        modulo5.setEnabled(false);
+      ;
+        modulo7.setEnabled(false);
+       
+        modulo14.setEnabled(false);
+        modulo15.setEnabled(true);
+        
+                   jMenuItem3.setEnabled(false);
+        modulo18.setEnabled(false);
+        modulo19.setEnabled(false);
+      //  modulo20.setEnabled(false);
+        administrador.setEnabled(false);
+        solicitud.setEnabled(false);
+        empleado.setEnabled(false);
+        comprobante.setEnabled(false);
+        contabilidad.setEnabled(true);
+        gestion.setEnabled(false);
+         jMenu1.setEnabled(false);
     }
 
-    public jframeUsuario(String rut_usuario) {
-        initComponents();
-        usuario = Integer.valueOf(rut_usuario);
+    public jframeUsuario(String rut_usuario) throws SQLException {
+        initComponents();iniciar();
+        usuario = Integer.parseInt(rut_usuario);
+        metodosDB funciones = new metodosDB();
+        int privilegio = funciones.cargaUsuarioByRut(usuario);
         modulosDefault();
-        String a = getModulos(rut_usuario);
+          
+        modulosPrivilegios(privilegio);
       //  modulosPrivilegios(a);
-        iniciar();
+        
 
     }
 
@@ -137,6 +132,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         solicitud = new javax.swing.JMenu();
         modulo1 = new javax.swing.JMenuItem();
@@ -151,21 +147,16 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         contabilidad = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         modulo15 = new javax.swing.JMenuItem();
+        modulo16 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        modulo16 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         gestion = new javax.swing.JMenu();
         modulo14 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        modulo17 = new javax.swing.JMenuItem();
         administrador = new javax.swing.JMenu();
         modulo18 = new javax.swing.JMenuItem();
         modulo19 = new javax.swing.JMenuItem();
-        opciones = new javax.swing.JMenu();
-        cambiarPass = new javax.swing.JMenuItem();
-        CerrarSesion = new javax.swing.JMenuItem();
-        salir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bienvenido");
@@ -195,13 +186,23 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("DejaVu Sans", 0, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 102));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/coins_add.png"))); // NOI18N
-        jButton3.setText("Nueva Venta");
+        jButton3.setFont(new java.awt.Font("Microsoft YaHei", 1, 36)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(0, 153, 0));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/newventa.png"))); // NOI18N
+        jButton3.setText("Vender Kit");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setFont(new java.awt.Font("Microsoft YaHei", 1, 36)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(0, 153, 0));
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/newventa.png"))); // NOI18N
+        jButton4.setText("Vender Productos");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -303,13 +304,21 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         });
         contabilidad.add(jMenuItem1);
 
-        modulo15.setText("Vender Producto");
+        modulo15.setText("Vender Productos");
         modulo15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modulo15ActionPerformed(evt);
             }
         });
         contabilidad.add(modulo15);
+
+        modulo16.setText("Vender Kit");
+        modulo16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modulo16ActionPerformed(evt);
+            }
+        });
+        contabilidad.add(modulo16);
 
         jMenuBar1.add(contabilidad);
 
@@ -324,14 +333,6 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
             }
         });
         jMenu1.add(jMenuItem3);
-
-        modulo16.setText("Productos Menos Vendidos");
-        modulo16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modulo16ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(modulo16);
 
         jMenuItem5.setText("Libro de Ventas");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -363,21 +364,13 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         });
         gestion.add(jMenuItem7);
 
-        modulo17.setText("Eliminar Promocion");
-        modulo17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modulo17ActionPerformed(evt);
-            }
-        });
-        gestion.add(modulo17);
-
         jMenuBar1.add(gestion);
 
         administrador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/user_gray.png"))); // NOI18N
         administrador.setText("Administrador");
         administrador.setActionCommand("Administrador     ");
 
-        modulo18.setText("Adm. Usuarios");
+        modulo18.setText("Crear usuario");
         modulo18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modulo18ActionPerformed(evt);
@@ -385,7 +378,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         });
         administrador.add(modulo18);
 
-        modulo19.setText("Adm. Perfiles");
+        modulo19.setText("Modificar Usuario");
         modulo19.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modulo19ActionPerformed(evt);
@@ -395,37 +388,6 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
         jMenuBar1.add(administrador);
 
-        opciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/computer_key.png"))); // NOI18N
-        opciones.setText("Opciones");
-        opciones.setIconTextGap(1);
-        opciones.setMaximumSize(new java.awt.Dimension(80, 32767));
-
-        cambiarPass.setText("Cambiar Contraseña");
-        cambiarPass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cambiarPassActionPerformed(evt);
-            }
-        });
-        opciones.add(cambiarPass);
-
-        CerrarSesion.setText("Cerrar Sesión");
-        CerrarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CerrarSesionActionPerformed(evt);
-            }
-        });
-        opciones.add(CerrarSesion);
-
-        salir.setText("Salir");
-        salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salirActionPerformed(evt);
-            }
-        });
-        opciones.add(salir);
-
-        jMenuBar1.add(opciones);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -433,9 +395,11 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 424, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -444,14 +408,15 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(323, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32))
+                .addContainerGap(284, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -476,6 +441,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         Newproduct ingresar = new Newproduct();
        
         this.setCursor(Cursor.getDefaultCursor());
+        ingresar.setLocationRelativeTo(null);
         ingresar.setVisible(true);
 
     }//GEN-LAST:event_modulo1ActionPerformed
@@ -490,50 +456,30 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         jframe1 login = new jframe1();
         dispose();
         this.setCursor(Cursor.getDefaultCursor());
+        
         login.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-
-        System.exit(0);
-    }//GEN-LAST:event_salirActionPerformed
-
-    private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        jframe1 login = new jframe1();
-        dispose();
-        this.setCursor(Cursor.getDefaultCursor());
-        login.setVisible(true);
-
-    }//GEN-LAST:event_CerrarSesionActionPerformed
-
-    private void cambiarPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarPassActionPerformed
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-    //    dialog_cambiar_pass p = new dialog_cambiar_pass(this, true, usuario);
-      //  p.setLocationRelativeTo(null);
-        this.setCursor(Cursor.getDefaultCursor());
-      //  p.setVisible(true);
-
-    }//GEN-LAST:event_cambiarPassActionPerformed
 
     private void modulo7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo7ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             frameInventarioActual frameInventario = new frameInventarioActual();
-      
+      frameInventario.setLocationRelativeTo(null);
             frameInventario.setVisible(true);
             this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_modulo7ActionPerformed
 
     private void modulo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo4ActionPerformed
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+       
         try {
             nuevo_kit p = new nuevo_kit();
+           
+            this.setCursor(Cursor.getDefaultCursor());   
+            p.setLocationRelativeTo(null); 
             p.setVisible(true);
-            this.setCursor(Cursor.getDefaultCursor());
         } catch (SQLException ex) {
             Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-      //  p.setLocationRelativeTo(null);
+ 
         this.setCursor(Cursor.getDefaultCursor());
       //  p.setVisible(true);
     }//GEN-LAST:event_modulo4ActionPerformed
@@ -547,36 +493,31 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         } catch (SQLException ex) {
             Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+      modificarkit.setLocationRelativeTo(null);
            modificarkit.setVisible(true);
             this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_modulo5ActionPerformed
 
     private void modulo18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo18ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-      //  dialog_mostrar_usuarios a = new dialog_mostrar_usuarios(this, usuario);
-     //   a.setLocationRelativeTo(null);
+      frameNuevoVendedor a = new frameNuevoVendedor();
+     a.setLocationRelativeTo(null);
         this.setCursor(Cursor.getDefaultCursor());
-     //   a.setVisible(true);
+        a.setVisible(true);
 
     }//GEN-LAST:event_modulo18ActionPerformed
 
     private void modulo19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo19ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-    //    dialog_control_perfil a = new dialog_control_perfil(this, usuario);
-    //    a.setLocationRelativeTo(null);
+        frameModificarVendedores a = new frameModificarVendedores();
+        a.setLocationRelativeTo(null);
         this.setCursor(Cursor.getDefaultCursor());
-     //   a.setVisible(true);
+        a.setVisible(true);
+        
+       
+      
 
     }//GEN-LAST:event_modulo19ActionPerformed
-
-    private void modulo16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo16ActionPerformed
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-      //  dialog_buscar_seguro a = new dialog_buscar_seguro(usuario);
-      //  a.setLocationRelativeTo(null);
-        this.setCursor(Cursor.getDefaultCursor());
-      //  a.setVisible(true);
-    }//GEN-LAST:event_modulo16ActionPerformed
 
     private void modulo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo3ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -596,9 +537,10 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
      //   dialog_buscar_arancel a = new dialog_buscar_arancel(this, usuario);
      //   a.setLocationRelativeTo(null);
                    this.setCursor(Cursor.getDefaultCursor());
-        frameNewVenta frame;
+        Framenewventa frame;
         try {
-            frame = new frameNewVenta();
+            frame = new Framenewventa();
+            frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
 
         } catch (SQLException ex) {
@@ -608,21 +550,12 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     }//GEN-LAST:event_modulo15ActionPerformed
 
-    private void modulo17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo17ActionPerformed
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-    //    dialog_prestamo_sim a = new dialog_prestamo_sim(this, usuario);
-     //   a.setLocationRelativeTo(null);
-        this.setCursor(Cursor.getDefaultCursor());
-     //   a.setVisible(true);
-
-    }//GEN-LAST:event_modulo17ActionPerformed
-
     private void modulo14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo14ActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         frameNuevaPromo frame = new frameNuevaPromo();
         frame.setVisible(true);
        // dialog_reportes2 a = new dialog_reportes2(usuario);
-       // a.setLocationRelativeTo(null);
+      frame.setLocationRelativeTo(null);
         this.setCursor(Cursor.getDefaultCursor());
       //  a.setVisible(true);
 
@@ -630,9 +563,10 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-      //  dialog_carga_seguro a = new dialog_carga_seguro(usuario);
-      //  a.setLocationRelativeTo(null);
+     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+      frameProductosMasVendidos f = new frameProductosMasVendidos();
+      f.setLocationRelativeTo(null);
+      f.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
       //  a.setVisible(true);
 
@@ -643,10 +577,12 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         libro_diario frame = null;
         try {
                 frame = new libro_diario(this,false);
+              
             } catch (SQLException ex) 
             {
                 Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
+          frame.setLocationRelativeTo(null);
             frame.setVisible(true);
        this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_jMenuItem5ActionPerformed
@@ -655,6 +591,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
 
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
         frameModificarPromo prom = new frameModificarPromo();
+        prom.setLocationRelativeTo(null);
         prom.setVisible(true);
         setCursor(Cursor.getDefaultCursor());
        // a.setVisible(true);
@@ -680,21 +617,48 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
         frameCuadrarCaja frame = new frameCuadrarCaja();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        frameNewVenta frame;
+        frameNewVentaKit frame;
         try {
-            frame = new frameNewVenta();
+            frame = new frameNewVentaKit();
                     frame.setVisible(true);
 
         } catch (SQLException ex) {
             Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+   // TODO add your handling code here:
+        Framenewventa frame;
+        try {
+            frame = new Framenewventa();
+                    frame.setVisible(true);
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Cliente registrado con éxito");
+            Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void modulo16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulo16ActionPerformed
+   // TODO add your handling code here:
+        frameNewVentaKit frame;
+        try {
+            frame = new frameNewVentaKit();
+            frame.setLocationRelativeTo(null);
+                    frame.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(jframeUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_modulo16ActionPerformed
 
     public static void main(String args[]) {
 
@@ -732,9 +696,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem CerrarSesion;
     private javax.swing.JMenu administrador;
-    private javax.swing.JMenuItem cambiarPass;
     private javax.swing.JMenu comprobante;
     private javax.swing.JMenu contabilidad;
     private javax.swing.JMenu empleado;
@@ -742,6 +704,7 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
@@ -753,7 +716,6 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JMenuItem modulo14;
     private javax.swing.JMenuItem modulo15;
     private javax.swing.JMenuItem modulo16;
-    private javax.swing.JMenuItem modulo17;
     private javax.swing.JMenuItem modulo18;
     private javax.swing.JMenuItem modulo19;
     private javax.swing.JMenuItem modulo2;
@@ -761,8 +723,6 @@ public class jframeUsuario extends javax.swing.JFrame implements KeyListener {
     private javax.swing.JMenuItem modulo4;
     private javax.swing.JMenuItem modulo5;
     private javax.swing.JMenuItem modulo7;
-    private javax.swing.JMenu opciones;
-    private javax.swing.JMenuItem salir;
     private javax.swing.JMenu solicitud;
     // End of variables declaration//GEN-END:variables
 

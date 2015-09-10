@@ -14,12 +14,63 @@ import java.util.ArrayList;
 La idea es cargar los datos desde la base de datos en esta clase y luego manejar los Arraylist en la clase Clases/Metodos_objetos*/
 public class metodosDB 
 {
-    int StockCritico = 10;
+    int StockCritico = 5;
     public metodosDB() //Constructor
     { 
     }
     
+public ArrayList<VentaProducto> getMasVendidos(String mes, String year) throws SQLException
+ {
+     ArrayList<VentaProducto> vendidos = new ArrayList<VentaProducto>();
+     DB_connection c = new DB_connection();
+     Connection conexion = c.getConnection();
+     String query = "SELECT * FROM Ventaproducto ORDER BY cantidad_producto DESC;";    
+     PreparedStatement stm = conexion.prepareStatement(query);
+     ResultSet resultados = stm.executeQuery();
+     while(resultados.next())
+     {
+         String fecha = resultados.getString("fecha");
+         String m = fecha.split("/")[1];
+         String y = fecha.split("/")[2];
+     
 
+         if(y.equals(year))
+         if(m.equals(mes))
+         {
+            /*int idVentaProducto,
+             String fecha, 
+             int precioUnitarioNeto, 
+             int cantidadProducto,
+             int precioUnitarioFinal, 
+             int precioTotalNeto, 
+             int precioTotalFinal, 
+             int descuento, 
+             Kitproductos kit, 
+             Productos producto, 
+             int idOrdenDeVenta,
+             String kit_or_product) { */
+             int id_producto = resultados.getInt("id_kit_producto");
+             Productos p = this.getProductoById(id_producto);
+
+             VentaProducto v = new VentaProducto(resultados.getInt("id_venta_producto"),
+                     resultados.getString("fecha"),
+                     resultados.getInt("precio_unitario_neto"),
+                     resultados.getInt("cantidad_producto"),
+                     resultados.getInt("precio_unitario_final"),
+                     resultados.getInt("precio_total_neto"),
+                     resultados.getInt("precio_total_final"),
+                     resultados.getInt("descuento"),
+                     null,
+                     p,
+                     0,
+                     null);
+
+             vendidos.add(v);
+             
+         }
+     }
+     return vendidos;
+ }
 /*METODOS DE UTILIDAD*/
  // <editor-fold defaultstate="collapsed" desc="Metodos de Utilidad">                          
 
@@ -103,7 +154,27 @@ public class metodosDB
     
 /*METODOS DE USUARIOS*/
 // <editor-fold defaultstate="collapsed" desc="Metodos de Tablas Usuarios">                          
-
+ public int cargaUsuarioByRut(int rut) throws SQLException
+    {   //Retorna ArrayList con usuarios desde la base de datos
+        ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
+        DB_connection c = new DB_connection();
+        Connection conexion = c.getConnection();
+        String query = "SELECT * FROM Usuarios where id_usuario=?";
+        PreparedStatement stm = conexion.prepareStatement(query);
+        stm.setInt(1,rut);
+        int privilegios=0;
+        ResultSet resultados = stm.executeQuery();
+          while(resultados.next())
+        { System.out.println(privilegios);
+        privilegios=resultados.getInt("privilegios");
+        }
+       
+ 
+        //Cerramos las conexiones a la BD. y retornamos el ArrayList
+        closeConnections(c,conexion,stm,resultados);
+       return privilegios;
+        
+    }
     public ArrayList<Usuarios> cargaUsuariosDB() throws SQLException
     {   //Retorna ArrayList con usuarios desde la base de datos
         ArrayList<Usuarios> usuarios = new ArrayList<Usuarios>();
@@ -571,7 +642,7 @@ return m;
           {
               
               stm.setInt(1, getLastId("Ventaproducto")+1);
-              stm.setInt(2, o.getIdOrdenVenta());
+              stm.setInt(2, o.getIdOrdenVenta()+1);
               stm.setInt(3, v.getIdProducto());
               stm.setString(4, v.getFecha());
               stm.setInt(5, v.getPrecioUnitarioNeto());
@@ -654,6 +725,27 @@ public ArrayList<Productos> getProductosStockCritico() throws SQLException
       closeConnections(c,conexion,stm,resultados);
     return productos;
 }
+ public boolean getCod(String cod) throws SQLException
+{
+    ArrayList<Productos> aux2 = new ArrayList<Productos>();
+Productos producto = null;
+      DB_connection c = new DB_connection();
+      Connection conexion = c.getConnection();
+      String query = "SELECT * FROM Productos where codigo_barra=?";
+      
+      PreparedStatement stm = conexion.prepareStatement(query);
+      stm.setString   (1, cod);
+
+ResultSet resultados=stm.executeQuery();
+      while(resultados.next())
+      {
+       return true;
+      }
+      
+        conexion.close();
+         stm.close();
+    return false;
+}
 public boolean addProductos(Productos m) throws SQLException
 {
      ArrayList<Productos> productos = new ArrayList<Productos>();
@@ -662,7 +754,7 @@ public boolean addProductos(Productos m) throws SQLException
  String query = "INSERT INTO Productos (id_producto,codigo_barra,nombre,marca,talla,color,precio_compra,precio_venta,proveedor,cantidad_actual,tipo, imagen) VALUES (?,?,?,?,?,?,?,?,?,?,?,?);";    
       
       PreparedStatement stm = conexion.prepareStatement(query);
-      
+      if(this.getCod(m.getCodigo_barra())==false){
        stm.setInt(1,new metodosDB().getLastId("Productos")+1);
        stm.setString   (3, m.getNombre());
       stm.setString(4, m.getMarca());
@@ -677,7 +769,9 @@ public boolean addProductos(Productos m) throws SQLException
        stm.setString(12,m.getImagen());
        System.out.print(stm);
               stm.executeUpdate();
-    stm.close();
+    stm.close();}else{
+          return false;
+      }
     
     return true;
 }
@@ -1019,7 +1113,7 @@ public boolean deleteProductsKit(int id_producto, int id_kit) throws SQLExceptio
      ArrayList<Promociones> promos = new ArrayList<Promociones>();
      DB_connection c = new DB_connection();
      Connection conexion = c.getConnection();
-     String query = "SELECT * FROM Promociones;";    
+     String query = "SELECT * FROM Promociones where estado=0;";    
      PreparedStatement stm = conexion.prepareStatement(query);
      ResultSet resultados = stm.executeQuery();
      while(resultados.next())

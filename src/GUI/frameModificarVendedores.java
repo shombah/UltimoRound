@@ -56,7 +56,7 @@ public class frameModificarVendedores extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MODIFICAR PROMOCIÓN");
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Promociones Disponibles", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Vendedores Disponibles", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,7 +92,7 @@ public class frameModificarVendedores extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalle de la Promoción", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalles", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("DejaVu Sans", 1, 12))); // NOI18N
 
         jLabel1.setText("Rut:");
 
@@ -270,13 +270,13 @@ public class frameModificarVendedores extends javax.swing.JFrame {
         int i = 0;
         Object [] object = new Object[3];
         while(usuarios.size()>i)
-        {   
+        {   System.out.println(i);
             if(usuarios.get(i).getPrivilegios()!=1){
             object[0] = usuarios.get(i).getIdUsuario();
             object[1] = usuarios.get(i).getNombre();
             object[2] = usuarios.get(i).getPassword();
             modelo.addRow(object);
-            i++;}
+            }i++;
         }
     }
 }

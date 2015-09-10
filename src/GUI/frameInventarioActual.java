@@ -453,35 +453,7 @@ public class frameInventarioActual extends javax.swing.JFrame {
          final JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem deleteItem = new JMenuItem("Información del Producto");
          
-                deleteItem.addActionListener(new ActionListener() 
-                {
-
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                int id = -1;
-                                boolean error = false;
-                                try{
-                                    int s = jTable1.getSelectedRow();
-                                     id = (int)jTable1.getValueAt(s, 0);
-                                     
-                                }catch(ArrayIndexOutOfBoundsException a)
-                                {
-                                    JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un item de la tabla");
-                                    error = true;
-                                }
-                            if(error == false)
-                             {
-                                try {
-                                    Productos p = new metodosDB().getProductoById(id);
-                                    frameDescripcionProducto freim = new frameDescripcionProducto(p);
-                                    freim.setVisible(true);
-                                } catch (SQLException ex) {
-                                    JOptionPane.showMessageDialog(rootPane, "Error en el producto / producto no existe en base de datos");
-                                }
-                             }
-                        }
-
-                });
+        
         popupMenu.add(deleteItem);
         jTable1.setComponentPopupMenu(popupMenu);
         
@@ -557,7 +529,61 @@ public class frameInventarioActual extends javax.swing.JFrame {
         }
           
         
-    
+    deleteItem.addActionListener(new ActionListener() 
+                {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                int id = -1;
+                                boolean error = false;
+                                int selected = jTabbedPane1.getSelectedIndex();
+                                if (selected == 0)
+                                try{
+                                    int s = jTable1.getSelectedRow();
+                                    id = (int)jTable1.getValueAt(s, 0);
+                                    
+                                }catch(ArrayIndexOutOfBoundsException a)
+                                {
+                                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un item de la tabla");
+
+                                    error = true;
+                                }
+                                if(selected == 1 )
+                                try{
+                                    int s = jTable2.getSelectedRow();
+                                    id = (int)jTable2.getValueAt(s, 0);
+                                     
+                                }catch(ArrayIndexOutOfBoundsException a)
+                                {
+                                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un item de la tabla");
+
+                                    error = true;
+                                }
+                                if(selected == 2)
+                                try{
+                                    int s = jTable3.getSelectedRow();
+                                    id = (int)jTable3.getValueAt(s, 6);
+                                     
+                                }catch(ArrayIndexOutOfBoundsException a)
+                                {
+                                JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un item de la tabla");
+
+                                    error = true;
+                                }
+                                
+                            if(error == false)
+                             {
+                                try {
+                                    Productos p = new metodosDB().getProductoById(id);
+                                    frameDescripcionProducto freim = new frameDescripcionProducto(p);
+                                    freim.setVisible(true);
+                                } catch (SQLException ex) {
+                                    JOptionPane.showMessageDialog(rootPane, "Error en el producto / producto no existe en base de datos");
+                                }
+                             }
+                        }
+
+                });
         
 	System.out.println("Datos Cargados Correctamente!")	;
     }
@@ -594,6 +620,7 @@ public class frameInventarioActual extends javax.swing.JFrame {
       return null;
     }
   }
+    
 }
    
 

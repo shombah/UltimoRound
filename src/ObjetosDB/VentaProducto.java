@@ -15,6 +15,7 @@ public class VentaProducto   {
     private Productos producto;
     private Kitproductos kit;
     private Integer idOrdenDeVenta;
+   
     private String kit_or_product;//(Dos opciones: "kit", "producto");
 
     public VentaProducto(int idVentaProducto, String fecha, int precioUnitarioNeto, int cantidadProducto, int precioUnitarioFinal, int precioTotalNeto, int precioTotalFinal, int descuento, Kitproductos kit, Productos producto, int idOrdenDeVenta,String kit_or_product) { //Constructor
@@ -38,7 +39,7 @@ public class VentaProducto   {
     }
        public int getIdProducto()
     {
-        return this.producto.getId_producto();
+        return this.getProducto().getId_producto();
     }
 
     public void setIdVentaProducto(Integer idVentaProducto) {
@@ -118,4 +119,18 @@ public class VentaProducto   {
     }
 
     /*Fin Setters y Getters*/
+
+    /**
+     * @return the producto
+     */
+    public Productos getProducto() {
+        return producto;
+    }
+
+    /**
+     * @param producto the producto to set
+     */
+    public void setProducto(Productos producto) {
+        this.producto = producto;
+    }
 }
