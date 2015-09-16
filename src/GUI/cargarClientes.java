@@ -79,7 +79,6 @@ String t[] = {"RUT", "NOMBRE", "TELEFONO", "EMAIL"};
  ArrayList<Cliente> aux2 = new ArrayList<Cliente>();
             metodosDB f = new metodosDB();
         
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             
 		         aux2 = f.getClientes();//Cargar resultados , debe ser por nombres
                     Object[] object = new Object[11];

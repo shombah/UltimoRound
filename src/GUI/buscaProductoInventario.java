@@ -41,17 +41,18 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     
     DefaultTableModel modelo0 = new DefaultTableModel();
     DefaultTableModel modelo1 = new DefaultTableModel(); // Tabla Productos
-    javax.swing.JLabel j19, j20,j21,j22;
+    javax.swing.JLabel j19, j20,j21,j22,j16;
     int montoDescuento=0;
     private javax.swing.JTable jTable0;
     /**
      * Creates new form buscaProductoInventario
      */
-    public buscaProductoInventario(ArrayList<Productos> carroProductos, DefaultTableModel modelo0,javax.swing.JTable jTable1, javax.swing.JLabel j19, javax.swing.JLabel j20, javax.swing.JLabel j21, javax.swing.JLabel j22, int montoDescuento,ArrayList<Productos> aux2a) {
+    public buscaProductoInventario(ArrayList<Productos> carroProductos, DefaultTableModel modelo0,javax.swing.JTable jTable1, javax.swing.JLabel j19, javax.swing.JLabel j20, javax.swing.JLabel j21, javax.swing.JLabel j22, int montoDescuento,ArrayList<Productos> aux2a,javax.swing.JLabel j16) {
         this.j19 = j19;
         this.j20 = j20;
         this.j21 = j21;
         this.j22 = j22;
+        this.j16=j16;
         this.montoDescuento = montoDescuento;
         initComponents();
         this.carroProductos = carroProductos;
@@ -422,7 +423,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         /* if nothing is selected */ 
         if (node == null) return;
         Object nodeInfo = node.getUserObject();
-        Object[] object = new Object[10];
+        Object[] object = new Object[8];
         Productos producto = null;
         int position=-1;
     for (int j = 0 ; j<aux2a.size();j++)
@@ -443,9 +444,8 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                 object[3] = producto.getMarca();
                 object[4] = producto.getTipo();
                 object[5] = producto.getProveedor();
-                object[6] = producto.getPrecioCompra();
-                object[7] = producto.getPrecioVenta();
-                object[8] = producto.getCodigo_barra();
+                object[6] = producto.getPrecioVenta();
+                object[7] = producto.getCodigo_barra();
                 modelo1.addRow(object);
                 //producto.setCantidadActual(producto.getCantidadActual()-1);
                 //jLabel13.setText(producto.getCantidadActual().toString());
@@ -627,7 +627,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-            Object[] object = new Object[10];
+            Object[] object = new Object[8];
        if(carroProductosLocal.size()>0)
        {
             for(int i=0;i<carroProductosLocal.size();i++)
@@ -640,9 +640,8 @@ public class buscaProductoInventario extends javax.swing.JFrame {
                 object[3] = producto.getMarca();
                 object[4] = producto.getTipo();
                 object[5] = producto.getProveedor();
-                object[6] = producto.getPrecioCompra();
-                object[7] = producto.getPrecioVenta();
-                object[8] = producto.getCodigo_barra();
+                object[6] = producto.getPrecioVenta();
+                object[7] = producto.getCodigo_barra();
                 modelo0.addRow(object);
                 jTable0.setModel(modelo0);
             }
@@ -676,6 +675,9 @@ public class buscaProductoInventario extends javax.swing.JFrame {
     j21.setText(Integer.toString(iva_pesos));
     montoTotal = montoNeto - montoDescuento ;
     j22.setText(Integer.toString(montoTotal));
+     int montosiniva=montoTotal-iva_pesos;
+    j16.setText(Integer.toString(montosiniva));
+
  }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         for(Productos p : carroProductosLocal)
@@ -724,7 +726,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         jTree1.setModel(modeloarbol);
         traverse(jTree1);
         
-        String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+        String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR","PRECIO VENTA","COD."};
         modelo1.setColumnIdentifiers(t);
         jTable1.setModel(modelo1);
     
@@ -761,7 +763,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
             jTree1.setModel(modeloarbol);
             traverse(jTree1);
 
-            String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+            String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR","PRECIO VENTA","COD."};
             modelo1.setColumnIdentifiers(t);
             jTable1.setModel(modelo1);       // TODO add your handling code here:
         }
@@ -805,7 +807,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         jTree1.setModel(modeloarbol);
         traverse(jTree1);
         
-        String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+        String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR","PRECIO VENTA","COD."};
         modelo1.setColumnIdentifiers(t);
         jTable1.setModel(modelo1);
     
@@ -853,7 +855,7 @@ public class buscaProductoInventario extends javax.swing.JFrame {
         Object[] object = new Object[5];
         pintaArbol();
         
-        String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+        String t[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR","PRECIO VENTA","COD."};
         modelo1.setColumnIdentifiers(t);
         jTable1.setModel(modelo1);
         

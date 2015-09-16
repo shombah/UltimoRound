@@ -227,9 +227,9 @@ public class frameCuadrarCaja extends javax.swing.JFrame {
                    
              
                 sheet.addCell(new jxl.write.Label(1, i + 5, jTable1.getValueAt(i, 0).toString()));
-                sheet.addCell(new jxl.write.Label(2, i + 5,jTable1.getValueAt(i, 1).toString()));
+                sheet.addCell(new jxl.write.Label(4, i + 5,jTable1.getValueAt(i, 1).toString()));
                 sheet.addCell(new jxl.write.Label(3, i + 5, jTable1.getValueAt(i, 2).toString()));
-                sheet.addCell(new jxl.write.Label(4, i + 5,jTable1.getValueAt(i, 3).toString()));
+                sheet.addCell(new jxl.write.Label(2, i + 5,jTable1.getValueAt(i, 3).toString()));
                 sheet.addCell(new jxl.write.Label(5, i + 5, jTable1.getValueAt(i, 4).toString()));
                     sheet.addCell(new jxl.write.Label(6, i + 5, jTable1.getValueAt(i, 5).toString()));
             }

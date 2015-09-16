@@ -75,7 +75,6 @@ String t[] = {"ID VENTA", "FECHA", "MONTO", "MEDIO PAGO"};
  ArrayList<OrdenDeVenta> aux2 = new ArrayList<OrdenDeVenta>();
             metodosDB f = new metodosDB();
         
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             
 		         aux2 = f.getVentaClienteById(this.cliente.getIdCliente());//Cargar resultados , debe ser por nombres
                     Object[] object = new Object[4];

@@ -98,7 +98,6 @@ ArrayList<Productos> aux2 = new ArrayList<Productos>();
             metodosDB f = new metodosDB();
         modelo.setNumRows(0);
         int aux3;
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
           
 		         aux2 = f.getProductoByNombre1();//Cargar resultados , debe ser por nombres
                     Object[] object = new Object[10];

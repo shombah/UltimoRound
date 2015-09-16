@@ -37,6 +37,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -52,24 +53,27 @@ public class frameNewVentaKit extends javax.swing.JFrame {
     private ArrayList<Kitproductos> carroKits = new  ArrayList<Kitproductos>();
     public Cliente cliente=null ;
     public boolean clientesel=false;
+     private javax.swing.JLabel jLabel20 = new JLabel();
+     
     private ArrayList<Promociones> promos=null;
     public             ArrayList<Productos> aux2a;
     DefaultTableModel modelo1 = new DefaultTableModel();
-    String t3[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+    String t3[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR","PRECIO VENTA","COD."};
     private int montoDescuento = 0 ; //Poner descuento de la prmomoción aca porfavor.
     /**
      * Creates new form frameNewVenta
      */
     public frameNewVentaKit() throws SQLException {
         initComponents();
+         jRadioButton1.setActionCommand("Tarjeta Débito");
         jRadioButton2.setActionCommand("Efectivo");
-        jRadioButton3.setActionCommand("Tarjeta");
+        jRadioButton3.setActionCommand("Tarjeta Crédito");
         int cantidadpromos=0;
         modelo1.setColumnIdentifiers(t3);
         jTable1.setModel(modelo1);
         this.getPromos();
         jLabel17.setText("-");
-      
+        jLabel20.setText("0");
          aux2a = new metodosDB().getProductos();
           final JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem deleteItem = new JMenuItem("Información del Producto");
@@ -130,13 +134,14 @@ public class frameNewVentaKit extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel8 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jRadioButton2 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -243,11 +248,7 @@ public class frameNewVentaKit extends javax.swing.JFrame {
 
         jLabel7.setText("($):");
 
-        jLabel8.setText("Descuentos  ($):");
-
         jLabel19.setText("0");
-
-        jLabel20.setText("0");
 
         jLabel21.setText("0");
 
@@ -265,22 +266,36 @@ public class frameNewVentaKit extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Tarjeta");
+        jRadioButton3.setText("Tarjeta Crédito");
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("Tarjeta Débito");
+
+        jLabel2.setText("Valor Sin Iva:");
+
+        jLabel8.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(37, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jRadioButton3)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jRadioButton2))
                         .addGap(59, 59, 59)
                         .addComponent(jLabel22))
+                    .addComponent(jRadioButton1)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -290,14 +305,9 @@ public class frameNewVentaKit extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel21))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                            .addComponent(jLabel8)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel20))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addGap(65, 65, 65)
-                            .addComponent(jLabel19)))
-                    .addComponent(jRadioButton2)))
+                            .addComponent(jLabel19)))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,11 +316,11 @@ public class frameNewVentaKit extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel19))
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel20))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel8))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
@@ -322,8 +332,10 @@ public class frameNewVentaKit extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel22))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButton3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -507,7 +519,7 @@ public class frameNewVentaKit extends javax.swing.JFrame {
      int iva_pesos = 0;
      int iva_porcentaje = 19;
      int montoTotal =0;
-     
+        int montosiniva=0;
      for(int i = 0 ; i< carroProductos.size();i++)
      {
          Productos producto = carroProductos.get(i);
@@ -522,7 +534,10 @@ public class frameNewVentaKit extends javax.swing.JFrame {
     jLabel21.setText(Integer.toString(iva_pesos));
     montoTotal = montoNeto - montoDescuento ;
     jLabel22.setText(Integer.toString(montoTotal));
-    
+    montosiniva= sumaPrevia - iva_pesos;
+    jLabel8.setText(Integer.toString(montosiniva));
+    System.out.println("ESTA ENTRANDO EL SIN IVA:");
+     System.out.println(jLabel8.getText());
     
  }
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -586,6 +601,7 @@ public class frameNewVentaKit extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        // TODO add your handling code here:
         int idordenventa=0;
+        int montosiniva=0;
         String FechaHoy = getFecha();
         int montoNeto = -1 , iva = -1 , totalPagar = -1 , descuentoTotal = -1;
         boolean error = false;
@@ -596,6 +612,10 @@ public class frameNewVentaKit extends javax.swing.JFrame {
              iva  = Integer.parseInt(jLabel21.getText());;
              descuentoTotal = Integer.parseInt(jLabel20.getText());;
              totalPagar = Integer.parseInt(jLabel22.getText());
+              montosiniva= totalPagar - iva;
+    jLabel8.setText(Integer.toString(montosiniva));
+     System.out.println("ESTA ENTRANDO EL SIN IVA:");
+    System.out.println(jLabel8.getText());
         }catch(NumberFormatException a) 
             {
                 JOptionPane.showMessageDialog(rootPane, "Error Calculando Precios"); 
@@ -962,7 +982,7 @@ public class frameNewVentaKit extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
 jButton11.setEnabled(false);
         // TODO add your handling code here:
-        buscarKitinventario buscar = new buscarKitinventario(this.carroProductos,this.modelo1,this.jTable1, jLabel19, jLabel20, jLabel21, jLabel22, montoDescuento ,aux2a, null);
+        buscarKitinventario buscar = new buscarKitinventario(this.carroProductos,this.modelo1,this.jTable1, jLabel19, jLabel20, jLabel21, jLabel22, montoDescuento ,aux2a, null,jLabel8);
         buscar.setVisible(true);
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -993,6 +1013,9 @@ jLabel19.setText("0");
         jLabel20.setText("0");
         jLabel21.setText("0");
         jLabel22.setText("0");
+        jLabel8.setText("0");
+        System.out.println("ESTA ENTRANDO EL SIN IVA:");
+         System.out.println(jLabel8.getText());
         calculaTotales(this.carroProductos);
         jButton11.setEnabled(true);
     }//GEN-LAST:event_jButton12ActionPerformed
@@ -1127,7 +1150,7 @@ jLabel19.setText("0");
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
@@ -1141,6 +1164,7 @@ jLabel19.setText("0");
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;

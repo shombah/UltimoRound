@@ -99,7 +99,7 @@ private JComboBox combo1;
       //  jDateChooser1.setDate(c.getTime());
         //   jDateChooser1.addKeyListener(this);
         jTable1.addKeyListener(this);
-        String t[] = {"NOMBRE PRODUCTO","TALLA","MARCA", "TIPO", "PRECIO VENTA", "COSTO", "CANTIDAD","PROVEEDOR","COD.","ID"};
+        String t[] = {"NOMBRE PRODUCTO","TALLA","MARCA", "TIPO", "PRECIO VENTA", "CANTIDAD","PROVEEDOR","COD.","ID"};
         modelo.setColumnIdentifiers(t);
         jTable1.setRowHeight(22);
         jTable1.setModel(modelo);
@@ -127,19 +127,18 @@ private JComboBox combo1;
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
           
 		         aux2 = f.getProductos();//Cargar resultados , debe ser por nombres
-                    Object[] object = new Object[11];
+                    Object[] object = new Object[10];
                     int i=0;
                     while(aux2.size()>i){
-        object[9]  = aux2.get(i).getId_producto();
+        object[8]  = aux2.get(i).getId_producto();
         object[0] = aux2.get(i).getNombre();
         object[1] = aux2.get(i).getTalla();
         object[2] = aux2.get(i).getMarca();
-        object[6] = aux2.get(i).getCantidadActual();
+        object[5] = aux2.get(i).getCantidadActual();
         object[3] = aux2.get(i).getTipo();
-        object[7] = aux2.get(i).getProveedor();
-        object[5] = aux2.get(i).getPrecioCompra();
+        object[6] = aux2.get(i).getProveedor();
         object[4] = aux2.get(i).getPrecioVenta();
-        object[8] = aux2.get(i).getCodigo_barra();
+        object[7] = aux2.get(i).getCodigo_barra();
          modelo.addRow(object);i++;}
 		// Accion a realizar cuando el JComboBox cambia de item seleccionado.
 		
@@ -207,8 +206,6 @@ private JComboBox combo1;
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -325,15 +322,6 @@ private JComboBox combo1;
         });
         jScrollPane1.setViewportView(jTable2);
 
-        jTextField2.setEditable(false);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("COSTO TOTAL");
-
         jLabel2.setText("PRECIO KIT");
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
@@ -380,21 +368,13 @@ private JComboBox combo1;
                         .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(18, 18, 18))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(18, 18, 18)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(15, 15, 15)))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3))
-                        .addGap(35, 35, 35)
+                            .addComponent(jTextField3)
+                            .addComponent(jTextField5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -407,8 +387,9 @@ private JComboBox combo1;
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(4, 4, 4))
                                     .addComponent(jScrollPane3))))))
                 .addContainerGap())
         );
@@ -430,29 +411,22 @@ private JComboBox combo1;
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel4)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6)
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel2)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -493,7 +467,7 @@ int id_producto_asociado=0;
          Logger.getLogger(nuevo_kit.class.getName()).log(Level.SEVERE, null, ex);
      }
           while(row<modelo1.getRowCount()){
-           id_producto_asociado = Integer.parseInt(modelo1.getValueAt(row, 9).toString());
+           id_producto_asociado = Integer.parseInt(modelo1.getValueAt(row, 8).toString());
     try {
         f.addKit_relacion_productos(id_kit_producto, id_producto_asociado);
         row++;
@@ -533,7 +507,7 @@ int id_producto_asociado=0;
         if (linea != -1) {
             
           precio_kit=precio_kit-(Integer.parseInt(modelo1.getValueAt(linea, 5).toString()));
-                 jTextField2.setText(Integer.toString(precio_kit));
+                
                    precio_TOTAL=precio_TOTAL-(Integer.parseInt(modelo1.getValueAt(linea, 4).toString()));
                  jTextField5.setText(Integer.toString(precio_TOTAL));
           //  jTextField13.setText(f.getNumcPto(p));
@@ -586,7 +560,7 @@ int id_producto_asociado=0;
          } else{
         
         
-        String t[] = {"NOMBRE PRODUCTO","TALLA","MARCA", "TIPO", "PRECIO VENTA", "COSTO", "CANTIDAD","PROVEEDOR","COD.","ID"};
+        String t[] = {"NOMBRE PRODUCTO","TALLA","MARCA", "TIPO", "PRECIO VENTA", "CANTIDAD","PROVEEDOR","COD.","ID"};
         modelo1.setColumnIdentifiers(t);
         jTable2.setRowHeight(22);
         jTable2.setModel(modelo1);
@@ -610,21 +584,19 @@ int id_producto_asociado=0;
         // jTable1.getColumn("COD.").setPreferredWidth(50);
         // jTable1.getColumn("COPAGO").setPreferredWidth(39);
         //// String[] aux = this.getEstadoDetSol().split("=");
-           Object[] object = new Object[10];
+           Object[] object = new Object[9];
         object[0]  =  modelo.getValueAt(j, 0);
         object[1] =modelo.getValueAt(j,1);
         object[2] =modelo.getValueAt(j,2);
         object[3] = modelo.getValueAt(j,3);
         object[4] = modelo.getValueAt(j,4);
         object[5] = modelo.getValueAt(j,5);
-        object[6] =modelo.getValueAt(j,6);
+        object[6] = modelo.getValueAt(j,6);
         object[7] = modelo.getValueAt(j,7);
         object[8] = modelo.getValueAt(j,8);
-        object[9] = modelo.getValueAt(j,9);
         modelo1.addRow(object);
     precio_kit=Integer.parseInt(modelo.getValueAt(j,5).toString())+precio_kit;
-    
-     jTextField2.setText(Integer.toString(precio_kit));
+   
        precio_TOTAL=Integer.parseInt(modelo.getValueAt(j,4).toString())+precio_TOTAL;
     
      jTextField5.setText(Integer.toString(precio_TOTAL));
@@ -661,7 +633,7 @@ int id_producto_asociado=0;
                        System.out.println(var);
                         System.out.println(nombre);
                             if(var.indexOf(nombre)!=-1){
-                    Object[] object = new Object[10];
+                    Object[] object = new Object[9];
           object[0]  = aux4.get(i).getId_producto();
         object[1] = aux4.get(i).getNombre();
         object[2] = aux4.get(i).getTalla();
@@ -669,9 +641,8 @@ int id_producto_asociado=0;
         object[4] = aux4.get(i).getCantidadActual();
         object[5] = aux4.get(i).getTipo();
         object[6] = aux4.get(i).getProveedor();
-        object[7] = aux4.get(i).getPrecioCompra();
-        object[8] = aux4.get(i).getPrecioVenta();
-        object[9] = aux4.get(i).getCodigo_barra();
+        object[7] = aux4.get(i).getPrecioVenta();
+        object[8] = aux4.get(i).getCodigo_barra();
          modelo.addRow(object);}i++;}
                 } 
             } catch (SQLException ex) {
@@ -702,7 +673,7 @@ int id_producto_asociado=0;
             op.setCantidadActual(Integer.parseInt(modelo.getValueAt(i, 4).toString()));
             op.setTipo(modelo.getValueAt(i, 5).toString());
             op.setProveedor(modelo.getValueAt(i, 6).toString());
-            op.setPrecioCompra(Integer.parseInt(modelo.getValueAt(i, 7).toString()));
+            op.setPrecioCompra(0);
             op.setPrecioVenta(Integer.parseInt(modelo.getValueAt(i, 8).toString()));
             op.setCodigo_barra(modelo.getValueAt(i, 9).toString());
 
@@ -718,10 +689,6 @@ int id_producto_asociado=0;
             a.setVisible(true);
         }
     }//GEN-LAST:event_jTable2MouseClicked
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
     try {
@@ -924,7 +891,6 @@ int id_producto_asociado=0;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -937,7 +903,6 @@ int id_producto_asociado=0;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;

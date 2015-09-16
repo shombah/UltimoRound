@@ -55,7 +55,7 @@ public class Framenewventa extends javax.swing.JFrame {
     private ArrayList<Promociones> promos=null;
     public             ArrayList<Productos> aux2a;
     DefaultTableModel modelo1 = new DefaultTableModel();
-    String t3[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR", "COSTO","PRECIO VENTA","COD."};
+    String t3[] = {"ID","PRODUCTO","TALLA","MARCA","TIPO", "PROVEEDOR","PRECIO VENTA","COD."};
     private int montoDescuento = 0 ; //Poner descuento de la prmomoción aca porfavor.
     /**
      * Creates new form frameNewVenta
@@ -63,8 +63,9 @@ public class Framenewventa extends javax.swing.JFrame {
     public Framenewventa() throws SQLException {
         initComponents();
         int cantidadpromos=0;
-           jRadioButton1.setActionCommand("Efectivo");
-        jRadioButton2.setActionCommand("Tarjeta");
+         jRadioButton3.setActionCommand("Tarjeta Débito");
+        jRadioButton1.setActionCommand("Efectivo");
+        jRadioButton2.setActionCommand("Tarjeta Crédito");
         modelo1.setColumnIdentifiers(t3);
         jTable1.setModel(modelo1);
         this.getPromos();
@@ -143,6 +144,9 @@ public class Framenewventa extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -282,7 +286,7 @@ public class Framenewventa extends javax.swing.JFrame {
 
         jLabel7.setText("($):");
 
-        jLabel8.setText("Descuentos  ($):");
+        jLabel8.setText("Descuentos  (%):");
 
         jLabel19.setText("0");
 
@@ -298,7 +302,14 @@ public class Framenewventa extends javax.swing.JFrame {
         jRadioButton1.setText("Efectivo");
 
         buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Tarjeta");
+        jRadioButton2.setText("Tarjeta Crédito");
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("Tarjeta Débito");
+
+        jLabel12.setText("Valor Sin Iva:");
+
+        jLabel16.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -307,13 +318,19 @@ public class Framenewventa extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton3)
                     .addComponent(jRadioButton2)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(59, 59, 59)
                         .addComponent(jLabel22))
+                    .addComponent(jRadioButton1)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel16))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -329,8 +346,7 @@ public class Framenewventa extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel4)
                             .addGap(65, 65, 65)
-                            .addComponent(jLabel19)))
-                    .addComponent(jRadioButton1))
+                            .addComponent(jLabel19))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -340,7 +356,11 @@ public class Framenewventa extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel19))
-                .addGap(34, 34, 34)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel20))
@@ -356,11 +376,13 @@ public class Framenewventa extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel22))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRadioButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jButton1.setBackground(new java.awt.Color(0, 255, 102));
@@ -397,7 +419,7 @@ public class Framenewventa extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Descuento($):");
+        jLabel2.setText("Descuento(%):");
 
         jLabel18.setText("jLabel18");
 
@@ -590,7 +612,7 @@ public class Framenewventa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-            buscaProductoInventario buscarProducto = new buscaProductoInventario(this.carroProductos,this.modelo1,this.jTable1, jLabel19, jLabel20, jLabel21, jLabel22, montoDescuento ,aux2a);
+            buscaProductoInventario buscarProducto = new buscaProductoInventario(this.carroProductos,this.modelo1,this.jTable1, jLabel19, jLabel20, jLabel21, jLabel22, montoDescuento ,aux2a,jLabel16);
             buscarProducto.setVisible(true);
             
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -600,14 +622,16 @@ public class Framenewventa extends javax.swing.JFrame {
      int iva_pesos = 0;
      int iva_porcentaje = 19;
      int montoTotal =0;
-     
+     int descuento = Math.round(Float.parseFloat(jLabel20.getText()));
+     System.out.println(descuento);
+     montoTotal=montoTotal-Math.round(Float.parseFloat(jLabel20.getText()));
      for(int i = 0 ; i< carroProductos.size();i++)
      {
          Productos producto = carroProductos.get(i);
          montoNeto+= producto.getPrecioVenta();
          System.out.println(montoNeto+"\n");
      }
-  montoDescuento = Integer.parseInt(jLabel20.getText());
+  montoDescuento = descuento;
     jLabel19.setText(Integer.toString(montoNeto));
     jLabel20.setText(Integer.toString(montoDescuento));
     int sumaPrevia = montoNeto-montoDescuento;
@@ -615,7 +639,8 @@ public class Framenewventa extends javax.swing.JFrame {
     jLabel21.setText(Integer.toString(iva_pesos));
     montoTotal = montoNeto - montoDescuento ;
     jLabel22.setText(Integer.toString(montoTotal));
-    
+    int montosiniva=montoTotal-iva_pesos;
+    jLabel16.setText(Integer.toString(montosiniva));
     
  }
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -705,9 +730,9 @@ public class Framenewventa extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
      // TODO add your handling code here:
-        montoDescuento = Integer.parseInt(jLabel20.getText());
+        montoDescuento = (int)Integer.parseInt(jLabel20.getText());
         if(jCheckBox1.isSelected()){
-            jLabel20.setText( Integer.toString(montoDescuento+Integer.parseInt(jLabel18.getText())));
+            jLabel20.setText( Float.toString(montoDescuento+Integer.parseInt(jLabel22.getText())*Float.parseFloat(jLabel18.getText())/100));
              jComboBox1.setEnabled(false);
        } else{
             jLabel20.setText("0");
@@ -760,16 +785,15 @@ public class Framenewventa extends javax.swing.JFrame {
                   }
               }
               
-              Object[] object = new Object[10];
+              Object[] object = new Object[8];
               object[0]  = encontrado.getId_producto();
               object[1] = encontrado.getNombre();
               object[2] = encontrado.getTalla();
               object[3] = encontrado.getMarca();
               object[4] = encontrado.getTipo();
               object[5] = encontrado.getProveedor();
-              object[6] = encontrado.getPrecioCompra();
-              object[7] = encontrado.getPrecioVenta();
-              object[8] = encontrado.getCodigo_barra();
+              object[6] = encontrado.getPrecioVenta();
+              object[7] = encontrado.getCodigo_barra();
               //aux2a.get(position).setCantidadp(aux2a.get(position).getCantidadp()-1);
               int cantidadp = encontrado.getCantidadp() -1;
               encontrado.setCantidadp(cantidadp);
@@ -800,6 +824,8 @@ public class Framenewventa extends javax.swing.JFrame {
              iva  = Integer.parseInt(jLabel21.getText());;
              descuentoTotal = Integer.parseInt(jLabel20.getText());;
              totalPagar = Integer.parseInt(jLabel22.getText());
+              int montosiniva=Integer.parseInt(jLabel22.getText())-Integer.parseInt(jLabel21.getText());
+    jLabel16.setText(Integer.toString(montosiniva));
         }catch(NumberFormatException a) 
             {
                 JOptionPane.showMessageDialog(rootPane, "Error Calculando Precios"); 
@@ -1287,9 +1313,11 @@ public class Framenewventa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1311,6 +1339,7 @@ public class Framenewventa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;

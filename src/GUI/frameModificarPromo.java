@@ -49,8 +49,8 @@ public class frameModificarPromo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jSpinner1 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("MODIFICAR PROMOCIÓN");
@@ -95,11 +95,13 @@ public class frameModificarPromo extends javax.swing.JFrame {
 
         jLabel1.setText("Nombre:");
 
-        jLabel2.setText("Descuento ($):");
+        jLabel2.setText("Descuento (%):");
 
         jLabel3.setText("Disponible ? :");
 
         jCheckBox1.setToolTipText("");
+
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(20, 0, 100, 1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,11 +112,11 @@ public class frameModificarPromo extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jCheckBox1)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jSpinner1))
                 .addGap(290, 290, 290))
         );
         jPanel1Layout.setVerticalGroup(
@@ -126,9 +128,12 @@ public class frameModificarPromo extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jCheckBox1))
@@ -183,7 +188,7 @@ public class frameModificarPromo extends javax.swing.JFrame {
         try {
             Promociones promo = new metodosDB().getPromocionesById(idPromo);
             jTextField1.setText(promo.getNombre());
-            jTextField2.setText(Integer.toString(promo.getMontoDcto()));
+            jSpinner1.setValue(promo.getMontoDcto());
             if(promo.getEstado() == 0 )
                 jCheckBox1.setSelected(true);
             else
@@ -206,7 +211,7 @@ public class frameModificarPromo extends javax.swing.JFrame {
         try {
             int linea = jTable1.getSelectedRow();
             int idPromo = (int) jTable1.getValueAt(linea, 0);
-            new metodosDB().updatePromo(new Promociones(idPromo,Integer.parseInt(jTextField2.getText()),jTextField1.getText(),check));
+            new metodosDB().updatePromo(new Promociones(idPromo,(int)jSpinner1.getValue(),jTextField1.getText(),check));
              JOptionPane.showMessageDialog(rootPane,  "Promo creada exitosamente");
             dispose();
         } catch (SQLException ex) {  System.out.println("error"+ex);  }
@@ -256,9 +261,9 @@ public class frameModificarPromo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 
     private void iniciar() throws SQLException 

@@ -99,7 +99,6 @@ String t[] = {"ID", "NOMBRE KIT", "COSTO KIT", "PRECIO KIT", "DESCRIPCION KIT"};
             metodosDB f = new metodosDB();
         modelo.setNumRows(0);
         int aux3;
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
           
 		         aux2 = f.getKitproductos();//Cargar resultados , debe ser por nombres
                     Object[] object = new Object[11];

@@ -38,12 +38,12 @@ public class buscarKitinventario extends javax.swing.JFrame {
     DefaultTableModel modelo0;
     javax.swing.JTable jTable1;
     ArrayList<Productos> carroProductos = new  ArrayList<Productos>();
-    javax.swing.JLabel j19,j20,j21,j22,j24;
+    javax.swing.JLabel j19,j20,j21,j22,j24,j8;
     int montoDescuento , descuentoKit = 0 , sumakit = 0;
     /**
      * Creates new form buscarKitInventario
      */
-    public buscarKitinventario(ArrayList<Productos> carroProductos,DefaultTableModel modelo0,javax.swing.JTable jTable1, javax.swing.JLabel j19, javax.swing.JLabel j20, javax.swing.JLabel j21, javax.swing.JLabel j22, int montoDescuento,ArrayList<Productos> aux2a,javax.swing.JLabel j24) {
+    public buscarKitinventario(ArrayList<Productos> carroProductos,DefaultTableModel modelo0,javax.swing.JTable jTable1, javax.swing.JLabel j19, javax.swing.JLabel j20, javax.swing.JLabel j21, javax.swing.JLabel j22, int montoDescuento,ArrayList<Productos> aux2a,javax.swing.JLabel j24,javax.swing.JLabel j8) {
         this.carroProductos = carroProductos;
         this.aux2a = aux2a;
         this.modelo0=modelo0;
@@ -54,6 +54,8 @@ public class buscarKitinventario extends javax.swing.JFrame {
         this.j24 = j24;
         this.j22 = j22;
         this.montoDescuento = montoDescuento;
+        int montosiniva=0;
+        this.j8=j8;
         try {
             initComponents();
             iniciar();
@@ -89,7 +91,8 @@ public class buscarKitinventario extends javax.swing.JFrame {
            j21.setText(Integer.toString(iva_pesos));
            montoTotal = montoNeto  - montoDescuento ;
            j22.setText(Integer.toString(montoTotal));
-           
+            int montosiniva=(Integer.parseInt(j22.getText())-Integer.parseInt(j21.getText()));
+        this.j8.setText(Integer.toString(montosiniva));
         }
     
     public void iniciar() throws SQLException
@@ -462,16 +465,15 @@ private void imprime(ArrayList<Productos> aux2a)
                     System.out.println("setead");
                     carroProductos.add(pkit);
                     carroProductos.get(carroProductos.size()-1).setKit(1);
-                    Object[] object = new Object[10];
+                    Object[] object = new Object[8];
                     object[0]  = pkit.getId_producto();
                     object[1] = pkit.getNombre();
                     object[2] = pkit.getTalla();
                     object[3] = pkit.getMarca();
                     object[4] = pkit.getTipo();
                     object[5] = pkit.getProveedor();
-                    object[6] = pkit.getPrecioCompra();
-                    object[7] = pkit.getPrecioVenta();
-                    object[8] = pkit.getCodigo_barra();
+                    object[6] = pkit.getPrecioVenta();
+                    object[7] = pkit.getCodigo_barra();
                     sumakit = sumakit +pkit.getPrecioVenta();
                     modelo0.addRow(object);
                     jTable1.setModel(modelo0);
